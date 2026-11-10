@@ -121,6 +121,8 @@ def allowed(prefix: str, rel: Path) -> bool:
         if campaign == "analysis":
             return code_doc
         if campaign == "corpus":
+            if len(parts) == 5 and parts[3] in ("tools", "regrade"):  # corpus builders / re-grade tool (not scratch/)
+                return code_doc
             return code_doc and len(parts) <= 4
         if campaign in ("hsg", "xfer"):
             return code_doc and "out" not in parts
