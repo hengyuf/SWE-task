@@ -171,6 +171,11 @@ f30196f188f8b3ccd68489271f1783c80191a88a25cb4f73502189863e53675a  swe-task/sft/g
 d68739d6f66106c76912442dc77aa34a3c29d22c4d0a6635eac468c640237137  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/tests/verify_patchers.py
 4872897d6a732c504802497c68f71c5b9236492752eaf5bc24e301191f1906fe  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/tests/verify_py310.py
 ac3be25dbe1f516c3f017c8b958b55d73458bf22e607951c1710b0226946a2ad  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/tests/verify_run_tool.py
+cbd9eb39d9b018570fd9c6a92da5f686fb9a376b7b4dedcff6f3b3a3d76a8e4a  swe-task/sft/glm-rollouts-tasksall-20261108/github/.post-body.md
+cd7a3e0177f15c1c6c28e8d7132b2ba643f43be824009e90aa6e090e5a10170a  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue-body.md
+a230e4a92aea03338e05bb6812521fb7aa2c993385038f1342030ad71880d459  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue_progress.py
+dc21b7374c98bc4f1251eed8e87b3cd07f2027620baf64ae107ed1d0e71d6b5d  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay-workflow.js
+38e289205615853d8b3e263d041cc9ddfe38d7fa31dc774920ff6701d4f3454e  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay_tick.py
 c221ff8d3918e5288b33a4b34e01177cc2fd614b7caf17034141d3260a9587d7  swe-task/sft/kimi-rollouts-v3-20261026/baihe_snapshot_check.py
 4688b2172b107749d7e8d7056f5d8758b6d636c2df56be22ece7b808aed80033  swe-task/sft/kimi-rollouts-v3-20261026/compare.py
 e1c4366a17b6787434165686a4bf5c8b2ff11944e0923b0248c9f626555266d9  swe-task/sft/kimi-rollouts-v3-20261026/costs.py

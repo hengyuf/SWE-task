@@ -129,6 +129,8 @@ def allowed(prefix: str, rel: Path) -> bool:
         sub = parts[2]
         if sub in ("prompt", "tools", "setup"):
             return True
+        if sub == "github":  # relay code + issue body; not its state.json or outbox messages
+            return len(parts) == 4 and suffix in (".py", ".js", ".md")
         if sub == "analysis":
             return code_doc
         if sub == "atp-fix":

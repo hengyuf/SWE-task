@@ -1,0 +1,5 @@
+Progress and decisions for the self-hosted **GLM-5.3** rollouts on `sft/tasks-all-20261106` (code: `swe-task/sft/glm-rollouts-tasksall-20261108/` in this repo).
+
+- Scope: every task without GLM-5.3 rollouts = **1,981 tasks x 5 = 9,905 rollouts** in 82 campaigns, released in tier order: 1 accepted/strong (79 tasks), 2 partial (146), 3 weak (350), 4 none/unlabeled (1,406). Settings as the SFT-v3 run: 262,144 context and output limit, OpenCode compaction allowed, stock prompt.
+- This thread: a relay agent posts a **progress note every hour**. Decisions that need you are marked **DECISION NEEDED** and mention @hengyuf. Answer in a comment; the relay acknowledges every reply with a "received" note and the next steps. (The relay posts with your own gh login, so the @mention may not notify you.)
+- Status now: **tier 1 is complete** (5/5 campaigns; the last few re-runs of slots hit by infrastructure problems finish within ~1-2 h) and **tiers 3-4 are paused since 2026-11-09 17:03**, as you asked. Tier 2 had already finished before the pause.
