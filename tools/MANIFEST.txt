@@ -144,7 +144,11 @@ ea1dbd0b59e19574a17e8ccd229a2e87ac2b5d102fd78d97ca0f4719390aaf27  swe-task/sft/g
 83f09b699334c8979b5cec3e26d535bfb1f4b420721db803f86566fcebcde256  swe-task/sft/glm-rollouts-tasksall-20261108/submit.sh
 8e0cdc29aa81d73f221b758f71b3cc918008c21ad556b2c7ae418e986485ef6f  swe-task/sft/glm-rollouts-tasksall-20261108/submit_keeper.sh
 5df2d50c4116e025b1e59f4dbb896f30fe0bf1e5edd7865dc0b12d1a8c9a625e  swe-task/sft/glm-rollouts-tasksall-20261108/test_router.py
-01a1250b29482d8b134d17795fda0dda06ecfdf8f5698edaab8b6b7538931889  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/REPORT.md
+56d1e347b9cfe10196c244e4a9721fe144d6b0bf63fe71401409447d4ccc10b0  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/REPORT.md
+d09ab2ae3ea7c8ebd01da3d98898604f59d84b063d839a39df2b7c915b4f761f  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/tier12-accept-compare.md
+9a360124d0a13aeffbf6e01418b6606d1cc638a7533f701c85cbd4b168ee39b7  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/tier12-lost.md
+7298c2351b8647839819c7ac4404d60875246ea52287a43d6694a91cb228979a  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/tier12-never-scored.md
+3bc5fcb991c0cea4cab62a85b2a6ad5961b5b7c0aa884aed2ac3bb64db194b0a  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/tier12_accept_compare.py
 4a42fb799caaf40614f5dcf08066e80fc392a5cd7e77056932283cc10f35af7b  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/APPLY.md
 0872c89454624031b5de6864d7eb703010c18b776d8a569812325cc60987136c  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/build_tracking.py
 8ca7f82826e2923dc97e90c45b6d935b6939e2bb328b9af441fd295f4594f7d0  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/capture_patch.py
