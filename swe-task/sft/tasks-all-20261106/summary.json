@@ -1,0 +1,1449 @@
+{
+ "checks": [
+  {
+   "check": "task part row count tasks-hengyuf-early.jsonl",
+   "detail": "86 rows",
+   "ok": true
+  },
+  {
+   "check": "task part row count tasks-hengyuf-late.jsonl",
+   "detail": "84 rows",
+   "ok": true
+  },
+  {
+   "check": "task part row count tasks-baihe.jsonl",
+   "detail": "97 rows",
+   "ok": true
+  },
+  {
+   "check": "no duplicate task ids across task parts",
+   "detail": "[]",
+   "ok": true
+  },
+  {
+   "check": "tasks by queue match the collectors",
+   "detail": "{\"baihe\": 97, \"official1\": 84, \"official2\": 32, \"official3\": 14, \"official4\": 38, \"val1\": 2}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-probe-hengyuf-early.jsonl",
+   "detail": "{\"fail\": 74, \"infra\": 5, \"pass\": 351, \"slots\": 430}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-probe-hengyuf-late.jsonl",
+   "detail": "{\"fail\": 64, \"infra\": 6, \"pass\": 350, \"slots\": 420}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-probe-baihe.jsonl",
+   "detail": "{\"fail\": 62, \"infra\": 5, \"pass\": 418, \"slots\": 485}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-v3.jsonl",
+   "detail": "{\"fail\": 133, \"infra\": 4, \"pass\": 134, \"slots\": 271}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-v4.jsonl",
+   "detail": "{\"fail\": 206, \"infra\": 0, \"pass\": 764, \"slots\": 970}",
+   "ok": true
+  },
+  {
+   "check": "rollout part counts rollouts-v5.jsonl",
+   "detail": "{\"fail\": 26, \"infra\": 0, \"pass\": 139, \"slots\": 165}",
+   "ok": true
+  },
+  {
+   "check": "every accepted task has exactly kimi-r0..r4 in probe-1m",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "probe-1m rows only on accepted tasks",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "membership rows per corpus",
+   "detail": "{\"v1\": 379, \"v2\": 797, \"v3\": 1594}",
+   "ok": true
+  },
+  {
+   "check": "membership union = 1635 conversations on 227 tasks",
+   "detail": "1635 / 227",
+   "ok": true
+  },
+  {
+   "check": "v4/v5 part source equals tasks.jsonl source on accepted tasks",
+   "detail": "[]",
+   "ok": true
+  },
+  {
+   "check": "v4/v5 path mismatches are pilot conversations only",
+   "detail": "[]",
+   "ok": true
+  },
+  {
+   "check": "probe-1m member attempts sit under the rollout's scored round dir (except post-hoc/recovery re-scored tasks)",
+   "detail": "[]",
+   "ok": true
+  },
+  {
+   "check": "every unmatched membership row is explained",
+   "detail": "{\"probe-1m conversation on a non-accepted task\": 115, \"pilot conversation outside the 5-slot grid\": 3}",
+   "ok": true
+  },
+  {
+   "check": "usable count v4-stock-256k",
+   "detail": "745",
+   "ok": true
+  },
+  {
+   "check": "usable count v5-official2-256k",
+   "detail": "138",
+   "ok": true
+  },
+  {
+   "check": "v3 labels match collector",
+   "detail": "{\"v3-256k-reason\": [250, 121, 127, 2], \"v3-256k-reason-pilot\": [1, 1, 0, 0], \"v3-ctrl-old-1m\": [20, 12, 6, 2]}",
+   "ok": true
+  },
+  {
+   "check": "probe-1m by queue matches collectors",
+   "detail": "{\"official1\": [420, 341, 74, 5], \"val1\": [10, 10, 0, 0], \"official2\": [160, 136, 24, 0], \"official3\": [70, 57, 13, 0], \"official4\": [190, 157, 27, 6], \"baihe\": [485, 418, 62, 5]}",
+   "ok": true
+  },
+  {
+   "check": "non-accepted task ids are the 14 the collectors listed",
+   "detail": "syn-aiohttp-cand-c01-r1b4-9f77d81d,syn-aiohttp-cand-c05-r1b0-7d9ec1f5,syn-gomacro-cand-c02-r1b0-e8804dd9,syn-gomacro-cand-c02-r1b3-ed535f70,syn-gomacro-cand-c03-r1b1-68058464,syn-gomacro-cand-c03-r1b4-67b6a828,syn-gomacro-cand-c05-r1b1-d80cf0a5,syn-ibis-cand-c05-r1b3-9f713fee,syn-pylama-cand-c01-r1b4-r2b4-68d85058,syn-risor-cand-c01-r1b4-74844668,syn-risor-cand-c03-b214824f,syn-wasmtime-cand-c03-r1b4-4d3d43a0,syn-yq-cand-c01-r1b3-b5f105ff,syn-zsa-cand-c02-r1b1-ae1eb794",
+   "ok": true
+  },
+  {
+   "check": "official3/official4 are entirely new",
+   "detail": "",
+   "ok": true
+  }
+ ],
+ "checks_ok": true,
+ "date": "2026-11-06",
+ "inputs": {
+  "rollouts-probe-baihe.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-probe-baihe.jsonl",
+   "rows": 485,
+   "sha256": "7b1cec92480ab941901b441d22afa8f49be747fd98cfa1977ddd63933c90f3eb"
+  },
+  "rollouts-probe-hengyuf-early.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-probe-hengyuf-early.jsonl",
+   "rows": 430,
+   "sha256": "935986beea358e58b11450f5cc778d73e88140aa3638a7c0f011a77b6d5ecd74"
+  },
+  "rollouts-probe-hengyuf-late.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-probe-hengyuf-late.jsonl",
+   "rows": 420,
+   "sha256": "563b1b34d7f76fefb20740e6d6c93c370af83dc3d9f222277375e70b593e5cb9"
+  },
+  "rollouts-v3.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-v3.jsonl",
+   "rows": 271,
+   "sha256": "496d68d4cb0777759da78ea5dd71d7659025c421391536440cc2247144dfd61f"
+  },
+  "rollouts-v4.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-v4.jsonl",
+   "rows": 970,
+   "sha256": "dedf7c4bbd711e7930db297d462a276d78a36b3ed5de0a219af70ab23919ffb3"
+  },
+  "rollouts-v5.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/rollouts-v5.jsonl",
+   "rows": 165,
+   "sha256": "3a82007666fda6cbe839d8074d4d33abbca4cb98732507f42f901baf8aebb607"
+  },
+  "sft-membership.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/sft-membership.jsonl",
+   "rows": 2770,
+   "sha256": "24127c2214abf0c46978290364f1dc438e60008d797da94ccf478969df3f8877"
+  },
+  "tasks-baihe.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/tasks-baihe.jsonl",
+   "rows": 97,
+   "sha256": "1e8de25ae0ee8ad4bbbca1b1994edb9c693123502568e71e9198ef2d025161a6"
+  },
+  "tasks-hengyuf-early.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/tasks-hengyuf-early.jsonl",
+   "rows": 86,
+   "sha256": "00b54ed1d056dee6fc96bdc736b38583bd7668ce2ffcc0b92db65dde90bd9e93"
+  },
+  "tasks-hengyuf-late.jsonl": {
+   "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/parts/tasks-hengyuf-late.jsonl",
+   "rows": 84,
+   "sha256": "22b86d83f8287d7bb6102b7f90e9289c12c08c9defcac22021393acf31f77ea1"
+  }
+ },
+ "kimi": {
+  "accepted_tasks_only": {
+   "by_campaign": {
+    "probe-1m": {
+     "fail": 200,
+     "graded_pass_rate": 0.8484,
+     "infra": 16,
+     "pass": 1119,
+     "slots": 1335,
+     "tasks": 267
+    },
+    "v3-256k-reason": {
+     "fail": 108,
+     "graded_pass_rate": 0.493,
+     "infra": 2,
+     "pass": 105,
+     "slots": 215,
+     "tasks": 43
+    },
+    "v3-ctrl-old-1m": {
+     "fail": 4,
+     "graded_pass_rate": 0.7143,
+     "infra": 1,
+     "pass": 10,
+     "slots": 15,
+     "tasks": 3
+    },
+    "v4-stock-256k": {
+     "fail": 185,
+     "graded_pass_rate": 0.7956,
+     "infra": 0,
+     "pass": 720,
+     "slots": 905,
+     "tasks": 181
+    },
+    "v5-official2-256k": {
+     "fail": 26,
+     "graded_pass_rate": 0.8375,
+     "infra": 0,
+     "pass": 134,
+     "slots": 160,
+     "tasks": 32
+    }
+   },
+   "fail": 523,
+   "graded_pass_rate": 0.7997,
+   "infra": 19,
+   "pass": 2088,
+   "slots": 2630,
+   "tasks": 267
+  },
+  "by_campaign": {
+   "probe-1m": {
+    "fail": 200,
+    "graded_pass_rate": 0.8484,
+    "infra": 16,
+    "pass": 1119,
+    "slots": 1335,
+    "tasks": 267
+   },
+   "v3-256k-reason": {
+    "fail": 127,
+    "graded_pass_rate": 0.4879,
+    "infra": 2,
+    "pass": 121,
+    "slots": 250,
+    "tasks": 50
+   },
+   "v3-256k-reason-pilot": {
+    "fail": 0,
+    "graded_pass_rate": 1.0,
+    "infra": 0,
+    "pass": 1,
+    "slots": 1,
+    "tasks": 1
+   },
+   "v3-ctrl-old-1m": {
+    "fail": 6,
+    "graded_pass_rate": 0.6667,
+    "infra": 2,
+    "pass": 12,
+    "slots": 20,
+    "tasks": 4
+   },
+   "v4-stock-256k": {
+    "fail": 206,
+    "graded_pass_rate": 0.7876,
+    "infra": 0,
+    "pass": 764,
+    "slots": 970,
+    "tasks": 194
+   },
+   "v5-official2-256k": {
+    "fail": 26,
+    "graded_pass_rate": 0.8424,
+    "infra": 0,
+    "pass": 139,
+    "slots": 165,
+    "tasks": 33
+   }
+  },
+  "by_queue_campaign": {
+   "baihe": {
+    "probe-1m": {
+     "fail": 62,
+     "graded_pass_rate": 0.8708,
+     "infra": 5,
+     "pass": 418,
+     "slots": 485,
+     "tasks": 97
+    },
+    "v4-stock-256k": {
+     "fail": 91,
+     "graded_pass_rate": 0.8124,
+     "infra": 0,
+     "pass": 394,
+     "slots": 485,
+     "tasks": 97
+    }
+   },
+   "official1": {
+    "probe-1m": {
+     "fail": 74,
+     "graded_pass_rate": 0.8217,
+     "infra": 5,
+     "pass": 341,
+     "slots": 420,
+     "tasks": 84
+    },
+    "v3-256k-reason": {
+     "fail": 108,
+     "graded_pass_rate": 0.493,
+     "infra": 2,
+     "pass": 105,
+     "slots": 215,
+     "tasks": 43
+    },
+    "v3-ctrl-old-1m": {
+     "fail": 4,
+     "graded_pass_rate": 0.7143,
+     "infra": 1,
+     "pass": 10,
+     "slots": 15,
+     "tasks": 3
+    },
+    "v4-stock-256k": {
+     "fail": 94,
+     "graded_pass_rate": 0.7762,
+     "infra": 0,
+     "pass": 326,
+     "slots": 420,
+     "tasks": 84
+    }
+   },
+   "official2": {
+    "probe-1m": {
+     "fail": 24,
+     "graded_pass_rate": 0.85,
+     "infra": 0,
+     "pass": 136,
+     "slots": 160,
+     "tasks": 32
+    },
+    "v5-official2-256k": {
+     "fail": 26,
+     "graded_pass_rate": 0.8375,
+     "infra": 0,
+     "pass": 134,
+     "slots": 160,
+     "tasks": 32
+    }
+   },
+   "official3": {
+    "probe-1m": {
+     "fail": 13,
+     "graded_pass_rate": 0.8143,
+     "infra": 0,
+     "pass": 57,
+     "slots": 70,
+     "tasks": 14
+    }
+   },
+   "official4": {
+    "probe-1m": {
+     "fail": 27,
+     "graded_pass_rate": 0.8533,
+     "infra": 6,
+     "pass": 157,
+     "slots": 190,
+     "tasks": 38
+    }
+   },
+   "val1": {
+    "probe-1m": {
+     "fail": 0,
+     "graded_pass_rate": 1.0,
+     "infra": 0,
+     "pass": 10,
+     "slots": 10,
+     "tasks": 2
+    }
+   }
+  },
+  "by_source": {
+   "baihe": {
+    "fail": 153,
+    "graded_pass_rate": 0.8415,
+    "infra": 5,
+    "pass": 812,
+    "slots": 970,
+    "tasks": 97
+   },
+   "hengyuf": {
+    "fail": 370,
+    "graded_pass_rate": 0.7752,
+    "infra": 14,
+    "pass": 1276,
+    "slots": 1660,
+    "tasks": 170
+   },
+   "unknown": {
+    "fail": 42,
+    "graded_pass_rate": 0.6182,
+    "infra": 1,
+    "pass": 68,
+    "slots": 111,
+    "tasks": 14
+   }
+  },
+  "by_source_campaign": {
+   "baihe": {
+    "probe-1m": {
+     "fail": 62,
+     "graded_pass_rate": 0.8708,
+     "infra": 5,
+     "pass": 418,
+     "slots": 485,
+     "tasks": 97
+    },
+    "v4-stock-256k": {
+     "fail": 91,
+     "graded_pass_rate": 0.8124,
+     "infra": 0,
+     "pass": 394,
+     "slots": 485,
+     "tasks": 97
+    }
+   },
+   "hengyuf": {
+    "probe-1m": {
+     "fail": 138,
+     "graded_pass_rate": 0.8355,
+     "infra": 11,
+     "pass": 701,
+     "slots": 850,
+     "tasks": 170
+    },
+    "v3-256k-reason": {
+     "fail": 108,
+     "graded_pass_rate": 0.493,
+     "infra": 2,
+     "pass": 105,
+     "slots": 215,
+     "tasks": 43
+    },
+    "v3-ctrl-old-1m": {
+     "fail": 4,
+     "graded_pass_rate": 0.7143,
+     "infra": 1,
+     "pass": 10,
+     "slots": 15,
+     "tasks": 3
+    },
+    "v4-stock-256k": {
+     "fail": 94,
+     "graded_pass_rate": 0.7762,
+     "infra": 0,
+     "pass": 326,
+     "slots": 420,
+     "tasks": 84
+    },
+    "v5-official2-256k": {
+     "fail": 26,
+     "graded_pass_rate": 0.8375,
+     "infra": 0,
+     "pass": 134,
+     "slots": 160,
+     "tasks": 32
+    }
+   },
+   "unknown": {
+    "v3-256k-reason": {
+     "fail": 19,
+     "graded_pass_rate": 0.4571,
+     "infra": 0,
+     "pass": 16,
+     "slots": 35,
+     "tasks": 7
+    },
+    "v3-256k-reason-pilot": {
+     "fail": 0,
+     "graded_pass_rate": 1.0,
+     "infra": 0,
+     "pass": 1,
+     "slots": 1,
+     "tasks": 1
+    },
+    "v3-ctrl-old-1m": {
+     "fail": 2,
+     "graded_pass_rate": 0.5,
+     "infra": 1,
+     "pass": 2,
+     "slots": 5,
+     "tasks": 1
+    },
+    "v4-stock-256k": {
+     "fail": 21,
+     "graded_pass_rate": 0.6769,
+     "infra": 0,
+     "pass": 44,
+     "slots": 65,
+     "tasks": 13
+    },
+    "v5-official2-256k": {
+     "fail": 0,
+     "graded_pass_rate": 1.0,
+     "infra": 0,
+     "pass": 5,
+     "slots": 5,
+     "tasks": 1
+    }
+   }
+  },
+  "in_any_sft": 1593,
+  "in_sft": {
+   "v1": {
+    "by_campaign": {
+     "probe-1m": 340
+    },
+    "rows": 340
+   },
+   "v2": {
+    "by_campaign": {
+     "probe-1m": 758
+    },
+    "rows": 758
+   },
+   "v3": {
+    "by_campaign": {
+     "probe-1m": 719,
+     "v4-stock-256k": 697,
+     "v5-official2-256k": 138
+    },
+    "rows": 1554
+   }
+  },
+  "probe_1m_cheated_passes": {
+   "count": 1,
+   "note": "status stays pass; derived per task from teacher_clean_rate. Slot per the hengyuf-late collector: official4-yaegi-embed syn-gomacro-cand-c05-1e4d0065 kimi-r4.",
+   "tasks": [
+    "syn-gomacro-cand-c05-1e4d0065"
+   ]
+  },
+  "total": {
+   "fail": 565,
+   "graded_pass_rate": 0.7924,
+   "infra": 20,
+   "pass": 2156,
+   "slots": 2741,
+   "tasks": 281
+  },
+  "usable_256k": {
+   "v4-stock-256k": 745,
+   "v5-official2-256k": 138
+  }
+ },
+ "merge_script": "/tmp/claude-158141/inventory-merge/merge.py",
+ "new_since_sft_v3": {
+  "by_queue": {
+   "baihe": {
+    "kimi_probe_1m": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 0,
+     "slots": 0
+    },
+    "kimi_probe_1m_clean_pass": 0,
+    "of_accepted": 97,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 0,
+    "task_ids": [],
+    "tasks": 0,
+    "tasks_with_a_kimi_pass": 0
+   },
+   "official1": {
+    "kimi_probe_1m": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 0,
+     "slots": 0
+    },
+    "kimi_probe_1m_clean_pass": 0,
+    "of_accepted": 84,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 0,
+    "task_ids": [],
+    "tasks": 0,
+    "tasks_with_a_kimi_pass": 0
+   },
+   "official2": {
+    "kimi_probe_1m": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 0,
+     "slots": 0
+    },
+    "kimi_probe_1m_clean_pass": 0,
+    "of_accepted": 32,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 0,
+    "task_ids": [],
+    "tasks": 0,
+    "tasks_with_a_kimi_pass": 0
+   },
+   "official3": {
+    "kimi_probe_1m": {
+     "fail": 13,
+     "infra": 0,
+     "pass": 57,
+     "slots": 70
+    },
+    "kimi_probe_1m_clean_pass": 57,
+    "of_accepted": 14,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 5,
+    "task_ids": [
+     "syn-flask-smorest-cand-c02-df461981",
+     "syn-jfrog-cli-cand-c03-r1b0-b726c364",
+     "syn-jfrog-cli-cand-c04-r1b2-1375521e",
+     "syn-jfrog-cli-cand-c05-r1b1-ce508663",
+     "syn-openai-go-cand-c02-r1b2-c6c02163",
+     "syn-openai-go-cand-c03-398bd396",
+     "syn-up-fetch-cand-c01-r1b0-d76edb93",
+     "syn-up-fetch-cand-c01-r1b2-559cad95",
+     "syn-xo-cand-c01-r1b0-6a24aedb",
+     "syn-xo-cand-c02-247be6e4",
+     "syn-xo-cand-c03-9e2bef74",
+     "syn-xo-cand-c03-r1b0-f9217bf0",
+     "syn-xo-cand-c04-r1b2-2a2d8793",
+     "syn-xo-cand-c05-r1b4-a4875d4a"
+    ],
+    "tasks": 14,
+    "tasks_with_a_kimi_pass": 14
+   },
+   "official4": {
+    "kimi_probe_1m": {
+     "fail": 27,
+     "infra": 6,
+     "pass": 157,
+     "slots": 190
+    },
+    "kimi_probe_1m_clean_pass": 156,
+    "of_accepted": 38,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 11,
+    "task_ids": [
+     "syn-bitecs-cand-c02-r1b0-5876640f",
+     "syn-bitecs-cand-c05-48f1ec2c",
+     "syn-gateway-cand-c01-r1b3-5dfd2843",
+     "syn-gateway-cand-c05-r1b3-de95a1b1",
+     "syn-gomacro-cand-c01-r1b3-4c28c1dc",
+     "syn-gomacro-cand-c01-r1b4-4061f03d",
+     "syn-gomacro-cand-c04-r1b4-a7b5a3b3",
+     "syn-gomacro-cand-c05-1e4d0065",
+     "syn-gomacro-cand-c05-r1b4-0e1df2d6",
+     "syn-harlequin-cand-c01-r1b1-3beb90a0",
+     "syn-harlequin-cand-c01-r1b3-4521e0d8",
+     "syn-harlequin-cand-c02-r1b3-fcd363b7",
+     "syn-harlequin-cand-c03-r1b0-3b264890",
+     "syn-harlequin-cand-c03-r1b3-f8507625",
+     "syn-harlequin-cand-c03-r1b4-464a1cdf",
+     "syn-harlequin-cand-c04-a6ca3e59",
+     "syn-harlequin-cand-c04-r1b0-4a407fc7",
+     "syn-harlequin-cand-c04-r1b3-78470e5a",
+     "syn-harlequin-cand-c05-r1b4-2d215f09",
+     "syn-pigeon-cand-c02-r1b0-6790e5ec",
+     "syn-pigeon-cand-c03-48647538",
+     "syn-pigeon-cand-c03-r1b3-58340fc0",
+     "syn-pigeon-cand-c05-e2a976ca",
+     "syn-sqlitebiter-cand-c05-r1b0-c3d0ac6d",
+     "syn-sqlitebiter-cand-c05-r1b1-70484268",
+     "syn-starlark-go-cand-c03-r1b2-eba4935b",
+     "syn-starlark-go-cand-c04-r1b1-2d327dcb",
+     "syn-strictyaml-cand-c04-r1b0-55e87b30",
+     "syn-strictyaml-cand-c04-r1b2-7f126ce0",
+     "syn-strictyaml-cand-c05-efd7566f",
+     "syn-tools-cand-c02-r1b2-3bee5eae",
+     "syn-tools-cand-c02-r1b3-37cf6209",
+     "syn-tools-cand-c02-r1b4-b203c383",
+     "syn-tools-cand-c03-r1b3-3ec984f3",
+     "syn-tools-cand-c03-r1b4-28330ad0",
+     "syn-yamux-cand-c03-r1b2-2351316f",
+     "syn-yamux-cand-c04-r1b2-eb447afe",
+     "syn-yup-cand-c04-9c915167"
+    ],
+    "tasks": 38,
+    "tasks_with_a_kimi_pass": 38
+   },
+   "val1": {
+    "kimi_probe_1m": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 10,
+     "slots": 10
+    },
+    "kimi_probe_1m_clean_pass": 10,
+    "of_accepted": 2,
+    "other_kimi_campaigns_on_these_tasks": [],
+    "targets": 1,
+    "task_ids": [
+     "syn-risor-cand-c01-8eacf850",
+     "syn-risor-cand-c02-r1b0-4111d1b2"
+    ],
+    "tasks": 2,
+    "tasks_with_a_kimi_pass": 2
+   }
+  },
+  "definition": "accepted tasks with 0 conversations in SFT v1, v2 and v3 (parts/sft-membership.jsonl); their Kimi numbers are the build probe (probe-1m), the only Kimi campaign that ran on them",
+  "kimi_passes_not_in_any_sft_by_queue_and_campaign": {
+   "baihe": {
+    "v4-stock-256k": 30
+   },
+   "official1": {
+    "probe-1m": 1,
+    "v3-256k-reason": 105,
+    "v3-ctrl-old-1m": 10,
+    "v4-stock-256k": 28
+   },
+   "official2": {
+    "probe-1m": 136,
+    "v5-official2-256k": 1
+   },
+   "official3": {
+    "probe-1m": 57
+   },
+   "official4": {
+    "probe-1m": 157
+   },
+   "val1": {
+    "probe-1m": 10
+   }
+  },
+  "kimi_passes_not_in_any_sft_on_non_accepted_tasks": {
+   "v3-256k-reason": 16,
+   "v3-256k-reason-pilot": 1,
+   "v3-ctrl-old-1m": 2,
+   "v4-stock-256k": 9
+  },
+  "kimi_probe_1m": {
+   "fail": 40,
+   "infra": 6,
+   "pass": 224,
+   "slots": 270
+  },
+  "kimi_probe_1m_clean_pass": 223,
+  "tasks": 54
+ },
+ "non_accepted_tasks": [
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 3,
+     "infra": 0,
+     "pass": 2,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-httpx"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 5,
+    "v2": 5,
+    "v3": 9
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-aiohttp-cand-c01-r1b4-9f77d81d"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 5,
+     "slots": 5
+    },
+    "v3-256k-reason-pilot": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 1,
+     "slots": 1
+    },
+    "v3-ctrl-old-1m": {
+     "fail": 2,
+     "infra": 1,
+     "pass": 2,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 5,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-httpx"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 4,
+    "v2": 4,
+    "v3": 10
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-aiohttp-cand-c05-r1b0-7d9ec1f5"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 3,
+     "infra": 0,
+     "pass": 2,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 4,
+     "infra": 0,
+     "pass": 1,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-scriggo"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 1,
+    "v2": 1,
+    "v3": 1
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-gomacro-cand-c02-r1b0-e8804dd9"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 4,
+     "infra": 0,
+     "pass": 1,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-scriggo"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 2,
+    "v2": 2,
+    "v3": 0
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-gomacro-cand-c02-r1b3-ed535f70"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 3,
+     "infra": 0,
+     "pass": 2,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-scriggo"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 1,
+    "v2": 1,
+    "v3": 3
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-gomacro-cand-c03-r1b1-68058464"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 2,
+     "infra": 0,
+     "pass": 3,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-scriggo"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 2,
+    "v2": 2,
+    "v3": 5
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-gomacro-cand-c03-r1b4-67b6a828"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 2,
+     "infra": 0,
+     "pass": 3,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-scriggo"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 2,
+    "v2": 2,
+    "v3": 4
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-gomacro-cand-c05-r1b1-d80cf0a5"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 5,
+     "infra": 0,
+     "pass": 0,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-narwhals"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 2,
+    "v2": 2,
+    "v3": 5
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-ibis-cand-c05-r1b3-9f713fee"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 2,
+     "infra": 0,
+     "pass": 3,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-bandit"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 4,
+    "v2": 4,
+    "v3": 7
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058"
+  },
+  {
+   "kimi": {
+    "v5-official2-256k": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 5,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official2-tengo-callable"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 0,
+    "v2": 0,
+    "v3": 5
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-risor-cand-c01-r1b4-74844668"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 0,
+     "infra": 0,
+     "pass": 5,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-absslices"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 5,
+    "v2": 5,
+    "v3": 9
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-risor-cand-c03-b214824f"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-wasmi"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 5,
+    "v2": 5,
+    "v3": 8
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-wasmtime-cand-c03-r1b4-4d3d43a0"
+  },
+  {
+   "kimi": {
+    "v4-stock-256k": {
+     "fail": 3,
+     "infra": 0,
+     "pass": 2,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-ytt"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 2,
+    "v2": 2,
+    "v3": 4
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-yq-cand-c01-r1b3-b5f105ff"
+  },
+  {
+   "kimi": {
+    "v3-256k-reason": {
+     "fail": 3,
+     "infra": 0,
+     "pass": 2,
+     "slots": 5
+    },
+    "v4-stock-256k": {
+     "fail": 1,
+     "infra": 0,
+     "pass": 4,
+     "slots": 5
+    }
+   },
+   "origin_run_per_sft_membership": [
+    "official1-dynamodb"
+   ],
+   "part_source": [
+    "hengyuf"
+   ],
+   "sft": {
+    "v1": 4,
+    "v2": 4,
+    "v3": 8
+   },
+   "sft_included_because": [
+    "strong"
+   ],
+   "task_id": "syn-zsa-cand-c02-r1b1-ae1eb794"
+  }
+ ],
+ "outputs": {
+  "kimi_rollouts": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/kimi_rollouts.jsonl",
+  "readme": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/README.md",
+  "summary": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/summary.json",
+  "tasks": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/tasks-all-20261106/tasks.jsonl"
+ },
+ "sft": {
+  "by_campaign": {
+   "v1": {
+    "probe-1m": 379
+   },
+   "v2": {
+    "probe-1m": 797
+   },
+   "v3": {
+    "probe-1m": 756,
+    "v4-stock-256k": 699,
+    "v5-official2-256k": 139
+   }
+  },
+  "conversations": {
+   "v1": 379,
+   "v2": 797,
+   "v3": 1594
+  },
+  "distinct_tasks": {
+   "v1": 97,
+   "v2": 194,
+   "v3": 220
+  },
+  "membership_rows_matched_to_rollout_rows": 2652,
+  "membership_rows_not_matched": {
+   "pilot conversation outside the 5-slot grid": {
+    "v3": 3
+   },
+   "probe-1m conversation on a non-accepted task": {
+    "v1": 39,
+    "v2": 39,
+    "v3": 37
+   }
+  },
+  "on_accepted_tasks": {
+   "v1": 340,
+   "v2": 758,
+   "v3": 1516
+  },
+  "on_non_accepted_tasks": {
+   "v1": 39,
+   "v2": 39,
+   "v3": 78
+  },
+  "probe_1m_members_from_rescored_dirs": 21,
+  "union_v1_v2_v3": {
+   "accepted_tasks": 213,
+   "conversations": 1635,
+   "tasks": 227
+  }
+ },
+ "tasks": {
+  "by_queue": {
+   "baihe": 97,
+   "official1": 84,
+   "official2": 32,
+   "official3": 14,
+   "official4": 38,
+   "val1": 2
+  },
+  "by_source": {
+   "baihe": 97,
+   "hengyuf": 170
+  },
+  "by_source_queue": {
+   "baihe": {
+    "baihe": 97
+   },
+   "hengyuf": {
+    "official1": 84,
+    "official2": 32,
+    "official3": 14,
+    "official4": 38,
+    "val1": 2
+   }
+  },
+  "detail_by_queue": {
+   "baihe": {
+    "audit_verdict": {
+     "None": 97
+    },
+    "in_any_sft": 97,
+    "in_sft": {
+     "v1": 0,
+     "v2": 97,
+     "v3": 96
+    },
+    "probe_sc14": {
+     "fail": 450,
+     "infra": 4,
+     "pass": 31,
+     "slots": 485
+    },
+    "repos": 18,
+    "runs": 19,
+    "targets": 18,
+    "tasks": 97,
+    "teacher_reprobe": 0
+   },
+   "official1": {
+    "audit_verdict": {
+     "none": 2,
+     "partial": 41,
+     "strong": 28,
+     "weak": 13
+    },
+    "in_any_sft": 84,
+    "in_sft": {
+     "v1": 84,
+     "v2": 84,
+     "v3": 79
+    },
+    "probe_sc14": {
+     "fail": 385,
+     "infra": 1,
+     "pass": 34,
+     "slots": 420
+    },
+    "repos": 19,
+    "runs": 20,
+    "targets": 20,
+    "tasks": 84,
+    "teacher_reprobe": 0
+   },
+   "official2": {
+    "audit_verdict": {
+     "none": 1,
+     "partial": 11,
+     "strong": 1,
+     "weak": 19
+    },
+    "in_any_sft": 32,
+    "in_sft": {
+     "v1": 0,
+     "v2": 0,
+     "v3": 32
+    },
+    "probe_sc14": {
+     "fail": 145,
+     "infra": 0,
+     "pass": 15,
+     "slots": 160
+    },
+    "repos": 9,
+    "runs": 10,
+    "targets": 10,
+    "tasks": 32,
+    "teacher_reprobe": 0
+   },
+   "official3": {
+    "audit_verdict": {
+     "none": 1,
+     "partial": 8,
+     "weak": 5
+    },
+    "in_any_sft": 0,
+    "in_sft": {
+     "v1": 0,
+     "v2": 0,
+     "v3": 0
+    },
+    "probe_sc14": {
+     "fail": 62,
+     "infra": 0,
+     "pass": 8,
+     "slots": 70
+    },
+    "repos": 5,
+    "runs": 5,
+    "targets": 5,
+    "tasks": 14,
+    "teacher_reprobe": 0
+   },
+   "official4": {
+    "audit_verdict": {
+     "none": 3,
+     "partial": 18,
+     "strong": 7,
+     "weak": 10
+    },
+    "in_any_sft": 0,
+    "in_sft": {
+     "v1": 0,
+     "v2": 0,
+     "v3": 0
+    },
+    "probe_sc14": {
+     "fail": 176,
+     "infra": 0,
+     "pass": 14,
+     "slots": 190
+    },
+    "repos": 11,
+    "runs": 11,
+    "targets": 11,
+    "tasks": 38,
+    "teacher_reprobe": 11
+   },
+   "val1": {
+    "audit_verdict": {
+     "None": 2
+    },
+    "in_any_sft": 0,
+    "in_sft": {
+     "v1": 0,
+     "v2": 0,
+     "v3": 0
+    },
+    "probe_sc14": {
+     "fail": 9,
+     "infra": 0,
+     "pass": 1,
+     "slots": 10
+    },
+    "repos": 1,
+    "runs": 1,
+    "targets": 1,
+    "tasks": 2,
+    "teacher_reprobe": 0
+   }
+  },
+  "detail_by_source": {
+   "baihe": {
+    "audit_verdict": {
+     "None": 97
+    },
+    "in_any_sft": 97,
+    "in_sft": {
+     "v1": 0,
+     "v2": 97,
+     "v3": 96
+    },
+    "probe_sc14": {
+     "fail": 450,
+     "infra": 4,
+     "pass": 31,
+     "slots": 485
+    },
+    "repos": 18,
+    "runs": 19,
+    "targets": 18,
+    "tasks": 97,
+    "teacher_reprobe": 0
+   },
+   "hengyuf": {
+    "audit_verdict": {
+     "None": 2,
+     "none": 7,
+     "partial": 78,
+     "strong": 36,
+     "weak": 47
+    },
+    "in_any_sft": 116,
+    "in_sft": {
+     "v1": 84,
+     "v2": 84,
+     "v3": 111
+    },
+    "probe_sc14": {
+     "fail": 777,
+     "infra": 1,
+     "pass": 72,
+     "slots": 850
+    },
+    "repos": 42,
+    "runs": 47,
+    "targets": 45,
+    "tasks": 170,
+    "teacher_reprobe": 11
+   }
+  },
+  "distinct_repos": 57,
+  "distinct_targets": 57,
+  "distinct_task_ids_with_kimi_rollouts": 281,
+  "duplicates_across_parts": [],
+  "non_accepted_tasks_with_kimi_rollouts": 14,
+  "targets_shared_by_hengyuf_and_baihe": [
+   "adaptix-name-mapping-aliases",
+   "kysely-window-grouping-helpers",
+   "mobly-grouped-test-barriers",
+   "obsidian-linter-auto-table-of-contents",
+   "pebble-durability-wait-apis",
+   "tengo-destructuring-bindings"
+  ],
+  "total": 267
+ }
+}

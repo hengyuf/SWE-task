@@ -1,0 +1,129 @@
+{
+  "created": "2026-10-22",
+  "requested_by": "hengyuf, 2026-10-22: \"\u628a\u8fd9\u4e9brepo\u653e\u5230\u5230\u4e00\u4e2a\u65b0\u7684queue \u91cc,\u542f\u52a8\u4ed6\u4eec\u7684task \u8f6c\u6362, \u53ef\u4ee5\u590d\u7528\u4e4b\u524d\u7684failure analysis, \u76f4\u63a5\u5f00\u59cbround 0\u7684 task \u751f\u6210\u548cround 1 \u7684evolve, \u5e76\u884c\u6700\u591a5\u4e2atask\u7684\u751f\u6210,\u5e76\u540c\u65f6\u66f4\u65b0\u5230dash board\"; the 14 repos that can capture extra failure patterns (repo_reselect/out and repo_reselect_baihe/out); GPU workers stay single-account",
+  "settings": {
+    "max_active": 5,
+    "max_launches_per_run": 6,
+    "walltime": "24:00:00",
+    "partitions": "cpu_datamover,cpu_dataprocessing,cpu_interactive",
+    "build_args": [
+      "--rounds",
+      "1"
+    ],
+    "poll_s": 120,
+    "budget_every_s": 600,
+    "key_order": [
+      "NVAPI_KEY_OFFICIAL_1",
+      "NVAPI_KEY_OFFICIAL_2"
+    ],
+    "switch_key_below_usd": 2000,
+    "stop_launching_below_usd": 2000,
+    "fleet_target": 10
+  },
+  "runs": [
+    {
+      "run": "official2-kysely",
+      "task": "kysely-window-grouping-helpers",
+      "repo": "knex/knex",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/q20-kysely-window-grouping-helpers"
+    },
+    {
+      "run": "official2-bandit-taint",
+      "task": "bandit-interprocedural-taint-checks",
+      "repo": "NVIDIA/SkillSpector",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/q17-bandit-interprocedural-taint-checks"
+    },
+    {
+      "run": "official2-pebble",
+      "task": "pebble-durability-wait-apis",
+      "repo": "syndtr/goleveldb",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/q13-pebble-durability-wait-apis"
+    },
+    {
+      "run": "official2-etree",
+      "task": "etree-xml-diff-patch",
+      "repo": "josephburnett/jd",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-etree"
+    },
+    {
+      "run": "official2-aiomonitor",
+      "task": "aiomonitor-task-snapshots-diff",
+      "repo": "jazzband/django-silk",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-aiomonitor"
+    },
+    {
+      "run": "official2-promreload",
+      "task": "prometheus-transactional-reload-status",
+      "repo": "influxdata/kapacitor",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-promreload"
+    },
+    {
+      "run": "official2-adaptix",
+      "task": "adaptix-name-mapping-aliases",
+      "repo": "yukinarit/pyserde",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/pilot6-adaptix-name-mapping"
+    },
+    {
+      "run": "official2-mobly",
+      "task": "mobly-grouped-test-barriers",
+      "repo": "mkorpela/pabot",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/q12-mobly-grouped-test-barriers"
+    },
+    {
+      "run": "official2-obsidian",
+      "task": "obsidian-linter-auto-table-of-contents",
+      "repo": "eslint/markdown",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/pilot9-obsidian-linter-toc"
+    },
+    {
+      "run": "official2-tengo-destructuring",
+      "task": "tengo-destructuring-bindings",
+      "repo": "robertkrimen/otto",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/q15-tengo-destructuring-bindings"
+    },
+    {
+      "run": "official2-tengo-callable",
+      "task": "tengo-callable-instance-isolation",
+      "repo": "deepnoodle-ai/risor",
+      "batch": "baihe",
+      "analysis_from": "B/synth/runs/pilot10-tengo-golua-inline"
+    },
+    {
+      "run": "official2-arcane",
+      "task": "arcane-drift-detection-baselines",
+      "repo": "rancher/rancher",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-arcane"
+    },
+    {
+      "run": "official2-cattrs",
+      "task": "cattrs-partial-structuring-recovery",
+      "repo": "yukinarit/pyserde",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-cattrs"
+    },
+    {
+      "run": "official2-ytt",
+      "task": "ytt-jsonpath-query-api",
+      "repo": "itchyny/gojq",
+      "batch": "hengyuf",
+      "analysis_from": "S/synth/runs/official1-ytt"
+    }
+  ],
+  "settings_notes": {
+    "switch_key_below_usd": "2026-10-22 (main): $2,000 not $1,000: a probe keeps the key it started with, and up to 5 builds probe at once, so the old key needs a tail for the probes already running on it",
+    "stop_launching_below_usd": "on the last key (NVAPI_KEY_OFFICIAL_2): leave room for the remaining spend of the builds already running",
+    "fleet_target": "set only once a running build has a probe dir (round-*/probe-*), kept until the queue ends",
+    "keys": "both keys are shared with other consumers (OFFICIAL_1 +$106 in 2 h, OFFICIAL_2 +$43 in 40 min on 2026-10-22)"
+  }
+}

@@ -1,0 +1,180 @@
+{
+ "created": "2026-10-26",
+ "requested_by": "hengyuf, 2026-10-27: \"start the 11 task recommended task synthesis ... You should use NVAPI_KEY_NEW_3 as the apikey ... For the kimi rollout, you should still use the old config, do not use the new 256k context config.\" (group A = the unused DeepSWE targets with sc14 2-3/5 and kimi >= 3/5; first asked 2026-10-26)",
+ "settings": {
+  "max_active": 5,
+  "max_launches_per_run": 6,
+  "walltime": "24:00:00",
+  "partitions": "cpu_datamover,cpu_dataprocessing,cpu_interactive",
+  "build_args": [
+   "--rounds",
+   "1"
+  ],
+  "poll_s": 120,
+  "budget_every_s": 600,
+  "key_order": [
+   "NVAPI_KEY_NEW_3"
+  ],
+  "switch_key_below_usd": 1500,
+  "stop_launching_below_usd": 1500,
+  "fleet_target": 10
+ },
+ "settings_notes": {
+  "keys": "hengyuf 2026-10-27: NVAPI_KEY_NEW_3 only (read 2026-10-27 01:09: remaining $10,000). official2 cost about $400 per build, so 11 builds ~ $4.4k; no new launch below $1,500 (room for 5 running builds).",
+  "order": "the deepswe-new-target-group judge's 11 recommended group-A targets (wf_358c82f6-ef8, /tmp/claude-158141/group_recommendation.md), in its ranking; the 4 alternates and 6 rejected targets are in not_queued (2026-10-27 trim; the 21-run list is queue.json.pre-trim)",
+  "repos": "task_builder's default host (best-ranked eligible top100.jsonl repo), except the judge's unflagged picks: fd -> uutils/findutils (avoid coreutils), fastapi -> marshmallow-code/flask-smorest, obsidian -> xojs/xo, mnamer -> beetbox/beets",
+  "kimi": "the kimi side stays the pipeline's old config (synth/settings.json kimi-k3, reasoning_effort max, context 1048576, output 131072, stock OpenCode prompt); the 256k/sentence config of sft/kimi-rollouts-v3 is not used"
+ },
+ "runs": [
+  {
+   "run": "official3-kombu-sac",
+   "task": "kombu-single-active-consumer-priority",
+   "repo": "ag2ai/faststream",
+   "batch": "groupA",
+   "language": "Python",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-fd-sort",
+   "task": "fd-deterministic-multi-key-sorting",
+   "repo": "uutils/findutils",
+   "batch": "groupA",
+   "language": "Rust",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-fastapi-deprecation",
+   "task": "fastapi-deprecation-response-headers",
+   "repo": "marshmallow-code/flask-smorest",
+   "batch": "groupA",
+   "language": "Python",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-genai-stream",
+   "task": "go-genai-streamed-function-args",
+   "repo": "openai/openai-go",
+   "batch": "groupA",
+   "language": "Go",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-ofetch-breaker",
+   "task": "ofetch-per-origin-circuit-breaker",
+   "repo": "L-Blondy/up-fetch",
+   "batch": "groupA",
+   "language": "TypeScript",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-goreleaser-retry",
+   "task": "goreleaser-retry-publish-auditing",
+   "repo": "jfrog/jfrog-cli",
+   "batch": "groupA",
+   "language": "Go",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-wazero-snapshots",
+   "task": "wazero-multi-module-snapshots",
+   "repo": "Xe/olin",
+   "batch": "groupA",
+   "language": "Go",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-obsidian-ignore",
+   "task": "obsidian-linter-scoped-ignore-markers",
+   "repo": "xojs/xo",
+   "batch": "groupA",
+   "language": "TypeScript",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-numba-stencil",
+   "task": "numba-stencil-boundary-modes",
+   "repo": "devitocodes/devito",
+   "batch": "groupA",
+   "language": "Python",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-mnamer-daemon",
+   "task": "mnamer-daemon-watch-lifecycle",
+   "repo": "beetbox/beets",
+   "batch": "groupA",
+   "language": "Python",
+   "analysis_tier": "recommended"
+  },
+  {
+   "run": "official3-gogit-merge",
+   "task": "go-git-worktree-merge-conflicts",
+   "repo": "libgit2/git2go",
+   "batch": "groupA",
+   "language": "Go",
+   "analysis_tier": "recommended"
+  }
+ ],
+ "not_queued": [
+  {
+   "run": "official3-anko-typed",
+   "task": "anko-typed-variable-bindings",
+   "repo": "google/starlark-go",
+   "analysis_tier": "alternate"
+  },
+  {
+   "run": "official3-kcp-mux",
+   "task": "kcp-go-multiplexed-kcp-streams",
+   "repo": "hashicorp/yamux",
+   "analysis_tier": "alternate"
+  },
+  {
+   "run": "official3-drizzle-window",
+   "task": "drizzle-orm-window-function-builders",
+   "repo": "romeerez/orchid-orm",
+   "analysis_tier": "alternate"
+  },
+  {
+   "run": "official3-koota-snapshot",
+   "task": "koota-entity-snapshot-rollback",
+   "repo": "NateTheGreatt/bitECS",
+   "analysis_tier": "alternate"
+  },
+  {
+   "run": "official3-kgateway-hash",
+   "task": "kgateway-consistent-hash-policy",
+   "repo": "envoyproxy/gateway",
+   "analysis_tier": "rejected_by_analysis"
+  },
+  {
+   "run": "official3-tspattern-each",
+   "task": "ts-pattern-match-each",
+   "repo": "h3js/rou3",
+   "analysis_tier": "rejected_by_analysis"
+  },
+  {
+   "run": "official3-tomlkit-converters",
+   "task": "tomlkit-toml-table-converters",
+   "repo": "crdoconnor/strictyaml",
+   "analysis_tier": "rejected_by_analysis"
+  },
+  {
+   "run": "official3-igel-schema",
+   "task": "igel-persist-feature-schema",
+   "repo": "ludwig-ai/ludwig",
+   "analysis_tier": "rejected_by_analysis"
+  },
+  {
+   "run": "official3-geo-shapeindex",
+   "task": "geo-shapeindex-serialization",
+   "repo": "dhconnelly/rtreego",
+   "analysis_tier": "rejected_by_analysis"
+  },
+  {
+   "run": "official3-textual-follow",
+   "task": "textual-richlog-follow-state",
+   "repo": "tconbeer/harlequin",
+   "analysis_tier": "rejected_by_analysis"
+  }
+ ]
+}

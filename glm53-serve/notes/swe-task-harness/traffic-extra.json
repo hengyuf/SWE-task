@@ -1,0 +1,166 @@
+{
+ "tr2": {
+  "inter_call_tool_gap_s": {
+   "n": 43064,
+   "mean": 8.2,
+   "p10": 0.3,
+   "p50": 0.5,
+   "p90": 6.5,
+   "p99": 148.5,
+   "max": 2533.0
+  },
+  "rollouts_in_flight_timeline": {
+   "p50": 5,
+   "p90": 25,
+   "p99": 36,
+   "max": 39,
+   "mean_when_busy": 9.69
+  },
+  "llm_calls_in_flight_timeline": {
+   "p50": 4,
+   "p90": 15,
+   "p99": 23,
+   "max": 30,
+   "mean_when_busy": 6.23
+  },
+  "calls_where_prompt_plus_output_gt_262144": 6198,
+  "calls_prompt_gt_262144": 6145,
+  "tasks_all_5_hub_rollouts_max_prompt_le_200k": [
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b0-85a91c3b",
+    "group": 5,
+    "hub_pass_of_5": 5,
+    "max_prompt": 176183,
+    "wall_min_median": 13.4
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+    "group": 6,
+    "hub_pass_of_5": 4,
+    "max_prompt": 179833,
+    "wall_min_median": 13.1
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b3-84fe778b",
+    "group": 7,
+    "hub_pass_of_5": 4,
+    "max_prompt": 196270,
+    "wall_min_median": 54.2
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b4-325c5f9d",
+    "group": 0,
+    "hub_pass_of_5": 3,
+    "max_prompt": 195161,
+    "wall_min_median": 16.3
+   },
+   {
+    "task_id": "syn-dacite-cand-c04-r1b0-eeb19c3a",
+    "group": 1,
+    "hub_pass_of_5": 5,
+    "max_prompt": 180770,
+    "wall_min_median": 17.9
+   },
+   {
+    "task_id": "syn-dacite-cand-c05-r1b4-2e37bfb7",
+    "group": 2,
+    "hub_pass_of_5": 5,
+    "max_prompt": 167633,
+    "wall_min_median": 15.1
+   },
+   {
+    "task_id": "syn-jest-cand-c04-r1b4-d8b1da89",
+    "group": 6,
+    "hub_pass_of_5": 5,
+    "max_prompt": 167616,
+    "wall_min_median": 27.1
+   },
+   {
+    "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+    "group": 1,
+    "hub_pass_of_5": 5,
+    "max_prompt": 183966,
+    "wall_min_median": 21.1
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b2-6182c7b3",
+    "group": 3,
+    "hub_pass_of_5": 5,
+    "max_prompt": 154697,
+    "wall_min_median": 20.6
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+    "group": 4,
+    "hub_pass_of_5": 4,
+    "max_prompt": 183986,
+    "wall_min_median": 20.3
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b4-6eedf9a6",
+    "group": 5,
+    "hub_pass_of_5": 4,
+    "max_prompt": 187454,
+    "wall_min_median": 19.3
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+    "group": 2,
+    "hub_pass_of_5": 5,
+    "max_prompt": 189400,
+    "wall_min_median": 15.5
+   },
+   {
+    "task_id": "syn-yj-cand-c01-7e8e179e",
+    "group": 3,
+    "hub_pass_of_5": 5,
+    "max_prompt": 179546,
+    "wall_min_median": 19.5
+   },
+   {
+    "task_id": "syn-yq-cand-c01-r1b4-c75b758f",
+    "group": 4,
+    "hub_pass_of_5": 5,
+    "max_prompt": 172337,
+    "wall_min_median": 14.6
+   }
+  ],
+  "tasks_all_5_le_200k_count": 14,
+  "tasks_all_5_le_200k_hub_pass_rate": 0.9143,
+  "hub_pass_rate_rollouts_max_prompt_le_242144": {
+   "n": 138,
+   "pass_rate": 0.7971
+  },
+  "hub_pass_rate_rollouts_max_prompt_gt_242144": {
+   "n": 111,
+   "pass_rate": 0.7297
+  }
+ },
+ "tdw": {
+  "inter_call_tool_gap_s": {
+   "n": 36239,
+   "mean": 7.6,
+   "p10": 0.3,
+   "p50": 0.4,
+   "p90": 6.2,
+   "p99": 120.7,
+   "max": 2231.1
+  },
+  "rollouts_in_flight_timeline": {
+   "p50": 4,
+   "p90": 12,
+   "p99": 22,
+   "max": 24,
+   "mean_when_busy": 5.69
+  },
+  "llm_calls_in_flight_timeline": {
+   "p50": 3,
+   "p90": 8,
+   "p99": 12,
+   "max": 20,
+   "mean_when_busy": 3.79
+  },
+  "calls_where_prompt_plus_output_gt_262144": 0,
+  "calls_prompt_gt_262144": 0
+ }
+}

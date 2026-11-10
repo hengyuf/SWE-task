@@ -1,0 +1,90 @@
+--- a/nemo_gym/base_responses_api_model.py
++++ b/nemo_gym/base_responses_api_model.py
+@@ -47,6 +47,9 @@
+ from fastapi.responses import StreamingResponse
+ from pydantic import BaseModel, Field, ValidationError, model_validator
+ 
++from deepswe_http import correlated_model_call
++from deepswe_streaming import HEARTBEAT, stream_chat_completion
++
+ from nemo_gym.anthropic_converter import AnthropicConverter
+ from nemo_gym.chat_streaming import sanitize_streaming_chat_body, synthesize_chat_completion_sse
+ from nemo_gym.config_types import ROLLOUT_PATH_PREFIX, TOKEN_CAPTURE_PATH_SEGMENT, ModelServerRef
+@@ -304,6 +307,14 @@
+ 
+         cleaned, include_usage = sanitize_streaming_chat_body(body)
+         params = _validate_chat_params(cleaned)
++        if os.environ.get("ATP_DEEPSWE_CAMPAIGN"):
++            return StreamingResponse(
++                stream_chat_completion(self._invoke_chat_completions, request, params,
++                                       synthesize_chat_completion_sse, include_usage=include_usage),
++                media_type="text/event-stream",
++                headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
++            )
++
+         completion = await self._invoke_chat_completions(request, params)
+         completion_json = completion.model_dump(mode="json") if isinstance(completion, BaseModel) else dict(completion)
+         return StreamingResponse(
+@@ -311,6 +322,7 @@
+             media_type="text/event-stream",
+         )
+ 
++    @correlated_model_call
+     async def _invoke_chat_completions(
+         self, request: Request, params: NeMoGymChatCompletionCreateParamsNonStreaming
+     ) -> NeMoGymChatCompletion:
+@@ -1364,7 +1376,8 @@
+                 state["streaming"] = content_type.startswith(b"text/event-stream")
+             elif message_type == "http.response.body":
+                 chunk = message.get("body", b"") or b""
+-                if chunk and state["ttft_ms"] is None:
++                is_heartbeat = os.environ.get("ATP_DEEPSWE_CAMPAIGN") and chunk == HEARTBEAT.encode()
++                if chunk and not is_heartbeat and state["ttft_ms"] is None:
+                     state["ttft_ms"] = (time.perf_counter() - start) * 1000.0
+                 state["body"].extend(chunk)  # buffered for both shapes; SSE is reassembled below
+                 if state["streaming"] and chunk and not defer_response:
+--- a/nemo_gym/openai_utils.py
++++ b/nemo_gym/openai_utils.py
+@@ -1102,6 +1102,11 @@
+         return await self._request_with_retry(**request_kwargs)
+ 
+     async def _request_with_retry(self, **request_kwargs: Dict) -> ClientResponse:
++        import os
++        if os.environ.get("ATP_DEEPSWE_CAMPAIGN"):
++            from deepswe_http import request_with_retry
++            return await request_with_retry(request, request_kwargs)
++
+         max_num_tries = MAX_NUM_TRIES
+         tries = 0
+         while tries < max_num_tries:
+--- a/nemo_gym/server_utils.py
++++ b/nemo_gym/server_utils.py
+@@ -345,6 +345,9 @@
+     **kwargs: Unpack[_RequestOptions],
+ ) -> ClientResponse:  # pragma: no cover
+     client = get_global_aiohttp_client()
++    from deepswe_http import single_transport_attempt
++    if single_transport_attempt(method, url, _internal):
++        return await client.request(method=method, url=url, **kwargs)
+     num_tries = 1
+     retries = 0
+     retry_start = time.monotonic()
+@@ -405,7 +408,7 @@
+ 
+ async def raise_for_status(response: ClientResponse) -> None:  # pragma: no cover
+     if not response.ok:
+-        content = await response.content.read()
++        content = await response.read()
+         if _GLOBAL_AIOHTTP_CLIENT_REQUEST_DEBUG:
+             print(f"""Request info: {response.request_info}
+ Response content: {content}""")
+@@ -671,6 +674,9 @@
+         print("NeMo Gym is starting a new Ray cluster...")
+         global _NEMO_GYM_STARTED_RAY_CLUSTER
+         _NEMO_GYM_STARTED_RAY_CLUSTER = True
++        if getenv("ATP_DEEPSWE_CAMPAIGN"):
++            ray_init_kwargs.update(num_cpus=8, object_store_memory=256 * 1024**2,
++                                   _memory=2 * 1024**3, include_dashboard=False)
+ 
+     ray.init(**ray_init_kwargs)
+ 

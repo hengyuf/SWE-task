@@ -1,0 +1,10 @@
+{
+ "binary": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/release-cache/rg-15.1.0",
+ "sha256": "ebeaf56f8a25e102e9419933423738b3a2a613a444fd749d695e15eba53f71f2",
+ "bytes": 5445512,
+ "from": "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz",
+ "tarball_sha256": "1c9297be4a084eea7ecaedf93eb03d058d6faae29bbc57ecdaf5063921491599",
+ "tarball_sha256_source": "the release's own .sha256 asset (matched)",
+ "member": "ripgrep-15.1.0-x86_64-unknown-linux-musl/rg",
+ "made": "2026-11-08 23:50 (GitHub release downloads flaky: HTTP 504)"
+}

@@ -1,0 +1,1 @@
+# Marks the swe-task tree as the codex project root (codex discovers .agents/skills up to it; Baihe's runs got this from his git root).

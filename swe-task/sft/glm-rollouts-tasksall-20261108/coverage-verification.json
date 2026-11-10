@@ -1,0 +1,2323 @@
+{
+ "workflow": "glm-coverage-sweep wf_26c03c13-9b1 (3 independent sweeps + adversarial verifier), 2026-11-08",
+ "verdict": {
+  "summary": "The three sweeps hold up: no rejected coverage, no missed source, no unmatched task. 286 entries cover 222 distinct (run, task_id); every one is accepted_or_strong in all_tasks.jsonl.\n\nVerified standard GLM-5.3 sources:\n(1) Hosted: /lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025, results/glm-group-0..7.json + glm-pilot.json. 50 tasks, 252 slots, 251 graded (192 pass / 59 fail), 1 infra.\n(2) Self-hosted: /lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107, results/glmlocal-{hengyuf,baihe}-g0..3.json + 2 pilot files, with the hengyuf-g1-rec1 re-run merged into g1. 220 tasks, 1102 slots, 1099 graded (884 / 215), 3 infra.\n(3) Self-hosted: /lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e, root3 and root4 results/glmlocal-{safe14-x1,pilot}.json. 16 tasks, 32 slots, all graded (26 pass). All 16 are also in (1) and (2), so this adds no tasks.\nHosted covers 50 tasks and self-hosted 220; 48 overlap. Hosted-only: official1-scriggo syn-gomacro-cand-c01-c696c6ca and syn-gomacro-cand-c02-r1b3-ed535f70.\n\nChecks (all 1386 slots, read-only):\n(a) Model. Hosted http.jsonl calls go to inference-api.nvidia.com with payload model nvidia/zai-org/glm-5.3. glmlocal calls go to a 127.0.0.1 router, and backends-extra.txt lists no extra URLs. Every glm53-serve-roll-* rank0 log shows env vllm-0.33.0-pr60477, TP8xPP2, model models/GLM-5.3, served as glm-5.3. The pilots' dev server (logs/dev/s2-prod-pilot) has the same config. e2e root3 ran on job 21427782 (stock 0.33, TP16); root4 on job 21430755 (patched PP2).\n(b) Prompt. Every terminal.json has 2 input items. The system prompt has the same normalized sha (dff63d0894e3) in every slot: opencode-1.17.11-default.txt (sha256 962fbf3c) plus the runtime env block, without the Kimi reason-before-action sentence. The user message equals the staged instruction.md byte for byte. T 1.0, top_p 0.95.\n(c) Task identity. All 52 hosted, 223 sftv3 and all e2e staged task copies sha256-match exactly one inventory row (accepted_dir or task_dir). sftv3 tasks.json digests match 207 accepted_dir + 13 task_dir. The id collision syn-django-recurrence-cand-c05-r1b3-0df4afde resolves to pilot3-dateutil-rfc5545; the pilot4 copy differs in tests/instruction.\n(d) Grading. Each status matches terminal.json (pass = evaluation_completed and reward 1). 4 graded fails are 3-hour agent timeouts and are kept as fails: hosted ibis-c03-r1b4 r4 and ibis-c05-r1b2-r2b3 r0/r1; sftv3 hengyuf-g3 ibis-c05-r1b3 r1.\n\nInfra slots, all excluded from graded counts:\n- Hosted: group-0 syn-wasmtime-cand-c03-353ec720 glm-r1 (attempts/5-1/attempt-2; SandboxPtyError, verifier SandboxApiException 410).\n- sftv3, the user's 3 ungraded slots: hengyuf-g0 syn-litestar-cand-c01-r1b1-8f1b686c r1 (attempts/11-1/attempt-1), hengyuf-g0 syn-yq-cand-c05-cbe61bd7 r0 (22-0/attempt-1), hengyuf-g3 syn-goleveldb-cand-c01-r1b1-7523606b r1 (23-1/attempt-1). ATP ran the verifier (reward 0), but OpenCode never finished: opencode_finished false, generation-validity failure 'unknown', http.jsonl 0.7-1.2 MB.\n- The infra-rerun1 re-run (rerun_infra.py and .sbatch, babysit/infra-rerun1, written 18:18-18:19) had no results/glmlocal-infra-rerun1.json and no probes/glmlocal/infra-rerun1-* at 19:08 PST on 2026-11-08.\n\nPriority buckets over the 2,203 tasks:\n- accepted_or_strong: 301 total, 222 covered (50 hosted), 79 uncovered (78 hengyuf, mostly official3/official4; 1 baihe, q21).\n- partial 146, weak 350, none/unlabeled 1406: 0 covered.\n\nNote: this workflow's own sft/glm-rollouts-tasksall-20261108/coverage.json (18:52) lists only the 50 hosted tasks, following the user's 'hosted' wording. Its make_tasks.py is documented to exclude the 220 self-hosted tasks.\n\nstandard_coverage omits task_dir because each (run, task_id) occurs exactly once in all_tasks.jsonl.",
+  "standard_coverage": [
+   {
+    "task_id": "syn-risor-cand-c03-b214824f",
+    "run": "official1-absslices",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c03-r1b2-e765ed15",
+    "run": "official1-absslices",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c05-r1b2-3718460d",
+    "run": "official1-absslices",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c05-r1b2-3718460d",
+    "run": "official1-absslices",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gpython-cand-c01-r1b1-765875d9",
+    "run": "official1-anko",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gpython-cand-c04-r1b1-e954ad27",
+    "run": "official1-anko",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gpython-cand-c04-r1b4-0a5ca664",
+    "run": "official1-anko",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gpython-cand-c04-r1b4-0a5ca664",
+    "run": "official1-anko",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-argo-cd-cand-c03-r1b0-18b78a50",
+    "run": "official1-arcane",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-argo-cd-cand-c05-cc3e1272",
+    "run": "official1-arcane",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 6,
+    "graded": 6
+   },
+   {
+    "task_id": "syn-argo-cd-cand-c05-cc3e1272",
+    "run": "official1-arcane",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-argo-cd-cand-c05-cc3e1272",
+    "run": "official1-arcane",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+    "run": "official1-bandit",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-pylama-cand-c02-r1b0-r2b2-02688723",
+    "run": "official1-bandit",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c02-r1b0-r2b2-02688723",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b2-6182c7b3",
+    "run": "official1-bandit",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b2-6182c7b3",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b2-6182c7b3",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+    "run": "official1-bandit",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-pylama-cand-c04-r1b4-4d29f6ec",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b2-r2b2-a71ff500",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b2-r2b3-0e4a83d7",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b4-6eedf9a6",
+    "run": "official1-bandit",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b4-6eedf9a6",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pylama-cand-c05-r1b4-6eedf9a6",
+    "run": "official1-bandit",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b1-52fa75d9",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b3-84fe778b",
+    "run": "official1-cattrs",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b3-84fe778b",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b3-84fe778b",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b0-29dfe3b0",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b4-325c5f9d",
+    "run": "official1-cattrs",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b4-325c5f9d",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b4-325c5f9d",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-dacite-cand-c04-r1b0-eeb19c3a",
+    "run": "official1-cattrs",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c04-r1b0-eeb19c3a",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c04-r1b0-eeb19c3a",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-dacite-cand-c04-r1b1-58e640ec",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c05-r1b4-2e37bfb7",
+    "run": "official1-cattrs",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c05-r1b4-2e37bfb7",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c05-r1b4-2e37bfb7",
+    "run": "official1-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-yj-cand-c01-7e8e179e",
+    "run": "official1-dasel",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yj-cand-c01-7e8e179e",
+    "run": "official1-dasel",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yj-cand-c01-7e8e179e",
+    "run": "official1-dasel",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-zsa-cand-c02-r1b1-ae1eb794",
+    "run": "official1-dynamodb",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-zsa-cand-c02-r1b1-ae1eb794",
+    "run": "official1-dynamodb",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-zsa-cand-c02-r1b3-38afb932",
+    "run": "official1-dynamodb",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-litestar-cand-c01-r1b1-8f1b686c",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 4
+   },
+   {
+    "task_id": "syn-litestar-cand-c02-r1b0-422e37a0",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-litestar-cand-c03-r1b0-a082f895",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-litestar-cand-c03-r1b3-a019450a",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-litestar-cand-c04-r1b0-081c670c",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-litestar-cand-c05-r1b0-eaf6a5ae",
+    "run": "official1-fastapi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c01-r1b4-9f77d81d",
+    "run": "official1-httpx",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c01-r1b4-9f77d81d",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c02-r1b0-3c976d3c",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c03-r1b1-b706aac1",
+    "run": "official1-httpx",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c03-r1b1-b706aac1",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c04-7f733601",
+    "run": "official1-httpx",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c04-7f733601",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c05-r1b0-7d9ec1f5",
+    "run": "official1-httpx",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 6,
+    "graded": 6
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c05-r1b0-7d9ec1f5",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 6,
+    "graded": 6
+   },
+   {
+    "task_id": "syn-aiohttp-cand-c05-r1b0-7d9ec1f5",
+    "run": "official1-httpx",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b0-85a91c3b",
+    "run": "official1-koota",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b0-85a91c3b",
+    "run": "official1-koota",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b0-85a91c3b",
+    "run": "official1-koota",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b2-1b4c0811",
+    "run": "official1-koota",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+    "run": "official1-koota",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+    "run": "official1-koota",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+    "run": "official1-koota",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-ibis-cand-c01-r1b4-r2b1-b677379a",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c03-r1b0-r2b1-807ec5aa",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c03-r1b4-3d3b86b5",
+    "run": "official1-narwhals",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c03-r1b4-3d3b86b5",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c04-86a17614",
+    "run": "official1-narwhals",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c04-86a17614",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c04-r1b0-r2b0-35888795",
+    "run": "official1-narwhals",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c04-r1b0-r2b0-35888795",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c05-r1b2-r2b0-3eb64a03",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c05-r1b2-r2b3-269e70d9",
+    "run": "official1-narwhals",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c05-r1b2-r2b3-269e70d9",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c05-r1b3-9f713fee",
+    "run": "official1-narwhals",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-ibis-cand-c05-r1b3-9f713fee",
+    "run": "official1-narwhals",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-cerbos-cand-c02-r1b4-9bbe0541",
+    "run": "official1-opa",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-cerbos-cand-c05-r1b1-b283c14b",
+    "run": "official1-opa",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-opengemini-cand-c01-r1b0-68a373fe",
+    "run": "official1-promlabels",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c01-c696c6ca",
+    "run": "official1-scriggo",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c02-r1b0-e8804dd9",
+    "run": "official1-scriggo",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c02-r1b0-e8804dd9",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c02-r1b2-002b4abf",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c02-r1b3-ed535f70",
+    "run": "official1-scriggo",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c03-r1b1-68058464",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c03-r1b4-67b6a828",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c04-r1b4-2d729ead",
+    "run": "official1-scriggo",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c04-r1b4-2d729ead",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gomacro-cand-c05-r1b1-d80cf0a5",
+    "run": "official1-scriggo",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+    "run": "official1-sqlformatter",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c01-r1b3-d7f6794b",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c02-r1b0-fb4b293a",
+    "run": "official1-sqlformatter",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c02-r1b0-fb4b293a",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c02-r1b3-7119812a",
+    "run": "official1-sqlformatter",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c02-r1b3-7119812a",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c04-r1b3-0c604520",
+    "run": "official1-sqlformatter",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c04-r1b3-0c604520",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c05-r1b3-911416cb",
+    "run": "official1-sqlformatter",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-vscode-sqltools-cand-c05-r1b3-911416cb",
+    "run": "official1-sqlformatter",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c01-r1b1-24d9c1a8",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c02-r1b3-658108d1",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c03-c910069f",
+    "run": "official1-statemachine",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c03-c910069f",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c04-r1b2-799317b1",
+    "run": "official1-statemachine",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c04-r1b2-799317b1",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c04-r1b3-272dacdb",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c05-r1b2-6a1e0dca",
+    "run": "official1-statemachine",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-transitions-cand-c05-r1b2-6a1e0dca",
+    "run": "official1-statemachine",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c04-r1b4-d8b1da89",
+    "run": "official1-testem",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c04-r1b4-d8b1da89",
+    "run": "official1-testem",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c04-r1b4-d8b1da89",
+    "run": "official1-testem",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-jest-cand-c05-9e1caaee",
+    "run": "official1-testem",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-9e1caaee",
+    "run": "official1-testem",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-r1b0-975858f4",
+    "run": "official1-testem",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-r1b1-561067a1",
+    "run": "official1-testem",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c01-r1b3-08931258",
+    "run": "official1-vitest",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c01-r1b3-08931258",
+    "run": "official1-vitest",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c04-r1b0-9bf4fb26",
+    "run": "official1-vitest",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-r1b0-5ec91bba",
+    "run": "official1-vitest",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-r1b2-d6a136fe",
+    "run": "official1-vitest",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jest-cand-c05-r1b2-d6a136fe",
+    "run": "official1-vitest",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c01-r1b1-82c9e518",
+    "run": "official1-wasmi",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c01-r1b1-82c9e518",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c03-353ec720",
+    "run": "official1-wasmi",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 4
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c03-353ec720",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c03-r1b4-4d3d43a0",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c04-r1b1-bbb510ca",
+    "run": "official1-wasmi",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c04-r1b1-bbb510ca",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c04-r1b4-786cced5",
+    "run": "official1-wasmi",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c04-r1b4-786cced5",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-wasmtime-cand-c05-r1b1-9fcf072e",
+    "run": "official1-wasmi",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c01-r1b3-b5f105ff",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c01-r1b4-c75b758f",
+    "run": "official1-ytt",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c01-r1b4-c75b758f",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c01-r1b4-c75b758f",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/e2e",
+    "slots": 2,
+    "graded": 2
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b0-0af03743",
+    "run": "official1-ytt",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b0-0af03743",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b1-2f81d284",
+    "run": "official1-ytt",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b1-2f81d284",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b4-c30118dd",
+    "run": "official1-ytt",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c02-r1b4-c30118dd",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c03-63063d88",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c04-r1b4-cae9dfb2",
+    "run": "official1-ytt",
+    "kind": "hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c04-r1b4-cae9dfb2",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-yq-cand-c05-cbe61bd7",
+    "run": "official1-ytt",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 4
+   },
+   {
+    "task_id": "syn-pyserde-cand-c04-r1b1-2b74e357",
+    "run": "official2-adaptix",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c04-r1b4-443ff5f7",
+    "run": "official2-adaptix",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c05-r1b2-170c68fa",
+    "run": "official2-adaptix",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-django-silk-cand-c01-r1b1-ffe67368",
+    "run": "official2-aiomonitor",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-django-silk-cand-c02-r1b4-3a06fd8c",
+    "run": "official2-aiomonitor",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-django-silk-cand-c03-r1b0-9bf52923",
+    "run": "official2-aiomonitor",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-django-silk-cand-c04-r1b2-2a7a6a57",
+    "run": "official2-aiomonitor",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c04-r1b2-14d40723",
+    "run": "official2-cattrs",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jd-cand-c01-r1b1-ff9da598",
+    "run": "official2-etree",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jd-cand-c02-r1b4-3aa68c3b",
+    "run": "official2-etree",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-jd-cand-c05-r1b0-7994aee3",
+    "run": "official2-etree",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-knex-cand-c01-r1b3-a888f2f2",
+    "run": "official2-kysely",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-knex-cand-c04-r1b0-b21e1e98",
+    "run": "official2-kysely",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pabot-cand-c03-r1b0-5f252c24",
+    "run": "official2-mobly",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-markdown-cand-c01-r1b0-ecd019d8",
+    "run": "official2-obsidian",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-markdown-cand-c01-r1b3-986c83f4",
+    "run": "official2-obsidian",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-markdown-cand-c01-r1b4-7673d9a2",
+    "run": "official2-obsidian",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-markdown-cand-c04-r1b0-3b72285b",
+    "run": "official2-obsidian",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-goleveldb-cand-c01-r1b1-7523606b",
+    "run": "official2-pebble",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 4
+   },
+   {
+    "task_id": "syn-goleveldb-cand-c01-r1b2-b09a37b8",
+    "run": "official2-pebble",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-goleveldb-cand-c01-r1b4-958e653b",
+    "run": "official2-pebble",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-goleveldb-cand-c02-r1b0-e5f8b461",
+    "run": "official2-pebble",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-goleveldb-cand-c03-r1b4-9045ebe3",
+    "run": "official2-pebble",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-kapacitor-cand-c02-r1b1-27100f50",
+    "run": "official2-promreload",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-kapacitor-cand-c05-r1b1-55fcf64d",
+    "run": "official2-promreload",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c01-r1b4-74844668",
+    "run": "official2-tengo-callable",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c01-r1b1-0f53e898",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c02-c19003e2",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c02-r1b1-a4d613c7",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c03-r1b3-07071613",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c04-r1b1-8b8a5c41",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c05-r1b1-661a75c4",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-otto-cand-c05-r1b4-da7cd37c",
+    "run": "official2-tengo-destructuring",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c01-r1b3-c55145a7",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c02-5415bd10",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c02-r1b0-e164e517",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c03-r1b2-8d41fa44",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c04-r1b3-a525714c",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-urllib3-cand-c05-r1b4-28cff21e",
+    "run": "pilot1-httpx-multipart",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c01-r1b3-495b5657",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c02-r1b0-3bf1ffa4",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c02-r1b3-2cb17867",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c02-r1b4-da3483cd",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c03-r1b0-4e89d622",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c04-r1b3-2d9ff806",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c05-r1b0-bf6190e1",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c05-r1b1-68a272b0",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-mathjax-src-cand-c05-r1b4-079eb9ad",
+    "run": "pilot1-katex-multicolumn",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c01-r1b2-ede51ab6",
+    "run": "pilot10-tengo-golua-inline",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c03-r1b1-8bbc6eb9",
+    "run": "pilot10-tengo-golua-inline",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c05-r1b3-aa069d83",
+    "run": "pilot10-tengo-golua-inline",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c01-r1b0-b0a98783",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c03-r1b4-236f69c1",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c04-r1b2-f217ee32",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c04-r1b3-c8d55378",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c05-r1b0-9669b6c7",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-gval-cand-c05-r1b1-56f73cd4",
+    "run": "pilot2-expr-try-catch",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-django-recurrence-cand-c05-r1b3-0df4afde",
+    "run": "pilot3-dateutil-rfc5545",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c01-r1b4-84845ff4",
+    "run": "pilot6-adaptix-name-mapping",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b0-a325e28a",
+    "run": "pilot6-adaptix-name-mapping",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c02-r1b4-b4d8de8a",
+    "run": "pilot6-adaptix-name-mapping",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-dacite-cand-c03-r1b4-6d646048",
+    "run": "pilot6-adaptix-name-mapping",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c01-r1b3-c9a601af",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c02-41f65269",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c02-r1b3-c6a1bad0",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c03-r1b0-856c42f7",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c03-r1b3-6e43e3c7",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-lua-cand-c04-r1b1-5f114064",
+    "run": "pilot7-tengo-callable-isolation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-citty-cand-c01-r1b0-6fa08bef",
+    "run": "pilot8-optique-option-deps",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 6,
+    "graded": 6
+   },
+   {
+    "task_id": "syn-citty-cand-c01-r1b4-66b0e024",
+    "run": "pilot8-optique-option-deps",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-citty-cand-c02-r1b4-6fb61416",
+    "run": "pilot8-optique-option-deps",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-citty-cand-c04-a54df7c6",
+    "run": "pilot8-optique-option-deps",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-citty-cand-c04-r1b1-ec1c0299",
+    "run": "pilot8-optique-option-deps",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c01-r1b0-a55630d0",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c01-r1b1-dc064647",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c01-r1b3-32f4b57c",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c01-r1b4-b6f41331",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c03-5e615329",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c03-r1b3-ecc843e0",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c03-r1b4-a0f28434",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c04-r1b3-93c239cc",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c05-496f733f",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-remark-lint-cand-c05-r1b0-f0523255",
+    "run": "pilot9-obsidian-linter-toc",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c01-r1b2-5d163477",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c02-r1b0-9d85623f",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c03-r1b0-0548d9f2",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c03-r1b3-0365aa3a",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c04-r1b0-53edb73c",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c05-r1b0-a34e3650",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-inquirer-js-cand-c05-r1b3-34d7fad4",
+    "run": "q10-clack-async-autocomplete-options",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pytest-cand-c01-r1b0-954445d0",
+    "run": "q12-mobly-grouped-test-barriers",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pytest-cand-c02-69e6073d",
+    "run": "q12-mobly-grouped-test-barriers",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-badger-cand-c02-r1b3-91f6816d",
+    "run": "q13-pebble-durability-wait-apis",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-badger-cand-c03-r1b3-0993435b",
+    "run": "q13-pebble-durability-wait-apis",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c01-aed9b543",
+    "run": "q14-mashumaro-flattened-dataclass-fields",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c01-r1b0-ccf26101",
+    "run": "q14-mashumaro-flattened-dataclass-fields",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c01-r1b4-f0120cd2",
+    "run": "q14-mashumaro-flattened-dataclass-fields",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-pyserde-cand-c02-r1b1-e4743457",
+    "run": "q14-mashumaro-flattened-dataclass-fields",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c01-e8bef1af",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c01-r1b0-e54193d4",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c01-r1b1-ec426125",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c01-r1b4-bde52eba",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c02-r1b1-0ccf905c",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c02-r1b2-8e2a3134",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c02-r1b4-4f19eaca",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c03-r1b3-3380be16",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c04-r1b1-eab3d6e4",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c04-r1b3-767bbc8d",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c04-r1b4-275adcf4",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c05-r1b2-e15a5178",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c05-r1b3-e0a6aa76",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-risor-cand-c05-r1b4-1ee392ce",
+    "run": "q15-tengo-destructuring-bindings",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-checkov-cand-c03-r1b4-69f4564c",
+    "run": "q17-bandit-interprocedural-taint-checks",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c03-r1b3-98110934",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c03-r1b4-9e83e729",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c04-r1b2-b0655666",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c05-r1b2-8838d109",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c05-r1b3-69f0af17",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-go-jsonnet-cand-c05-r1b4-6d66c2db",
+    "run": "q18-opa-template-string-reconstruction",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-python-prompt-toolkit-cand-c01-r1b0-48067663",
+    "run": "q19-textual-kitty-key-phases",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-python-prompt-toolkit-cand-c02-r1b0-2293d236",
+    "run": "q19-textual-kitty-key-phases",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-python-prompt-toolkit-cand-c04-63029829",
+    "run": "q19-textual-kitty-key-phases",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-python-prompt-toolkit-cand-c05-r1b0-2bee84d9",
+    "run": "q19-textual-kitty-key-phases",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-lucid-cand-c04-r1b1-44b0d57a",
+    "run": "q20-kysely-window-grouping-helpers",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-nova-cand-c02-78764589",
+    "run": "q21-boa-hierarchical-evaluation-cancellation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-nova-cand-c02-r1b0-40b314b3",
+    "run": "q21-boa-hierarchical-evaluation-cancellation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-nova-cand-c03-7463f7ee",
+    "run": "q21-boa-hierarchical-evaluation-cancellation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-nova-cand-c03-r1b0-cb0355d9",
+    "run": "q21-boa-hierarchical-evaluation-cancellation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   },
+   {
+    "task_id": "syn-nova-cand-c04-73057cd6",
+    "run": "q21-boa-hierarchical-evaluation-cancellation",
+    "kind": "self_hosted",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-sftv3-20261107",
+    "slots": 5,
+    "graded": 5
+   }
+  ],
+  "rejected_claims": [
+   {
+    "claim": "glm53-serve/e2e/root2 (E2E round 2): 12 graded self-hosted GLM-5.3 slots on the safe14/pilot tasks",
+    "reason": "Served by vLLM 0.33 TP8xPP2 without the PR #60477 fix, which corrupts GLM-5.3 (notes/EXPERIMENTS.md: NLL 0.789 vs 0.514 patched, decode parity 74-91%, degenerate loops). The terminal.json files show 12 graded, all reward 0. These are not valid GLM-5.3 samples. All three searches already excluded this run, and so do I."
+   },
+   {
+    "claim": "glm53-serve/e2e/root (E2E round 1) and root-v033test as GLM rollout sources",
+    "reason": "root: all 16 slots lack terminal.json, so 0 graded. root-v033test/group-1: no models/ dir; it never ran. root-dryrun does not exist on disk."
+   },
+   {
+    "claim": "sft/teacher-deepswe-20261030 hosted GLM-5.3 rollouts as coverage",
+    "reason": "These are DeepSWE v1.1 benchmark tasks (benchmark deepswe_v1_1, public.ecr.aws swe-bench images). 0 of the 113 GLM task ids are in all_tasks.jsonl; 67 match inventory 'target' names, i.e. the parents of synthetic tasks, not the tasks. Not synthetic, so excluded. The searchers' counts differ (84 vs 113 tasks, 566 vs 565 slots) only because one counts tasks with at least one graded slot and adds the pilot slot. This does not matter since the source is excluded."
+   },
+   {
+    "claim": "Baihe's ATP campaign nano-rl/agent-teacher-pipelines/results/deepswe-16-super-kimi-glm-20261014T104004Z",
+    "reason": "Cannot be checked: /lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl returns Permission denied. Its name and date mark it as a DeepSWE benchmark run from before the synthetic tasks existed, not synthetic coverage."
+   },
+   {
+    "claim": "GLM hint-leak runs (glm53-do-dont-full, hint-prior-iter) in .inode-archive-20261018/SWE-rollout.tar",
+    "reason": "Modified prompt (DO/DONT hint injection) on non-synthetic SWE-rubrics tasks, run 2026-09-08..10, before the synthetic pipeline existed (memory note project_glm53_hint_leak_iter; tar archived and deleted 2026-10-18). Not standard and not synthetic, so no coverage. I did not open the 415 GB tar."
+   }
+  ],
+  "missed_sources": [],
+  "modified_prompt_runs": [
+   "/lustre/fsw/portfolios/nemotron/projects/nemotron_agents_dev/users/hengyuf/.inode-archive-20261018/SWE-rollout.tar: hosted GLM-5.3 DO/DONT hint-injection runs (results/glm53-do-dont-full-* with 4324 rollouts; hint-prior-iter r1-r5/prod1 with about 760), September 2026, on NON-synthetic SWE-rubrics tasks. Archived and deleted from disk. Zero overlap with all_tasks.jsonl."
+  ],
+  "unmatched_tasks": []
+ }
+}

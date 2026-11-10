@@ -1,0 +1,1610 @@
+{
+ "request": "这组rollout 跑完之后,再给official的第二批(找rank2-5 repo 的那一批) 里的accepted tasks 和标记为strong的task 每个task 额外做5个kimi 的256 k context rollout",
+ "runs_glob": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-*",
+ "runs": [
+  "official2-adaptix",
+  "official2-aiomonitor",
+  "official2-arcane",
+  "official2-bandit-taint",
+  "official2-cattrs",
+  "official2-etree",
+  "official2-kysely",
+  "official2-mobly",
+  "official2-obsidian",
+  "official2-pebble",
+  "official2-promreload",
+  "official2-tengo-callable",
+  "official2-tengo-destructuring",
+  "official2-ytt"
+ ],
+ "pipeline_grader": {
+  "path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/verifier/grader.py",
+  "sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769"
+ },
+ "counts": {
+  "runs": 14,
+  "tasks": 33,
+  "accepted": 32,
+  "strong": 2,
+  "both": 1,
+  "strong_not_accepted": 1,
+  "withdrawn_excluded": 0,
+  "distinct_images": 33,
+  "per_run": {
+   "official2-adaptix": 3,
+   "official2-aiomonitor": 4,
+   "official2-arcane": 0,
+   "official2-bandit-taint": 0,
+   "official2-cattrs": 1,
+   "official2-etree": 3,
+   "official2-kysely": 2,
+   "official2-mobly": 1,
+   "official2-obsidian": 4,
+   "official2-pebble": 5,
+   "official2-promreload": 2,
+   "official2-tengo-callable": 1,
+   "official2-tengo-destructuring": 7,
+   "official2-ytt": 0
+  }
+ },
+ "excluded": [],
+ "notes": [],
+ "tasks": [
+  {
+   "task_id": "syn-pyserde-cand-c04-r1b1-2b74e357",
+   "run": "official2-adaptix",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/round-1/cand-c04-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/cand-c04-r1b1/task/syn-pyserde-cand-c04-r1b1-2b74e357",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/accepted/syn-pyserde-cand-c04-r1b1-2b74e357",
+   "image": "snapshot:fd3ce9bf-9fe0-4b3b-a8a8-6469736210cf",
+   "base_commit": "870da08c7e2ede28725191bbccccbe6ff44675e7",
+   "language": "python",
+   "repository_url": "https://github.com/yukinarit/pyserde",
+   "title": "Ordered input alias layers",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "34e3f7c1135cfa7d33bfe04fa80611f5616a8de80e51e572055d22a1411281ca",
+    "task.toml": "4250017358262567d27d10fbb586a71b9d84aeb02f8eb0fc78705456b5523d66",
+    "tests/config.json": "e27561ae54ba14435f7751eb9ede0f253987d45a12e4c1258b405f21535fc740",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "07899b3cc858f342b11251fa064c3394a0e004d9bbb4e66507e44b7250749355",
+    "tests/test.sh": "8c6490a8906a1b2616452add1196df10237f92e30147a13a6f8a57bd153b90f8"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-pyserde-cand-c04-r1b4-443ff5f7",
+   "run": "official2-adaptix",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/round-1/cand-c04-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/cand-c04-r1b4/task/syn-pyserde-cand-c04-r1b4-443ff5f7",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/accepted/syn-pyserde-cand-c04-r1b4-443ff5f7",
+   "image": "snapshot:2fb0d261-58cf-4423-857d-bd583259c85f",
+   "base_commit": "870da08c7e2ede28725191bbccccbe6ff44675e7",
+   "language": "python",
+   "repository_url": "https://github.com/yukinarit/pyserde",
+   "title": "Nested input key paths with creation-time validation",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "f2462a671cda3b93ca774918ebd7f48dd7b3fce91c7fc074237d08f11a4d3b30",
+    "task.toml": "00c22dae317e97154490fe946e02a8429c43e5a42fca820413e18c9bdf2b9f22",
+    "tests/config.json": "3c3f7bce8e646f30149f05d52d17b9eb06aef59f2c909bc6aed7d909f623e2d0",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "d243d877d9045daf73bea3db6bc47bd9bef9ad627376fb0b0fc52b8c822e84e6",
+    "tests/test.sh": "8d691d2cddea8019abfc3fbc7205ecf05548121961050b41d5dd83851288506d"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-pyserde-cand-c05-r1b2-170c68fa",
+   "run": "official2-adaptix",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/round-1/cand-c05-r1b2/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/build/adaptix-name-mapping-aliases/yukinarit__pyserde/cand-c05-r1b2/task/syn-pyserde-cand-c05-r1b2-170c68fa",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 1.0,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-adaptix/accepted/syn-pyserde-cand-c05-r1b2-170c68fa",
+   "image": "snapshot:f560ca3a-3e71-4154-ae71-a9ad38f514e7",
+   "base_commit": "870da08c7e2ede28725191bbccccbe6ff44675e7",
+   "language": "python",
+   "repository_url": "https://github.com/yukinarit/pyserde",
+   "title": "Conflict-aware input validation with aggregate field errors",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "8268ba226b934f746e2322b904b60e44c430c74a08cecb7794ac31ef018c4e84",
+    "task.toml": "766bb62225a42ccd63371c35fffafb3e0dc198cc0d234717ea4ae8aecc44ef3e",
+    "tests/config.json": "d2497fa89676ba724e73c5d1eedc804cacdc80611881083875bd9f1a71083f51",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "264bb7f55516ec10db4ac16def156c9bb37a384e9a9d2309acbaae632c58e55f",
+    "tests/test.sh": "401a482188e1f0d8c64b413a6227825eee6e75171a2ec0937e5ac9f8af844192"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-django-silk-cand-c01-r1b1-ffe67368",
+   "run": "official2-aiomonitor",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/round-1/cand-c01-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/cand-c01-r1b1/task/syn-django-silk-cand-c01-r1b1-ffe67368",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/accepted/syn-django-silk-cand-c01-r1b1-ffe67368",
+   "image": "snapshot:03da3e62-b049-4125-a29c-b39977e06709",
+   "base_commit": "82a7fe2cba75d7dbdacb55a046e7f56ac7cda2c3",
+   "language": "python",
+   "repository_url": "https://github.com/jazzband/django-silk",
+   "title": "Portable request captures and comparisons",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "d463f8c0a18e76271c1a0a29daab8f80287ec2196b805fb663467ebf3842c15d",
+    "task.toml": "550e7fb049a5ed1a26cf9963e494aa651438fe8d561139d3ca3ab9f23271f38c",
+    "tests/config.json": "7fcdcfa9b3b33051b98acdda87bd50fd8ab52861e0dfb5f03680eeb2598293f3",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "26890fc195dff8970d44515458e2ee7be25d13f914d50e8c49e3d6c6d6d632fd",
+    "tests/test.sh": "5443fe6ea7b4c6ed50625061a6a810398a173a3fb883c0b56425841e23b322c2"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-django-silk-cand-c02-r1b4-3a06fd8c",
+   "run": "official2-aiomonitor",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/round-1/cand-c02-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/cand-c02-r1b4/task/syn-django-silk-cand-c02-r1b4-3a06fd8c",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/accepted/syn-django-silk-cand-c02-r1b4-3a06fd8c",
+   "image": "snapshot:ce88edd1-059e-4c44-8572-2d333f50039f",
+   "base_commit": "82a7fe2cba75d7dbdacb55a046e7f56ac7cda2c3",
+   "language": "python",
+   "repository_url": "https://github.com/jazzband/django-silk",
+   "title": "Session request captures with an action API",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "8befb9a29fb568c89f3d0553cc70ed34836970060a857fd126a1de974974fcc5",
+    "task.toml": "b19ac994fe02a7bf2280a94d595b2ec508afd0698f834cf7cd2241859e03b9c4",
+    "tests/config.json": "b1d27a07b9e7f6aaba54c1c57083e3062f3321d27b3bb449ec3875800dc137ad",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "7e253cedb514a47dc05febbabac3ea9277d38bcc81ffc6a449cf6bf527ab5943",
+    "tests/test.sh": "1352ea402c442f45d756bee47a68ea5d0dd0cfff0d20f41e1892377b5f4d447e"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-django-silk-cand-c03-r1b0-9bf52923",
+   "run": "official2-aiomonitor",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/round-1/cand-c03-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/cand-c03-r1b0/task/syn-django-silk-cand-c03-r1b0-9bf52923",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/accepted/syn-django-silk-cand-c03-r1b0-9bf52923",
+   "image": "snapshot:e08ec91d-87d4-4300-bd05-0c65d9737b52",
+   "base_commit": "82a7fe2cba75d7dbdacb55a046e7f56ac7cda2c3",
+   "language": "python",
+   "repository_url": "https://github.com/jazzband/django-silk",
+   "title": "Saved profile comparison bundles",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "5db210c348df2188f169420ee63b4bb6cbf3dfcb523ca94909f9977052ff4434",
+    "task.toml": "4008c54c0f7b8ca68bef7e1f2464edf26053b5b4e71263cf47e7c603808e7ddb",
+    "tests/config.json": "3d23b02091cdcaa6bd8be1f2e5c4990db20cfd05b8aea594192b0276616078eb",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "2391e6d4a9f81cc3b3487502cd341131e00435e2576e369d46efc2eb71fef65f",
+    "tests/test.sh": "aa15f740ae3d5c797994cdba33bbce66c3e23825dbb335fa52ac66cc843b098f"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-django-silk-cand-c04-r1b2-2a7a6a57",
+   "run": "official2-aiomonitor",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/round-1/cand-c04-r1b2/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/build/aiomonitor-task-snapshots-diff/jazzband__django-silk/cand-c04-r1b2/task/syn-django-silk-cand-c04-r1b2-2a7a6a57",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-aiomonitor/accepted/syn-django-silk-cand-c04-r1b2-2a7a6a57",
+   "image": "snapshot:adc5293d-2608-4bf7-bcc3-17225db3713e",
+   "base_commit": "82a7fe2cba75d7dbdacb55a046e7f56ac7cda2c3",
+   "language": "python",
+   "repository_url": "https://github.com/jazzband/django-silk",
+   "title": "SQL workload comparison reports",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "dbf0fc69ec42504d449d167f9c56a47c3d6f795775d16d6eda435c3c8abd606b",
+    "task.toml": "9e90f859626a575aa927b4d9e3bfdfc086b58a09da871a0b13ebd25605ccdde9",
+    "tests/config.json": "54266cca5734567e3bd221671f7bffba03ba6404de37d87ae956f945c53f383a",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "ced16f10a3aad9f2b8d4e922a69536f596d98df66d8357418831943b1a1fcb37",
+    "tests/test.sh": "9d880abca53c7ab6847147559a435d88ddfaddb4da00ffba11d23ed13b1879dd"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-pyserde-cand-c04-r1b2-14d40723",
+   "run": "official2-cattrs",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-cattrs/build/cattrs-partial-structuring-recovery/yukinarit__pyserde/round-1/cand-c04-r1b2/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-cattrs/build/cattrs-partial-structuring-recovery/yukinarit__pyserde/cand-c04-r1b2/task/syn-pyserde-cand-c04-r1b2-14d40723",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-cattrs/accepted/syn-pyserde-cand-c04-r1b2-14d40723",
+   "image": "snapshot:12718338-027f-4a76-844f-d7620d38d576",
+   "base_commit": "870da08c7e2ede28725191bbccccbe6ff44675e7",
+   "language": "python",
+   "repository_url": "https://github.com/yukinarit/pyserde",
+   "title": "Recoverable dictionary decoding with lazy defaults",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "5a8d8e19ac655306bd69b3386b79b5ddbe42d84144876662e37c7d374fb05890",
+    "task.toml": "45bc8f99e290acd2b28c6c7270cb83c134e6880551ecbdb96729b8ccdc6848f0",
+    "tests/config.json": "98a9991101b5c53f8e5a99760a789e9de71ba5e15b1cc7b71c8ecf79f9618c81",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "777da24c96005f80fe1a8d50be676d94026e5896879d05da7c8cb5116dab7f67",
+    "tests/test.sh": "6283cd92ece0aa586f40361b7d3aa0c712d84809d42775b8f5259944e204bc32"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-jd-cand-c01-r1b1-ff9da598",
+   "run": "official2-etree",
+   "why": "accepted",
+   "failure_match_verdict": "none",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/round-1/cand-c01-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/cand-c01-r1b1/task/syn-jd-cand-c01-r1b1-ff9da598",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/accepted/syn-jd-cand-c01-r1b1-ff9da598",
+   "image": "snapshot:7ad43f15-3f38-4be5-96a4-14ffd6f21b5c",
+   "base_commit": "22cbac236495abc0a6a68b98b8ca245b8b5758ac",
+   "language": "go",
+   "repository_url": "https://github.com/josephburnett/jd",
+   "title": "Reversible typed edit transactions",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "841dc1958e1434c119841f7ab98e0d04eaa2f26f8c1cd69d4b3211fe471cc993",
+    "task.toml": "33c66a54a698cdaa1bd0440cda16670b15ebfdb012bb56b5b92ea68fab656a63",
+    "tests/config.json": "e2bad094df6f1c0916d32f18ec0500505a1019d160a8b0daf461afbcdf02a63c",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "2fdaa245223d658abe690901dbf7999480b4a2d8af3c0d7ffae80f836ee0891c",
+    "tests/test.sh": "652212e2582d06e4635e44a7981ac0fab467cdbaf8ca8045990bb0ad7012927d"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-jd-cand-c02-r1b4-3aa68c3b",
+   "run": "official2-etree",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/round-1/cand-c02-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/cand-c02-r1b4/task/syn-jd-cand-c02-r1b4-3aa68c3b",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.6,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/accepted/syn-jd-cand-c02-r1b4-3aa68c3b",
+   "image": "snapshot:2dfb8d27-f8b8-4cce-b32f-aeee2ddc84d2",
+   "base_commit": "644fb20753157ece2e23759308224accfeac6cca",
+   "language": "go",
+   "repository_url": "https://github.com/josephburnett/jd",
+   "title": "Reversible patch plans with public step records",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "9e47edd9e1f4df2dfbe9d6f570e4ede8668530c82be8bd4c990fb8247660180b",
+    "task.toml": "c3bca31bcbd89b1a55de9e8a6e374ec75769010a40d5ca6bc2a0093785832a7e",
+    "tests/config.json": "64b66c93c1938762149efdbc3678892aec5b71769c7b1074bd612f6b86ea12c7",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "e9cc35ce7100195940a6cef8fc8d812086ec1dc60d56536ba3d06967a5a8c08b",
+    "tests/test.sh": "9fe4c165d742fcafb03aa84005479b30e87a9ba846b163ef38656982f62f6e62"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-jd-cand-c05-r1b0-7994aee3",
+   "run": "official2-etree",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/round-1/cand-c05-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/build/etree-xml-diff-patch/josephburnett__jd/cand-c05-r1b0/task/syn-jd-cand-c05-r1b0-7994aee3",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-etree/accepted/syn-jd-cand-c05-r1b0-7994aee3",
+   "image": "snapshot:eeb45776-a639-4f34-af87-3240c577e2d4",
+   "base_commit": "4afc9e24f911c55e488364af483c35d7c307e7d1",
+   "language": "go",
+   "repository_url": "https://github.com/josephburnett/jd",
+   "title": "Explicit string comparison policies",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "249cbdd0a095c230014fcadc1d054ade0ee217c1088c4393d3955d4d56a1509a",
+    "task.toml": "873a691bdc27515d2328fc59ec6803808428e24f1e4e44b29087a2eabd95de62",
+    "tests/config.json": "42516422bb94cef336a1bec03f31b7996880fd58903a5c74bf4bdab04625d93c",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "e1af6ea8519d3f42a423c177cc7d25321d92bcdf1af292ede6247e576babfd6d",
+    "tests/test.sh": "aae81e233d53be45a1cde31413cd5f4fc8a27d0950ecec6af33a8000d6b4b34a"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-knex-cand-c01-r1b3-a888f2f2",
+   "run": "official2-kysely",
+   "why": "both",
+   "failure_match_verdict": "strong",
+   "reviewed_verdict": "strong",
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/build/kysely-window-grouping-helpers/knex__knex/round-1/cand-c01-r1b3/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/build/kysely-window-grouping-helpers/knex__knex/cand-c01-r1b3/task/syn-knex-cand-c01-r1b3-a888f2f2",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 0.6,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/accepted/syn-knex-cand-c01-r1b3-a888f2f2",
+   "image": "snapshot:70e23a6e-fa90-4d66-9c1c-1e561e503e04",
+   "base_commit": "40c190afa5a50e853fb53dd7bc9eb9a43bd13577",
+   "language": "typescript",
+   "repository_url": "https://github.com/knex/knex",
+   "title": "Composable subtotal grouping clauses",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "e24739323620d3a8e88b6315bf75961a895854e04f43a874eb6ed64206e64928",
+    "task.toml": "6a74ff69fc8f57538f64d4dcd1f42f0e9517210391dd0895b20b21e24e611dd4",
+    "tests/config.json": "300aa9823cec3497f3daca675bb507be414e72592c634c0d679cbccee2e19eda",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "affb84fe2974bc0bb79abf578267010b233c764fc405105ddcb286b7744b8e36",
+    "tests/test.sh": "a701dc511fb8c8b28c4baedbd6f43d497c0f0dad7b768e685ecd2f3531323278"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-knex-cand-c04-r1b0-b21e1e98",
+   "run": "official2-kysely",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/build/kysely-window-grouping-helpers/knex__knex/round-1/cand-c04-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/build/kysely-window-grouping-helpers/knex__knex/cand-c04-r1b0/task/syn-knex-cand-c04-r1b0-b21e1e98",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 1.0,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-kysely/accepted/syn-knex-cand-c04-r1b0-b21e1e98",
+   "image": "snapshot:81bc9d13-2b14-47d3-b2de-3aed538684b6",
+   "base_commit": "40c190afa5a50e853fb53dd7bc9eb9a43bd13577",
+   "language": "typescript",
+   "repository_url": "https://github.com/knex/knex",
+   "title": "Composable variadic grouping clauses",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "ae50d895692d5da192a09d28212745a027c419f3fb550ed69d7efa43cea96493",
+    "task.toml": "1c9b1d596e87cdf15e6b507db9efc03882e635f39c52105d75c446cb96d3fbb0",
+    "tests/config.json": "7b23af0b38c36c2d3158ba174ce8a04991c214f06223f80437396f4c5e840bf6",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "904a32d0917e27f5a15ce67342360162189aaaddd43568da8905b310415198c7",
+    "tests/test.sh": "b7872228ba6901ccfa3fb5172d12573bd928f1bbc1e7a8eff97bd1f39640f56f"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-pabot-cand-c03-r1b0-5f252c24",
+   "run": "official2-mobly",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-mobly/build/mobly-grouped-test-barriers/mkorpela__pabot/round-1/cand-c03-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-mobly/build/mobly-grouped-test-barriers/mkorpela__pabot/cand-c03-r1b0/task/syn-pabot-cand-c03-r1b0-5f252c24",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-mobly/accepted/syn-pabot-cand-c03-r1b0-5f252c24",
+   "image": "snapshot:78cfe4a1-6bd4-4190-a00b-2637100e782c",
+   "base_commit": "0d30f04e383c36a3ad8699256a6dc9cbdb127a1d",
+   "language": "python",
+   "repository_url": "https://github.com/mkorpela/pabot",
+   "title": "Execution-group lifecycle hooks with retained errors",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "80d9265d934cb93b5f81814bf7967591349128d5ca9b8fe990305117fac17ce7",
+    "task.toml": "d397bff626c3381ab8d7d16033239fe40a3bc3eb741cffb7a8ecd6a82c66d9b3",
+    "tests/config.json": "acf49f677ce8a02f1f2e3ee57a564a788bac8dc1a7420cab26e0f04025bdc7ae",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "c2866a569bbb3eaaf40c8b1b94c14621e3993aa6b06b33343c9ce263962f8fc6",
+    "tests/test.sh": "a429fe08ee52b6a9802abaa6a23e82506458aaffc23ccd9e4a26cf5a4f1cdf14"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-markdown-cand-c01-r1b0-ecd019d8",
+   "run": "official2-obsidian",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/round-1/cand-c01-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/cand-c01-r1b0/task/syn-markdown-cand-c01-r1b0-ecd019d8",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/accepted/syn-markdown-cand-c01-r1b0-ecd019d8",
+   "image": "snapshot:ce31b934-23d1-40e7-9797-2c4647e10190",
+   "base_commit": "aebcad29c37f983afa3d042919a0f23457fbaec0",
+   "language": "typescript",
+   "repository_url": "https://github.com/eslint/markdown",
+   "title": "Source-preserving heading indexes",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "003fa4007b254ccc61015b4570e44bda92fe6cc8286c1b8c2e9db1f7fdf8f63b",
+    "task.toml": "165fd25d25f4d5930a7be6e8545fcd217af0017f02d5f29b254489bb0be6484a",
+    "tests/config.json": "87c81d1bd1d1a77352dbbe4675e126169177d3fae6515dcdddd62a70c6c345f5",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "b511ae98f34950a054ccc43ab6b7d230822fe1a456a63749fe13d18b3a94bcd6",
+    "tests/test.sh": "eb17ffcc26f7254ffc264b6a3b861907c0e1e2feff46690d5c34b8880789cc98"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-markdown-cand-c01-r1b3-986c83f4",
+   "run": "official2-obsidian",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/round-1/cand-c01-r1b3/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/cand-c01-r1b3/task/syn-markdown-cand-c01-r1b3-986c83f4",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 7,
+    "reason": "similarity 7/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/accepted/syn-markdown-cand-c01-r1b3-986c83f4",
+   "image": "snapshot:50bf1aad-4535-4ebf-99bb-b89dd4e60082",
+   "base_commit": "aebcad29c37f983afa3d042919a0f23457fbaec0",
+   "language": "typescript",
+   "repository_url": "https://github.com/eslint/markdown",
+   "title": "Managed heading indexes with optional plain labels",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "2230ebc9d14373d493ec2c17827409ae94cb394b0092d970157a91324b616714",
+    "task.toml": "ea6f79c8e95683d32f626302792cc5d351f3a3f825f4e0bb3d39d9836e0f58ea",
+    "tests/config.json": "008f2b27e82f0983800826f6bb0438733d51a72e7231a2b4e3fb6aa72fc34a41",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "09be9590852931bc3091fa394e9a52a8367c2c61b28faabc7c87871a86402af3",
+    "tests/test.sh": "4cd4a3eb40ff1a60860253387c8227af3040f97830b83f6bbb7bb760040a61a8"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-markdown-cand-c01-r1b4-7673d9a2",
+   "run": "official2-obsidian",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/round-1/cand-c01-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/cand-c01-r1b4/task/syn-markdown-cand-c01-r1b4-7673d9a2",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/accepted/syn-markdown-cand-c01-r1b4-7673d9a2",
+   "image": "snapshot:7ec389f5-4732-4a14-b98c-799d0eff2186",
+   "base_commit": "aebcad29c37f983afa3d042919a0f23457fbaec0",
+   "language": "typescript",
+   "repository_url": "https://github.com/eslint/markdown",
+   "title": "Maintain a Markdown heading index",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "757368eb4593ef07f0df1dc93170e33a1fa626a464bbdd687ed01375c0dd036c",
+    "task.toml": "890ffc778810dd7169e340eaeeb01281018ac6fcd8a651657e0199e41889c722",
+    "tests/config.json": "da7949a98359bef6e4d4345dd13070738b2afb6350eb5f711c3ca2ffb38004c8",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "28b36a46a9faab88c60bd52ea1be6aa89d59d582b07e20601e8187fedae7dfbe",
+    "tests/test.sh": "0e131ab7bb1e2bd5e23f473723512ce46be764f84e950c6d886d7f986ca57e37"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-markdown-cand-c04-r1b0-3b72285b",
+   "run": "official2-obsidian",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/round-1/cand-c04-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/build/obsidian-linter-auto-table-of-contents/eslint__markdown/cand-c04-r1b0/task/syn-markdown-cand-c04-r1b0-3b72285b",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-obsidian/accepted/syn-markdown-cand-c04-r1b0-3b72285b",
+   "image": "snapshot:232395b0-bcfe-4009-a7e3-0e8694e56264",
+   "base_commit": "aebcad29c37f983afa3d042919a0f23457fbaec0",
+   "language": "typescript",
+   "repository_url": "https://github.com/eslint/markdown",
+   "title": "Source-preserving heading outlines",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "3c3e53596d8a6cbdb0ab234919d2c59e0a870fe2b7fc44d9d0d58717617d7759",
+    "task.toml": "655f846f1dfafebac669eff147a6c8533d49ad73074df8bc8aed85fa68b84f67",
+    "tests/config.json": "e9ca132e6d5fe8593bc87ac37e76799446366282a621ade95196f5d1243a715e",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "abb3f2d138ab2c9470476ab01ce58b378b17bff92cd0103710d4655965d7683d",
+    "tests/test.sh": "771f61b6c1d8a1946e81156ef5dcfec2af4b81ea08fb2c23727f8399d2537177"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-goleveldb-cand-c01-r1b1-7523606b",
+   "run": "official2-pebble",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/round-1/cand-c01-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/cand-c01-r1b1/task/syn-goleveldb-cand-c01-r1b1-7523606b",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 0.8,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/accepted/syn-goleveldb-cand-c01-r1b1-7523606b",
+   "image": "snapshot:34980843-308f-44a3-a497-22214144c3ec",
+   "base_commit": "58842bddc01050bd0ddd2f28d37992235f72e0b9",
+   "language": "go",
+   "repository_url": "https://github.com/syndtr/goleveldb",
+   "title": "Journal sync receipts and durability fences",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "c4f6047899f41fa32347dc7be62ffe03ecadfbf3d4d4340c6c158719d6566da5",
+    "task.toml": "34ed0ed04931af61f991ed70d129d02c49088b1dbaa5b64d15c43ad5a25fde0f",
+    "tests/config.json": "655ef08b12e1c2c705e1d6880213e7fd4683d483881c5a600f9f3ba720a4189e",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "7762bbd6689cf19d86ab329efae9fcc22b0e99970adfc2f704f15451660cd502",
+    "tests/test.sh": "d392e75a110e1cc5d417531eadfa05be5336c108a4890cce36c3d5de9718b6b0"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-goleveldb-cand-c01-r1b2-b09a37b8",
+   "run": "official2-pebble",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/round-1/cand-c01-r1b2/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/cand-c01-r1b2/task/syn-goleveldb-cand-c01-r1b2-b09a37b8",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/accepted/syn-goleveldb-cand-c01-r1b2-b09a37b8",
+   "image": "snapshot:d6d514c9-fcaf-4179-b701-24beba05b8e7",
+   "base_commit": "3c826f756bbdf1a3b2ab68196124c3a210238067",
+   "language": "go",
+   "repository_url": "https://github.com/syndtr/goleveldb",
+   "title": "Asynchronous compaction tickets with cancellable waits",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "1fa95a901a456d7a63a16ba145b91ee2328a6e3724001e45a05e9182ad4e9f5c",
+    "task.toml": "07961b64806a1b4353e9fa44c218afc2ffbea97ae054e2585046857878ae2ab4",
+    "tests/config.json": "b544bd445f8380fcb4eb89cbb49c91f69a9db7e9400cab64de6fb85a5d3b4576",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "2516b37fa4715637f42282beaf70d247d1c9e14d2e9a54e5d40a9843f18bf157",
+    "tests/test.sh": "12e2b1132bc6ffd54acf7c6de035bde442c3575100a855531571e2d09e7950a5"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-goleveldb-cand-c01-r1b4-958e653b",
+   "run": "official2-pebble",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/round-1/cand-c01-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/cand-c01-r1b4/task/syn-goleveldb-cand-c01-r1b4-958e653b",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.6,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/accepted/syn-goleveldb-cand-c01-r1b4-958e653b",
+   "image": "snapshot:be563556-6b68-4bd8-b20f-659abac0b936",
+   "base_commit": "58842bddc01050bd0ddd2f28d37992235f72e0b9",
+   "language": "go",
+   "repository_url": "https://github.com/syndtr/goleveldb",
+   "title": "Deferred WAL sync receipts",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "1ecaa7fc8607f1d79bdf8f597a2ff161e0b3362dd2d7a82f1024029093e3a47b",
+    "task.toml": "094e838d42fdf5c5086496d33a8da769a97e10e17f6b7f764dd696f8ad21a7e2",
+    "tests/config.json": "f9981af2937c35d5896f5aac32ff594f2a2ef41c285fe0a831c0e69eb3caedd6",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "7f2af030c0fc560f7d5f7c32d212082bf30d7742cc77d45c3816f29da5e6762e",
+    "tests/test.sh": "a85943cc7e744906e68b134b9ca99d07f16a3118d2e7c4d8da90d27a3017de02"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-goleveldb-cand-c02-r1b0-e5f8b461",
+   "run": "official2-pebble",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/round-1/cand-c02-r1b0/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/cand-c02-r1b0/task/syn-goleveldb-cand-c02-r1b0-e5f8b461",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/accepted/syn-goleveldb-cand-c02-r1b0-e5f8b461",
+   "image": "snapshot:1f17775a-00c4-402b-90fd-86e3fcc1fa26",
+   "base_commit": "13e43c8821db432d7b0f49c65918c2916cd0f663",
+   "language": "go",
+   "repository_url": "https://github.com/syndtr/goleveldb",
+   "title": "Asynchronous manual compaction jobs",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "b89a33aa0df94ff63989fbb40c1bf1a03840d775b833aeb36a72ecf87d9458ff",
+    "task.toml": "007a83be7d5ac2b97f3e57ba3258292ae750eb340b031cb36975b5883ccbc7c2",
+    "tests/config.json": "90d15e77abaafadb718b23227f1bcb100497c520048125cbb461468f6296761f",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "d5b6ef11b1e7e63d73966386a51f41ab3b8de4d89cb43ca53be704ba1bd8ede4",
+    "tests/test.sh": "db4b14e41a9a5d0e8b3a920afbed6de709640e2d8c5d4ed6802f1d25a6011901"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-goleveldb-cand-c03-r1b4-9045ebe3",
+   "run": "official2-pebble",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/round-1/cand-c03-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/build/pebble-durability-wait-apis/syndtr__goleveldb/cand-c03-r1b4/task/syn-goleveldb-cand-c03-r1b4-9045ebe3",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-pebble/accepted/syn-goleveldb-cand-c03-r1b4-9045ebe3",
+   "image": "snapshot:1f278a72-e0ad-4ddf-9a9e-70d8a1376e0a",
+   "base_commit": "58842bddc01050bd0ddd2f28d37992235f72e0b9",
+   "language": "go",
+   "repository_url": "https://github.com/syndtr/goleveldb",
+   "title": "Waitable sync fences with immutable results",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "14ab1b9f51cc48bac6d25bca911dbdf652b063f36f8f69737c68031793ef0b61",
+    "task.toml": "bf7cd57aa398d79be4cb2dfea9adee0a3517217466f765045b5a29604d8eb745",
+    "tests/config.json": "3cab1684f2b4fdc6286252c285aa3baf36b00fe2e488bcf77d4088032c5e0662",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "f27187b0086f400ddf5aa56ae82ede088935bda1304e65479c3e0e90b248a3cb",
+    "tests/test.sh": "88c12aad198038d8fdbc90c6c7bcc9548de7f1b643993adc06338fc76d914544"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-kapacitor-cand-c02-r1b1-27100f50",
+   "run": "official2-promreload",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/build/prometheus-transactional-reload-status/influxdata__kapacitor/round-1/cand-c02-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/build/prometheus-transactional-reload-status/influxdata__kapacitor/cand-c02-r1b1/task/syn-kapacitor-cand-c02-r1b1-27100f50",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.6,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/accepted/syn-kapacitor-cand-c02-r1b1-27100f50",
+   "image": "snapshot:7cbb24fc-03c6-43e0-ac56-49894be4445e",
+   "base_commit": "0a0483a8f2d7f326977b4703b00ff361859d10f0",
+   "language": "typescript",
+   "repository_url": "https://github.com/influxdata/kapacitor",
+   "title": "Atomic configuration batches with durable attempt status",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "08d882e9f36e2845bed179340ed3f31ae68778bdfecb72c5b9e2cb2d01863246",
+    "task.toml": "584d663dcd562c32e0e0e0e3862509ce7cd9667294112a0dacc7779dfd4198e0",
+    "tests/config.json": "16f0821760bdefccf8b3a737902a73159523e08e0fe37115e844412a42e5f7ec",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "77249b7ee4113889c82e153b6a32dff90bdb806d1df06d710cf3761865e3ce2e",
+    "tests/test.sh": "6c5fcbbca840e4fbcc518653f07ac2d558b916a54b0b2c1ded41ac5ff67f5fde"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-kapacitor-cand-c05-r1b1-55fcf64d",
+   "run": "official2-promreload",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/build/prometheus-transactional-reload-status/influxdata__kapacitor/round-1/cand-c05-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/build/prometheus-transactional-reload-status/influxdata__kapacitor/cand-c05-r1b1/task/syn-kapacitor-cand-c05-r1b1-55fcf64d",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 0.8,
+    "similarity": 7,
+    "reason": "similarity 7/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-promreload/accepted/syn-kapacitor-cand-c05-r1b1-55fcf64d",
+   "image": "snapshot:68bcbc79-df3b-4731-a950-2dc5c7eef3e6",
+   "base_commit": "0a0483a8f2d7f326977b4703b00ff361859d10f0",
+   "language": "typescript",
+   "repository_url": "https://github.com/influxdata/kapacitor",
+   "title": "Transactional configuration override receipts",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "5ec079919b37759cd43460924913768a50355c191bf783b270a7564f08374bab",
+    "task.toml": "5a370d965318e492be657990c5f9c7eeceb06f2aca75ca2fab611e1d3d87c37f",
+    "tests/config.json": "e7f36b29fd74f611d0f02ce0b6d6aa19a4eb118db23a8244a38ea5a75ffd8f44",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "4539d6629ad61fc462e52cdde209ae75c9569a7845481dcb83435c39b239c93b",
+    "tests/test.sh": "a1ab3e3aa243688d985253fd8dccb2b4bca194c700dddcf873bce4862166b710"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-risor-cand-c01-r1b4-74844668",
+   "run": "official2-tengo-callable",
+   "why": "strong",
+   "failure_match_verdict": "strong",
+   "reviewed_verdict": "strong",
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-callable/build/tengo-callable-instance-isolation/deepnoodle-ai__risor/round-1/cand-c01-r1b4/metrics.json"
+   ],
+   "candidate_accept": false,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-callable/build/tengo-callable-instance-isolation/deepnoodle-ai__risor/cand-c01-r1b4/task/syn-risor-cand-c01-r1b4-74844668",
+   "rates": {
+    "student_rate": 0.4,
+    "teacher_clean_rate": 0.6,
+    "similarity": null,
+    "reason": "pass rates out of range (student 0.40 > 0.2 or clean teacher 0.60 < 0.6)"
+   },
+   "task_dir_kind": "scored candidate (not accepted; failure-match strong)",
+   "probe_copies": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-callable/build/tengo-callable-instance-isolation/deepnoodle-ai__risor/round-1/probe-cc69cee8/tasks/syn-risor-cand-c01-r1b4-74844668"
+   ],
+   "probe_copy_identical": true,
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-callable/build/tengo-callable-instance-isolation/deepnoodle-ai__risor/cand-c01-r1b4/task/syn-risor-cand-c01-r1b4-74844668",
+   "image": "snapshot:3d8ea424-f9eb-4d93-832c-d2fb9ff2a23f",
+   "base_commit": "e5b3cc226dff39b95e5607b72dcec7839b9af8b0",
+   "language": "go",
+   "repository_url": "https://github.com/deepnoodle-ai/risor",
+   "title": "Rebind VM-owned callable handles",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "714c01ecc9bf4344dba68fca369acd6ba205e287c9ddf95a7b93707438ab51c9",
+    "task.toml": "cab72999b3361d2bb3941239910cf4f75caaad0f772e722d10150fab5de8be14",
+    "tests/config.json": "60cad7b601b01329f3db13185d9a4ec5cebb794e35f03fc6b508c430f5255d83",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "3e399c8a35b376dab25864b0acb86867735f4fd0f68258edebd130d00185d1d4",
+    "tests/test.sh": "d51a386982ab2f5a4744b6f2724d1b4573494e9f34e4772ad1334106392f44e5"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c01-r1b1-0f53e898",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c01-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c01-r1b1/task/syn-otto-cand-c01-r1b1-0f53e898",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c01-r1b1-0f53e898",
+   "image": "snapshot:eff4faf7-9ed9-4211-9f2c-1d0c98f043ea",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Indexed binding patterns with composable defaults",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "a404c679041c1ee3bb0fac15f69cfdc4dd8da64f9f4259e48d12afcb791039d4",
+    "task.toml": "f30a98e5ff36235c798a3408a40746252988d1b29ce6f67f095a9b750b0fa121",
+    "tests/config.json": "546064af935d615d3fe49065b702315bb315be9d719b7866ebe843c79730be8f",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "4441c07f8b6388cda52fe545960028480bff532c599ba02fe3b990026021841c",
+    "tests/test.sh": "c9d18dee694974f803a00ebd0f01c2a6794841fb4a058167aebb178cd3662d9f"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c02-c19003e2",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-0/cand-c02/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c02/task/syn-otto-cand-c02-c19003e2",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c02-c19003e2",
+   "image": "snapshot:e70afa87-b605-4dcf-81a1-8c514162bab6",
+   "base_commit": "45ac08f35728691c51890ea1b20d12260e09bcbe",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Live Go struct properties with tags, embedded fields, and nil-valued members",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "7c2998c940fdd94edbfd1a6e0f0e8fd85ee8ea85f53e2f5a14a232ea54a03a80",
+    "task.toml": "857fff7cfd41e1379fe8aca150f5fa08b585e3e43743d849cb079a9853b12762",
+    "tests/config.json": "ba733e05eff6679e2320e58c50c4ac21ddcbd52bc5c66593b9d901c6ba941f6d",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "55e9b59112347fec0ad959fd16303a5fb83b13c12d67222eaf293e5060888e42",
+    "tests/test.sh": "0fc3cb7c319fc187dfe9ed7766722ec1158352e64b34744f7d80a8cccd4165a2"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c02-r1b1-a4d613c7",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "partial",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c02-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c02-r1b1/task/syn-otto-cand-c02-r1b1-a4d613c7",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 1.0,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c02-r1b1-a4d613c7",
+   "image": "snapshot:b0313f84-eb88-4495-b939-d6a913f70d58",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Recursive argument adapters for native Go calls",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "dddb1c13a505e21a7bba8313cce32622565d599da8233af13cc93faac8b5a2d2",
+    "task.toml": "5a53e3d5734f1c68b2427361266f807f0743911e467bc13f91a473c430d24b3b",
+    "tests/config.json": "e9187a8b708d490689eedb78bbe2fac4b813bae615aa624c98eaa2cadc04f8e0",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "2cad7a088f5eb3bcd68da51bcaf2f4ef307235f2c0929809ddf6872a7c37e840",
+    "tests/test.sh": "e2822c6b7187ff0e71f88a400cb87a32ed533057036ec731dbbe0904914920d3"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c03-r1b3-07071613",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c03-r1b3/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c03-r1b3/task/syn-otto-cand-c03-r1b3-07071613",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.6,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c03-r1b3-07071613",
+   "image": "snapshot:f4ab34cd-963b-4faa-b710-f711a6783338",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Ordered projections with absence-only defaults",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "6f4efb54fc03bd73d292c317d7af41aaaa655ce27c6cfd8f7d98d13bc7bff654",
+    "task.toml": "eeb0d4e152864bbc6f3b424bc91b9d9c29263204e0bf2022049e669aa10957f4",
+    "tests/config.json": "2d5d0be08fb86aabb42df05ce619e02626fe2b14f1ffbe0d29b8ba1244cd897e",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "035835c5ce804c5cfd29e838b33817de0140e384887db71c16f21f0193e75669",
+    "tests/test.sh": "f4a517e8b55b50e83a3fb6a2515ff0abb27a0881687f4efa2ead857cfb367abd"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c04-r1b1-8b8a5c41",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c04-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c04-r1b1/task/syn-otto-cand-c04-r1b1-8b8a5c41",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c04-r1b1-8b8a5c41",
+   "image": "snapshot:f8633adc-5650-41d0-aab5-c46a35b135ba",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Recursive destructuring bindings in declarations and parameters",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "3e8eb6299d9186aa00e4198a308b9f9e6d85f7ec2e2d43ee31227187e61465bf",
+    "task.toml": "9d43b0226a513880abcf4ece3cc8eb75f9700ef27f6f7ce32b1da69e3812f4c4",
+    "tests/config.json": "d0832d5d96f161fe968cfb21d1c3c3193fb0ac8d896c96e896d5ffafd67c1006",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "312e5dc8f075c51deecd850ff72a56351a69bb1c94f9c8f92373d5b262256572",
+    "tests/test.sh": "6981ec4ea81b1c15c5f55dbd0482b1f04864196da373bdc3dfa7f530ae4392ad"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c05-r1b1-661a75c4",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c05-r1b1/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c05-r1b1/task/syn-otto-cand-c05-r1b1-661a75c4",
+   "rates": {
+    "student_rate": 0.0,
+    "teacher_clean_rate": 0.6,
+    "similarity": 8,
+    "reason": "similarity 8/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c05-r1b1-661a75c4",
+   "image": "snapshot:6d98a9ec-5485-4145-8f7c-4de3cb4a3a98",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Recursive binding patterns in Otto",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "11d165248106e6bb5d48672f58fcbbc67f400942594169c202dec5800494d91c",
+    "task.toml": "780e2cefd7a5ef417f4e2ac1fe3b05e5af56e2641aca8eb40a31ff23f89fc5ea",
+    "tests/config.json": "b8dda66a9bb51605ef80df6e933882bc23e7029350c49e6de859661beb7bcef5",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "b180a8b07ba1adeb7fdf714fcf88ef8ce0efb7053c810b24dfe59fed4833b4b1",
+    "tests/test.sh": "c517a82311d1f2c877880b85ebeddb1ec6d955af94659c4102075239a64e488f"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  },
+  {
+   "task_id": "syn-otto-cand-c05-r1b4-da7cd37c",
+   "run": "official2-tengo-destructuring",
+   "why": "accepted",
+   "failure_match_verdict": "weak",
+   "reviewed_verdict": null,
+   "candidate_metrics": [
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/round-1/cand-c05-r1b4/metrics.json"
+   ],
+   "candidate_accept": true,
+   "candidate_task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/build/tengo-destructuring-bindings/robertkrimen__otto/cand-c05-r1b4/task/syn-otto-cand-c05-r1b4-da7cd37c",
+   "rates": {
+    "student_rate": 0.2,
+    "teacher_clean_rate": 0.8,
+    "similarity": 6,
+    "reason": "similarity 6/10"
+   },
+   "task_dir_kind": "accepted",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official2-tengo-destructuring/accepted/syn-otto-cand-c05-r1b4-da7cd37c",
+   "image": "snapshot:dbc85158-206d-4581-813b-23ab02b5adf8",
+   "base_commit": "bd12cd7efb7d3c9d65e899bb7230811b2694811e",
+   "language": "go",
+   "repository_url": "https://github.com/robertkrimen/otto",
+   "title": "Recursive catch binding patterns",
+   "verifier_timeout_sec": 1800.0,
+   "agent_timeout_sec": 5400.0,
+   "cpus": 2,
+   "memory_mb": 8192,
+   "grader_sha256": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+   "tests": [
+    "config.json",
+    "grader.py",
+    "test.patch",
+    "test.sh"
+   ],
+   "digests": {
+    "instruction.md": "ddb343c7f0427dae21700d7f970eb9255d917da97db140ce31774b1834082397",
+    "task.toml": "d7d8ea9c0c0a61c7a6f124bc280d3f7142f12a3dd69e7d6aae0408a82c72d6b7",
+    "tests/config.json": "8dd511dd69301cc0ea3e534520cfebc9312f1b76ec628353143bc484623d0319",
+    "tests/grader.py": "b61ee8acaaaf0bf618e58a7cd353422e54d14f660232fe666673dcc22d975769",
+    "tests/test.patch": "5b5ad72d240235aae8713e1c377b4317ed263fc4aa76dfc5a8e5057165f941d4",
+    "tests/test.sh": "69fa3513e8e81fd1e336aab3845772c02513dc7c7f954255b922ab47032fa175"
+   },
+   "dataset_row_ok": true,
+   "problems": [],
+   "grader_is_pipeline_grader": true
+  }
+ ],
+ "derived_at": "2026-10-28T16:59:25-0700"
+}

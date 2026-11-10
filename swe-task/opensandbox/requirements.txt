@@ -1,0 +1,2 @@
+# Tested with Python 3.13.14; install into a CPU-node-local environment.
+opensandbox==0.1.15

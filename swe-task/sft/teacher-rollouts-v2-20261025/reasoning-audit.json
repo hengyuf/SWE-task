@@ -1,0 +1,42 @@
+[
+ {
+  "source": "glm",
+  "attempts": 250,
+  "replies_200": 44708,
+  "tool_call_replies": 44435,
+  "pct_tool_call_replies_with_reasoning": 55.6,
+  "export_pct_action_turns_with_reasoning": 55.0,
+  "export_action_turns": 42785,
+  "unreasoned_tool_replies": 19734,
+  "unreasoned_with_reported_reasoning_field": 19734,
+  "unreasoned_reported_reasoning_tokens_gt0_pct": 0.0,
+  "unreasoned_reported_reasoning_tokens_mean": 0.0,
+  "reasoned_reported_reasoning_tokens_median": 196,
+  "completion_tokens_median_unreasoned": 59.0,
+  "completion_tokens_median_reasoned": 385,
+  "visible_tokens_est_median_unreasoned": 53.25,
+  "excess_completion_tokens_median_unreasoned": 2.5,
+  "excess_completion_tokens_median_reasoned": -2.0,
+  "pct_unreasoned_with_visible_content": 6.2
+ },
+ {
+  "source": "deepseek",
+  "attempts": 250,
+  "replies_200": 38813,
+  "tool_call_replies": 38563,
+  "pct_tool_call_replies_with_reasoning": 57.2,
+  "export_pct_action_turns_with_reasoning": 57.2,
+  "export_action_turns": 38563,
+  "unreasoned_tool_replies": 16487,
+  "unreasoned_with_reported_reasoning_field": 11,
+  "unreasoned_reported_reasoning_tokens_gt0_pct": 0.0,
+  "unreasoned_reported_reasoning_tokens_mean": 0.0,
+  "reasoned_reported_reasoning_tokens_median": 108,
+  "completion_tokens_median_unreasoned": 103,
+  "completion_tokens_median_reasoned": 397.0,
+  "visible_tokens_est_median_unreasoned": 52.5,
+  "excess_completion_tokens_median_unreasoned": 48.75,
+  "excess_completion_tokens_median_reasoned": 56.375,
+  "pct_unreasoned_with_visible_content": 2.7
+ }
+]

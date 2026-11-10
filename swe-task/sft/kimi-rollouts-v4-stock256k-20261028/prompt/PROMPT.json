@@ -1,0 +1,25 @@
+{
+ "sentence": "Before every tool call, always reason first: think through what you have learned so far and why the next action is the right one, and never call a tool without reasoning about it first.",
+ "sentence_sha256": "5a7b4e3cb045b73ddba69fc92ed6f7e3905c07f591faa6b1194f00701c18f11b",
+ "opencode_default_prompt": {
+  "file": "prompt/opencode-1.17.11-default.txt",
+  "sha256": "962fbf3cb3ec659c9a5244425ee2e7bb141ad4428f489a630a7738566880dc6a",
+  "chars": 8528,
+  "provenance": "anomalyco/opencode tag v1.17.11 packages/opencode/src/session/prompt/default.txt (SystemPrompt.provider() for model id 'dummy_model'); byte-identical to the start of the previous Kimi system message (export/kimi_pass_batch_20261021/harness.json canonical)"
+ },
+ "injection": "OpenCode config agent.build.prompt = stock default prompt + '\\n' + sentence + '\\n'; OpenCode 1.17.11 LLMRequestPrep.prepare() uses agent.prompt in place of SystemPrompt.provider(model) and joins it with the environment/instructions/skills parts by '\\n', so the system message = old system message with sentence + '\\n\\n' inserted right before 'You are powered by the model named ...'",
+ "build_prompt": {
+  "file": "prompt/build-prompt.txt",
+  "sha256": "727afb569248fd450b6e716dc66e793cfe9f85f1013ee0fe88fe86b42f107d67",
+  "chars": 8715
+ },
+ "harness_base_old": {
+  "sha256": "b477782f9669dec1a687e0d18b8e65c1616e1a252c0023738806e20db8e09fac",
+  "chars": 8620,
+  "note": "build_batch.py split_system 'base' (text before the <env> block), b477782f... in harness.json"
+ },
+ "harness_base_new_expected": {
+  "sha256": "2c57084188fb449f7e9015247a491f13df2e383c13ccdcadd1cfc188262d29b5",
+  "chars": 8807
+ }
+}

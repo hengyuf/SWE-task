@@ -1,0 +1,117 @@
+--- a/nemo_gym/rollout_collection.py
++++ b/nemo_gym/rollout_collection.py
+@@ -357,2 +357,20 @@
++def _aggregate_metric_entry(result: dict[str, Any]) -> dict[str, Any]:
++    """Keep native aggregate fields while removing heavyweight rollout payloads."""
++    entry = {
++        key: value
++        for key, value in result.items()
++        if key not in ("response", "responses_create_params", "ng_agent_observations",
++                       "ng_model_call_capture", NG_TRAJECTORY_KEY)
++    }
++    response = result.get("response") or {}
++    response_metadata = {
++        key: response[key] for key in ("usage", "incomplete_details")
++        if response.get(key) is not None
++    }
++    if response_metadata:
++        entry["response"] = response_metadata
++    return entry
++
++
+ def _rollout_for_export(result: dict[str, Any]) -> dict[str, Any]:
+     """Return an exporter view without the complete trajectory or raw capture payloads."""
+@@ -1291,5 +1309,8 @@
+             # Returned rows are sorted by (r[TASK_INDEX_KEY_NAME], r[ROLLOUT_INDEX_KEY_NAME])
+ 
++            from deepswe_campaign import filter_dispatch_rows
++            input_rows = filter_dispatch_rows(input_rows)
++
+             # Resolve task_source rows to agents BEFORE the materialized write: materialized
+             # inputs are the run-scoped artifact and must carry the resolved agent_ref (custom
+             # drivers, e.g. gdpval's multistage orchestrator, read it from there). Guarded so
+@@ -1463,4 +1484,6 @@
+             rows.append(row)
+             results.append(result)
++            from deepswe_campaign import persist_native_result
++            persist_native_result(row, result)
+             serialized = orjson.dumps(result)
+ 
+@@ -1505,5 +1528,14 @@
+                     await retire_rollout_token_capture(rollout_id, token_source, token_capture_build)
+ 
++            if row.get("_atp_attempt_dir") and not no_persist:
++                # Both complete records must be durable before shared task/list references
++                # relinquish their payloads. Aggregate metrics need only this native view.
++                os.fsync((failures_file if failure_class is not None else results_file).fileno())
++                retained = _aggregate_metric_entry(result)
++                result.clear()
++                result.update(retained)
++                del serialized
++
+             counts_left[row[AGENT_REF_KEY_NAME]["name"]] -= 1
+             if counts_left[row[AGENT_REF_KEY_NAME]["name"]] <= 0:
+                 counts_left.pop(row[AGENT_REF_KEY_NAME]["name"])
+@@ -1670,25 +1702,1 @@
+-            stripped = []
+-            for r in agent_result_list:
+-                entry = {
+-                    k: v
+-                    for k, v in r.items()
+-                    if k
+-                    not in (
+-                        "response",
+-                        "responses_create_params",
+-                        "ng_agent_observations",
+-                        "ng_model_call_capture",
+-                        NG_TRAJECTORY_KEY,
+-                    )
+-                }
+-                response = r.get("response") or {}
+-                response_metadata = {}
+-                usage = response.get("usage")
+-                if usage is not None:
+-                    response_metadata["usage"] = usage
+-                incomplete_details = response.get("incomplete_details")
+-                if incomplete_details is not None:
+-                    response_metadata["incomplete_details"] = incomplete_details
+-                if response_metadata:
+-                    entry["response"] = response_metadata
+-                stripped.append(entry)
++            stripped = [_aggregate_metric_entry(result) for result in agent_result_list]
+@@ -1923,12 +1931,20 @@
+ 
+         async def _post_subroutine(row: Dict) -> _CompletedRollout:
++            from deepswe_admission import admission_slot
+-            async with semaphore:
++            async with semaphore, admission_slot(row):
++                from deepswe_campaign import AdmissionClosed, prepare_dispatch, dispatch_finished, dispatch_failed
+                 started_at = time()
+                 res = None
+                 try:
+-                    res = await server_client.post(server_name=row["agent_ref"]["name"], url_path="/run", json=row)
++                    prepare_dispatch(row)
++                    regrade = row.get("_atp_regrade", False)
++                    res = await server_client.post(
++                        server_name="deepswe_opencode_resources_server" if regrade else row["agent_ref"]["name"],
++                        url_path="/verify" if regrade else "/run", json=row,
++                    )
+                     await raise_for_status(res)
+                     result = await get_response_json(res)
++                    dispatch_finished(row, result)
+                     # Independently-measured task wall-clock (ng_perf.total_latency_ms), not derived
+                     # from summed model-call/tool latencies to account for additional overhead.
+                     rollout_latency_ms = (time() - started_at) * 1000
+@@ -1935,5 +1951,12 @@
+                     return _CompletedRollout(row=row, result=result, rollout_latency_ms=rollout_latency_ms)
++                except AdmissionClosed as e:
++                    from deepswe_campaign import admission_closed
++                    admission_closed(str(e))
++                    return _CompletedRollout(
++                        row=row, result=_agent_request_failure_row(e, None), rollout_latency_ms=None,
++                    )
+                 except Exception as e:
++                    dispatch_failed(row, e, getattr(res, "status", None))
+                     print(
+                         "[rollout_collection] /run failed "
+                         f"status={getattr(res, 'status', None)} "

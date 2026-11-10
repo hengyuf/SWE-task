@@ -1,0 +1,1 @@
+Before every tool call, always reason first: think through what you have learned so far and why the next action is the right one, and never call a tool without reasoning about it first.

@@ -1,0 +1,86 @@
+{
+  "created_at": "2026-11-08T19:50:04-0800",
+  "roots": {
+    "atp": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp",
+    "tasksall": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108"
+  },
+  "entries": [
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/upstream/deepswe_capture.py",
+      "root": "atp",
+      "target": "upstream/deepswe_capture.py",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/upstream/deepswe_capture.py",
+      "mode": "0444",
+      "sha256": "b1babe29bfe228fbc3808bdc6bffb6daac475fe798e9dd17720744b186949fe8",
+      "bytes": 43655,
+      "pre_install_sha256": "absent",
+      "rollback": null
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/scripts/deepswe_capture.py",
+      "root": "atp",
+      "target": "scripts/deepswe_capture.py",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/scripts/deepswe_capture.py",
+      "mode": "0644",
+      "sha256": "56f34ab96f42dca3a7561ca2ffb5d3d91d185ce32f8a45f89ea4d00ed019d89d",
+      "bytes": 45312,
+      "pre_install_sha256": "b1babe29bfe228fbc3808bdc6bffb6daac475fe798e9dd17720744b186949fe8",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/atp/scripts/deepswe_capture.py"
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/hengyuf-changes.diff",
+      "root": "atp",
+      "target": "hengyuf-changes.diff",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/hengyuf-changes.diff",
+      "mode": "0644",
+      "sha256": "264148e56bab3c5ffd3e6fb230100e3832c12f5c73ddd3028edaa8eb3402b1ab",
+      "bytes": 13084,
+      "pre_install_sha256": "271c946a30e422a4c41d0b94645efb89f973f48fa72fa1be351150143fe4ddd4",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/atp/hengyuf-changes.diff"
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/tools/check_hengyuf_changes.py",
+      "root": "atp",
+      "target": "tools/check_hengyuf_changes.py",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/tools/check_hengyuf_changes.py",
+      "mode": "0644",
+      "sha256": "2ce48868d53ac07d5c325b45972294eea0de6aa468ce273741292fa0d1b41403",
+      "bytes": 35097,
+      "pre_install_sha256": "49dff1122ebe288714f03cb3c718fe7550ea5d04c44de45fb9c320d3ad6add7f",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/atp/tools/check_hengyuf_changes.py"
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/PROVENANCE.json",
+      "root": "atp",
+      "target": "PROVENANCE.json",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/PROVENANCE.json",
+      "mode": "0644",
+      "sha256": "4eb393e21f60fcdfea4f829c4e0a5564777a27a84b00ff539f937fabef121a6f",
+      "bytes": 26800,
+      "pre_install_sha256": "55680d515d2e3b1a8826e0c933040e451a4ff64f921d8eb7b9ef782dfd93f5b8",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/atp/PROVENANCE.json"
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/app/README.md",
+      "root": "atp",
+      "target": "README.md",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp/README.md",
+      "mode": "0644",
+      "sha256": "ad77cbb326eafefb8d4ac01015e795410264ba4a2599e3f3a0a585727978bea8",
+      "bytes": 11150,
+      "pre_install_sha256": "cdb145c6050b20fe9fb66af57563c582d352c2a64c06a0d0bae1ae0d79e231be",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/atp/README.md"
+    },
+    {
+      "staged": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/capture_patch.py",
+      "root": "tasksall",
+      "target": "capture_patch.py",
+      "target_path": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/capture_patch.py",
+      "mode": "0644",
+      "sha256": "8ca7f82826e2923dc97e90c45b6d935b6939e2bb328b9af441fd295f4594f7d0",
+      "bytes": 4115,
+      "pre_install_sha256": "1823c1050bc9c7a3582ba4e450ca317955c0b3c639be2f5406df300923c5afdb",
+      "rollback": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/rollback/tasksall/capture_patch.py"
+    }
+  ]
+}

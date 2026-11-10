@@ -1,0 +1,1258 @@
+{
+ "source": "kimi-pass-v2-20261023 selection, source hengyuf (97 tasks)",
+ "excluded": "97 Baihe tasks: their snapshots are not accessible (HTTP 404)",
+ "tasks": [
+  {
+   "task_id": "syn-risor-cand-c03-b214824f",
+   "run": "official1-absslices",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-absslices/build/abs-stepped-slices/deepnoodle-ai__risor/round-0/probe-c648ae7b/tasks/syn-risor-cand-c03-b214824f",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-risor-cand-c03-r1b2-e765ed15",
+   "run": "official1-absslices",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-absslices/accepted/syn-risor-cand-c03-r1b2-e765ed15",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2"
+   ]
+  },
+  {
+   "task_id": "syn-risor-cand-c05-r1b2-3718460d",
+   "run": "official1-absslices",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-absslices/accepted/syn-risor-cand-c05-r1b2-3718460d",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-gpython-cand-c01-r1b1-765875d9",
+   "run": "official1-anko",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-anko/accepted/syn-gpython-cand-c01-r1b1-765875d9",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gpython-cand-c04-r1b1-e954ad27",
+   "run": "official1-anko",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-anko/accepted/syn-gpython-cand-c04-r1b1-e954ad27",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gpython-cand-c04-r1b4-0a5ca664",
+   "run": "official1-anko",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-anko/accepted/syn-gpython-cand-c04-r1b4-0a5ca664",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-argo-cd-cand-c03-r1b0-18b78a50",
+   "run": "official1-arcane",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-arcane/accepted/syn-argo-cd-cand-c03-r1b0-18b78a50",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-argo-cd-cand-c05-cc3e1272",
+   "run": "official1-arcane",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-arcane/accepted/syn-argo-cd-cand-c05-cc3e1272",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/build/bandit-incremental-cache-control/klen__pylama/round-2/probe-246649c3/tasks/syn-pylama-cand-c01-r1b4-r2b4-68d85058",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c02-r1b0-r2b2-02688723",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c02-r1b0-r2b2-02688723",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c03-r1b2-6182c7b3",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c03-r1b2-6182c7b3",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c03-r1b4-r2b4-58e91fc7",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c04-r1b4-4d29f6ec",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c04-r1b4-4d29f6ec",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c05-r1b2-r2b2-a71ff500",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c05-r1b2-r2b2-a71ff500",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c05-r1b2-r2b3-0e4a83d7",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c05-r1b2-r2b3-0e4a83d7",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-pylama-cand-c05-r1b4-6eedf9a6",
+   "run": "official1-bandit",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-bandit/accepted/syn-pylama-cand-c05-r1b4-6eedf9a6",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c01-r1b1-52fa75d9",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c01-r1b1-52fa75d9",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c01-r1b3-84fe778b",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c01-r1b3-84fe778b",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c02-r1b0-29dfe3b0",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c02-r1b0-29dfe3b0",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c02-r1b4-325c5f9d",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c02-r1b4-325c5f9d",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c04-r1b0-eeb19c3a",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c04-r1b0-eeb19c3a",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c04-r1b1-58e640ec",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c04-r1b1-58e640ec",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-dacite-cand-c05-r1b4-2e37bfb7",
+   "run": "official1-cattrs",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-cattrs/accepted/syn-dacite-cand-c05-r1b4-2e37bfb7",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yj-cand-c01-7e8e179e",
+   "run": "official1-dasel",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-dasel/accepted/syn-yj-cand-c01-7e8e179e",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-zsa-cand-c02-r1b1-ae1eb794",
+   "run": "official1-dynamodb",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-dynamodb/build/dynamodb-toolbox-lazy-recursive-schemas/IdoPesok__zsa/round-1/probe-3577f256/tasks/syn-zsa-cand-c02-r1b1-ae1eb794",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-zsa-cand-c02-r1b3-38afb932",
+   "run": "official1-dynamodb",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-dynamodb/accepted/syn-zsa-cand-c02-r1b3-38afb932",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c01-r1b1-8f1b686c",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c01-r1b1-8f1b686c",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c02-r1b0-422e37a0",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c02-r1b0-422e37a0",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c03-r1b0-a082f895",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c03-r1b0-a082f895",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c03-r1b3-a019450a",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c03-r1b3-a019450a",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c04-r1b0-081c670c",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c04-r1b0-081c670c",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-litestar-cand-c05-r1b0-eaf6a5ae",
+   "run": "official1-fastapi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-fastapi/accepted/syn-litestar-cand-c05-r1b0-eaf6a5ae",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-aiohttp-cand-c01-r1b4-9f77d81d",
+   "run": "official1-httpx",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-httpx/build/httpx-deterministic-cookie-store/aio-libs__aiohttp/round-1/probe-ba11dcee/tasks/syn-aiohttp-cand-c01-r1b4-9f77d81d",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-aiohttp-cand-c02-r1b0-3c976d3c",
+   "run": "official1-httpx",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-httpx/accepted/syn-aiohttp-cand-c02-r1b0-3c976d3c",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-aiohttp-cand-c03-r1b1-b706aac1",
+   "run": "official1-httpx",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-httpx/accepted/syn-aiohttp-cand-c03-r1b1-b706aac1",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-aiohttp-cand-c04-7f733601",
+   "run": "official1-httpx",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-httpx/accepted/syn-aiohttp-cand-c04-7f733601",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-aiohttp-cand-c05-r1b0-7d9ec1f5",
+   "run": "official1-httpx",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-httpx/build/httpx-deterministic-cookie-store/aio-libs__aiohttp/round-1/probe-ba11dcee/tasks/syn-aiohttp-cand-c05-r1b0-7d9ec1f5",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-bitecs-cand-c05-r1b0-85a91c3b",
+   "run": "official1-koota",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-koota/accepted/syn-bitecs-cand-c05-r1b0-85a91c3b",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-bitecs-cand-c05-r1b2-1b4c0811",
+   "run": "official1-koota",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-koota/accepted/syn-bitecs-cand-c05-r1b2-1b4c0811",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+   "run": "official1-koota",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-koota/accepted/syn-bitecs-cand-c05-r1b4-bc99c654",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c01-r1b4-r2b1-b677379a",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c01-r1b4-r2b1-b677379a",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c03-r1b0-r2b1-807ec5aa",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c03-r1b0-r2b1-807ec5aa",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c03-r1b4-3d3b86b5",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c03-r1b4-3d3b86b5",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c04-86a17614",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c04-86a17614",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c04-r1b0-r2b0-35888795",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c04-r1b0-r2b0-35888795",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c05-r1b2-r2b0-3eb64a03",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c05-r1b2-r2b0-3eb64a03",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c05-r1b2-r2b3-269e70d9",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/accepted/syn-ibis-cand-c05-r1b2-r2b3-269e70d9",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-ibis-cand-c05-r1b3-9f713fee",
+   "run": "official1-narwhals",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-narwhals/build/narwhals-rolling-window-suite/ibis-project__ibis/round-1/probe-c36dfb7b/tasks/syn-ibis-cand-c05-r1b3-9f713fee",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 2,
+   "slots": [
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-cerbos-cand-c02-r1b4-9bbe0541",
+   "run": "official1-opa",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-opa/accepted/syn-cerbos-cand-c02-r1b4-9bbe0541",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-cerbos-cand-c05-r1b1-b283c14b",
+   "run": "official1-opa",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-opa/accepted/syn-cerbos-cand-c05-r1b1-b283c14b",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-opengemini-cand-c01-r1b0-68a373fe",
+   "run": "official1-promlabels",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-promlabels/accepted/syn-opengemini-cand-c01-r1b0-68a373fe",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c01-c696c6ca",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c01-c696c6ca",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c02-c3c4135e",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c02-c3c4135e",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c02-r1b0-e8804dd9",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/build/scriggo-method-declarations/cosmos72__gomacro/round-1/probe-ffa2d38b/tasks/syn-gomacro-cand-c02-r1b0-e8804dd9",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 1,
+   "slots": [
+    "kimi-r2"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c02-r1b2-002b4abf",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c02-r1b2-002b4abf",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c02-r1b3-ed535f70",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/build/scriggo-method-declarations/cosmos72__gomacro/round-1/probe-ffa2d38b/tasks/syn-gomacro-cand-c02-r1b3-ed535f70",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 2,
+   "slots": [
+    "kimi-r0",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c03-f73e50a8",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c03-f73e50a8",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c03-r1b1-68058464",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/build/scriggo-method-declarations/cosmos72__gomacro/round-1/probe-ffa2d38b/tasks/syn-gomacro-cand-c03-r1b1-68058464",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 1,
+   "slots": [
+    "kimi-r2"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c03-r1b4-67b6a828",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/build/scriggo-method-declarations/cosmos72__gomacro/round-1/probe-ffa2d38b/tasks/syn-gomacro-cand-c03-r1b4-67b6a828",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 2,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c04-r1b2-b79686cb",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c04-r1b2-b79686cb",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c04-r1b4-2d729ead",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/accepted/syn-gomacro-cand-c04-r1b4-2d729ead",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-gomacro-cand-c05-r1b1-d80cf0a5",
+   "run": "official1-scriggo",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-scriggo/build/scriggo-method-declarations/cosmos72__gomacro/round-1/probe-ffa2d38b/tasks/syn-gomacro-cand-c05-r1b1-d80cf0a5",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 2,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c01-r1b0-24c4a31b",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c01-r1b3-d7f6794b",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c01-r1b3-d7f6794b",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c02-r1b0-fb4b293a",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c02-r1b0-fb4b293a",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c02-r1b3-7119812a",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c02-r1b3-7119812a",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c04-r1b3-0c604520",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c04-r1b3-0c604520",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-vscode-sqltools-cand-c05-r1b3-911416cb",
+   "run": "official1-sqlformatter",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-sqlformatter/accepted/syn-vscode-sqltools-cand-c05-r1b3-911416cb",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c01-r1b1-24d9c1a8",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c01-r1b1-24d9c1a8",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c02-r1b3-658108d1",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c02-r1b3-658108d1",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c03-c910069f",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c03-c910069f",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c04-r1b2-799317b1",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c04-r1b2-799317b1",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c04-r1b3-272dacdb",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c04-r1b3-272dacdb",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-transitions-cand-c05-r1b2-6a1e0dca",
+   "run": "official1-statemachine",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-statemachine/accepted/syn-transitions-cand-c05-r1b2-6a1e0dca",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c04-r1b4-d8b1da89",
+   "run": "official1-testem",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-testem/accepted/syn-jest-cand-c04-r1b4-d8b1da89",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c05-9e1caaee",
+   "run": "official1-testem",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-testem/accepted/syn-jest-cand-c05-9e1caaee",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c05-r1b0-975858f4",
+   "run": "official1-testem",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-testem/accepted/syn-jest-cand-c05-r1b0-975858f4",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c05-r1b1-561067a1",
+   "run": "official1-testem",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-testem/accepted/syn-jest-cand-c05-r1b1-561067a1",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c01-r1b3-08931258",
+   "run": "official1-vitest",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-vitest/accepted/syn-jest-cand-c01-r1b3-08931258",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c04-r1b0-9bf4fb26",
+   "run": "official1-vitest",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-vitest/accepted/syn-jest-cand-c04-r1b0-9bf4fb26",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c05-r1b0-5ec91bba",
+   "run": "official1-vitest",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-vitest/accepted/syn-jest-cand-c05-r1b0-5ec91bba",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3"
+   ]
+  },
+  {
+   "task_id": "syn-jest-cand-c05-r1b2-d6a136fe",
+   "run": "official1-vitest",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-vitest/accepted/syn-jest-cand-c05-r1b2-d6a136fe",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c01-r1b1-82c9e518",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c01-r1b1-82c9e518",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c03-353ec720",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c03-353ec720",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c03-r1b2-03550fa4",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c03-r1b2-03550fa4",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c03-r1b4-4d3d43a0",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/build/wasmi-trap-coredumps/bytecodealliance__wasmtime/round-1/probe-3604cbdd/tasks/syn-wasmtime-cand-c03-r1b4-4d3d43a0",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c04-r1b1-bbb510ca",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c04-r1b1-bbb510ca",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c04-r1b4-786cced5",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c04-r1b4-786cced5",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-wasmtime-cand-c05-r1b1-9fcf072e",
+   "run": "official1-wasmi",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-wasmi/accepted/syn-wasmtime-cand-c05-r1b1-9fcf072e",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c01-r1b3-b5f105ff",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/build/ytt-jsonpath-query-api/mikefarah__yq/round-1/probe-1c04fdf0/tasks/syn-yq-cand-c01-r1b3-b5f105ff",
+   "task_dir_kind": "probe-copy (not accepted; audit-strong)",
+   "kimi_passes_in_sft": 2,
+   "slots": [
+    "kimi-r0",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c01-r1b4-c75b758f",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c01-r1b4-c75b758f",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c02-r1b0-0af03743",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c02-r1b0-0af03743",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r0",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c02-r1b1-2f81d284",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c02-r1b1-2f81d284",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r1",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c02-r1b4-c30118dd",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c02-r1b4-c30118dd",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c03-63063d88",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c03-63063d88",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 5,
+   "slots": [
+    "kimi-r0",
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c04-r1b4-cae9dfb2",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c04-r1b4-cae9dfb2",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 3,
+   "slots": [
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  },
+  {
+   "task_id": "syn-yq-cand-c05-cbe61bd7",
+   "run": "official1-ytt",
+   "task_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/synth/runs/official1-ytt/accepted/syn-yq-cand-c05-cbe61bd7",
+   "task_dir_kind": "accepted",
+   "kimi_passes_in_sft": 4,
+   "slots": [
+    "kimi-r1",
+    "kimi-r2",
+    "kimi-r3",
+    "kimi-r4"
+   ]
+  }
+ ]
+}

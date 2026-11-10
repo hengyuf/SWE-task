@@ -1,0 +1,1128 @@
+{
+ "schema": 1,
+ "generated_at": 1792274400,
+ "generated_at_iso": "2026-10-17T15:00:00-07:00",
+ "collect_seconds": 3.2,
+ "errors": [
+  "run official1-bandit tree: cand-c05-r1b3/gates-0.json: JSONDecodeError at byte 4096 (being written)",
+  "fleet: scrape 20409912 http://10.65.31.9:8000/metrics: URLError: [Errno 111] Connection refused"
+ ],
+ "models": {
+  "kimi": {
+   "label": "Kimi K3",
+   "role": "teacher",
+   "source": "Baihe's DeepSWE export (three_way_per_task.csv), 5 rollouts per task"
+  },
+  "super_vl": {
+   "label": "Nemotron 3.5 Super VL",
+   "role": "Baihe's student",
+   "source": "Baihe's DeepSWE export (three_way_per_task.csv), 5 rollouts per task"
+  },
+  "sc14": {
+   "label": "Local Super ckpt sc14 (swonlysc-step0014, 131k cap)",
+   "role": "student",
+   "source": "hengyuf DeepSWE eval of swonlysc-step0014 (131k per-call cap), 5 rollouts per task"
+  }
+ },
+ "runs": [
+  {
+   "run": "official1-narwhals",
+   "task_id": "narwhals-rolling-window-suite",
+   "repo": "ibis-project/ibis",
+   "job_id": "20408127",
+   "slurm_state": "RUNNING",
+   "partition": "cpu_interactive",
+   "submitted_at": 1792262089,
+   "started_at": 1792262129,
+   "ended_at": null,
+   "status": "running",
+   "stage": "round-3 probe (113/140 slots)",
+   "rounds_started": 4,
+   "accepted": 5,
+   "tasks_built": 46,
+   "tasks_scored": 41
+  },
+  {
+   "run": "official1-bandit",
+   "task_id": "bandit-incremental-cache-control",
+   "repo": "klen/pylama",
+   "job_id": "20408123",
+   "slurm_state": "RUNNING",
+   "partition": "cpu_dataprocessing",
+   "submitted_at": 1792262070,
+   "started_at": 1792262125,
+   "ended_at": null,
+   "status": "running",
+   "stage": "round-2 building (4/25 built)",
+   "rounds_started": 3,
+   "accepted": 2,
+   "tasks_built": 34,
+   "tasks_scored": 30
+  },
+  {
+   "run": "official2-fd",
+   "task_id": "fd-deterministic-multi-key-sorting",
+   "repo": "lsd-rs/lsd",
+   "job_id": "20411342",
+   "slurm_state": "PENDING",
+   "partition": "cpu_dataprocessing",
+   "submitted_at": 1792273500,
+   "started_at": null,
+   "ended_at": null,
+   "status": "pending",
+   "stage": "pending: target failure analysis",
+   "rounds_started": 0,
+   "accepted": 0,
+   "tasks_built": 0,
+   "tasks_scored": 0
+  }
+ ],
+ "tasks": [
+  {
+   "task_id": "abs-module-cache-flags",
+   "task_index": 0,
+   "f2p_total": 20,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 2,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "17/20",
+       "p2p": "3/3",
+       "score": 0
+      },
+      {
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1
+      },
+      {
+       "f2p": "18/20",
+       "p2p": "3/3",
+       "score": 0
+      },
+      {
+       "f2p": "16/20",
+       "p2p": "3/3",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 4,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "19/20",
+       "p2p": "3/3",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "20/20",
+       "p2p": "3/3",
+       "score": 1,
+       "status": "pass"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.99
+    }
+   },
+   "eligible": false,
+   "queue_rank": null,
+   "run": null
+  },
+  {
+   "task_id": "abs-stepped-slices",
+   "task_index": 1,
+   "f2p_total": 14,
+   "accuracy": {
+    "kimi": {
+     "passed": 4,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1
+      },
+      {
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1
+      },
+      {
+       "f2p": "13/14",
+       "p2p": "212/212",
+       "score": 0
+      },
+      {
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1
+      },
+      {
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "11/14",
+       "p2p": "212/212",
+       "score": 0
+      },
+      {
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1
+      },
+      {
+       "f2p": "9/14",
+       "p2p": "212/212",
+       "score": 0
+      },
+      {
+       "f2p": "12/14",
+       "p2p": "212/212",
+       "score": 0
+      },
+      {
+       "f2p": "10/14",
+       "p2p": "212/212",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "12/14",
+       "p2p": "212/212",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "14/14",
+       "p2p": "212/212",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "11/14",
+       "p2p": "212/212",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "13/14",
+       "p2p": "212/212",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "10/14",
+       "p2p": "212/212",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.8571
+    }
+   },
+   "eligible": false,
+   "queue_rank": null,
+   "run": null
+  },
+  {
+   "task_id": "bandit-incremental-cache-control",
+   "task_index": 10,
+   "f2p_total": 24,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "24/24",
+       "p2p": "412/412",
+       "score": 1
+      },
+      {
+       "f2p": "24/24",
+       "p2p": "412/412",
+       "score": 1
+      },
+      {
+       "f2p": "24/24",
+       "p2p": "412/412",
+       "score": 1
+      },
+      {
+       "f2p": "24/24",
+       "p2p": "412/412",
+       "score": 1
+      },
+      {
+       "f2p": "24/24",
+       "p2p": "412/412",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 0,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "19/24",
+       "p2p": "412/412",
+       "score": 0
+      },
+      {
+       "f2p": "18/24",
+       "p2p": "412/412",
+       "score": 0
+      },
+      {
+       "f2p": "22/24",
+       "p2p": "412/412",
+       "score": 0
+      },
+      {
+       "f2p": "20/24",
+       "p2p": "412/412",
+       "score": 0
+      },
+      {
+       "f2p": "17/24",
+       "p2p": "412/412",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 0,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "20/24",
+       "p2p": "412/412",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "19/24",
+       "p2p": "412/412",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "21/24",
+       "p2p": "412/412",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "20/24",
+       "p2p": "412/412",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "20/24",
+       "p2p": "412/412",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.8333
+    }
+   },
+   "eligible": true,
+   "queue_rank": 2,
+   "run": "official1-bandit"
+  },
+  {
+   "task_id": "expr-try-catch-errors",
+   "task_index": 27,
+   "f2p_total": 31,
+   "accuracy": {
+    "kimi": {
+     "passed": 3,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "31/31",
+       "p2p": "1180/1180",
+       "score": 1
+      },
+      {
+       "f2p": "31/31",
+       "p2p": "1180/1180",
+       "score": 1
+      },
+      {
+       "f2p": null,
+       "p2p": null,
+       "score": null
+      },
+      {
+       "f2p": "31/31",
+       "p2p": "1180/1180",
+       "score": 1
+      },
+      {
+       "f2p": "30/31",
+       "p2p": "1180/1180",
+       "score": 0
+      }
+     ],
+     "unscored": 1
+    },
+    "super_vl": null,
+    "sc14": {
+     "passed": 0,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "27/31",
+       "p2p": "1180/1180",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "0/0",
+       "p2p": "0/0",
+       "score": null,
+       "status": "infra"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "29/31",
+       "p2p": "1180/1180",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "0/0",
+       "p2p": "0/0",
+       "score": null,
+       "status": "infra"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "25/31",
+       "p2p": "1180/1180",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 2,
+     "mean_f2p_ratio": 0.871
+    }
+   },
+   "eligible": false,
+   "queue_rank": null,
+   "run": null
+  },
+  {
+   "task_id": "fastapi-implicit-head-options",
+   "task_index": 29,
+   "f2p_total": 9,
+   "accuracy": {
+    "kimi": null,
+    "super_vl": null,
+    "sc14": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "9/9",
+       "p2p": "2510/2510",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "7/9",
+       "p2p": "2510/2510",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "8/9",
+       "p2p": "2510/2510",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "6/9",
+       "p2p": "2510/2510",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "8/9",
+       "p2p": "2510/2510",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.8444
+    }
+   },
+   "eligible": false,
+   "queue_rank": null,
+   "run": null
+  },
+  {
+   "task_id": "fd-deterministic-multi-key-sorting",
+   "task_index": 30,
+   "f2p_total": 38,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      },
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      },
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      },
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      },
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "31/38",
+       "p2p": "911/911",
+       "score": 0
+      },
+      {
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1
+      },
+      {
+       "f2p": "29/38",
+       "p2p": "911/911",
+       "score": 0
+      },
+      {
+       "f2p": "33/38",
+       "p2p": "911/911",
+       "score": 0
+      },
+      {
+       "f2p": "30/38",
+       "p2p": "911/911",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "27/38",
+       "p2p": "911/911",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "38/38",
+       "p2p": "911/911",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "25/38",
+       "p2p": "911/911",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "26/38",
+       "p2p": "911/911",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "19/38",
+       "p2p": "911/911",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.7105
+    }
+   },
+   "eligible": true,
+   "queue_rank": 3,
+   "run": "official2-fd"
+  },
+  {
+   "task_id": "go-git-worktree-merge-conflicts",
+   "task_index": 34,
+   "f2p_total": 47,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "47/47",
+       "p2p": "3120/3120",
+       "score": 1
+      },
+      {
+       "f2p": "47/47",
+       "p2p": "3120/3120",
+       "score": 1
+      },
+      {
+       "f2p": "47/47",
+       "p2p": "3120/3120",
+       "score": 1
+      },
+      {
+       "f2p": "47/47",
+       "p2p": "3120/3120",
+       "score": 1
+      },
+      {
+       "f2p": "47/47",
+       "p2p": "3120/3120",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": null,
+    "sc14": {
+     "passed": 0,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "30/47",
+       "p2p": "3120/3120",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "33/47",
+       "p2p": "3120/3120",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "28/47",
+       "p2p": "3120/3120",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "29/47",
+       "p2p": "3120/3120",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "31/47",
+       "p2p": "3120/3120",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.6426
+    }
+   },
+   "eligible": true,
+   "queue_rank": 4,
+   "run": null
+  },
+  {
+   "task_id": "happy-dom-abort-pending-body-reads",
+   "task_index": 37,
+   "f2p_total": 12,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1
+      },
+      {
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1
+      },
+      {
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1
+      },
+      {
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1
+      },
+      {
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 0,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "3/12",
+       "p2p": "640/640",
+       "score": 0
+      },
+      {
+       "f2p": "5/12",
+       "p2p": "640/640",
+       "score": 0
+      },
+      {
+       "f2p": "4/12",
+       "p2p": "640/640",
+       "score": 0
+      },
+      {
+       "f2p": "6/12",
+       "p2p": "640/640",
+       "score": 0
+      },
+      {
+       "f2p": "2/12",
+       "p2p": "640/640",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "12/12",
+       "p2p": "640/640",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "2/12",
+       "p2p": "640/640",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "4/12",
+       "p2p": "640/640",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "3/12",
+       "p2p": "640/640",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "4/12",
+       "p2p": "640/640",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.4167
+    }
+   },
+   "eligible": true,
+   "queue_rank": 5,
+   "run": null
+  },
+  {
+   "task_id": "helm-array-merge-strategies",
+   "task_index": 39,
+   "f2p_total": 26,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 3,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "22/26",
+       "p2p": "1455/1455",
+       "score": 0
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1
+      },
+      {
+       "f2p": "19/26",
+       "p2p": "1455/1455",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 2,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "24/26",
+       "p2p": "1455/1455",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "26/26",
+       "p2p": "1455/1455",
+       "score": 1,
+       "status": "pass"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "21/26",
+       "p2p": "1455/1455",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "23/26",
+       "p2p": "1455/1455",
+       "score": 0,
+       "status": "fail"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.9231
+    }
+   },
+   "eligible": false,
+   "queue_rank": null,
+   "run": null
+  },
+  {
+   "task_id": "narwhals-rolling-window-suite",
+   "task_index": 57,
+   "f2p_total": 103,
+   "accuracy": {
+    "kimi": {
+     "passed": 5,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      },
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      },
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      },
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      },
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      }
+     ],
+     "unscored": 0
+    },
+    "super_vl": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "f2p": "99/103",
+       "p2p": "10093/10093",
+       "score": 0
+      },
+      {
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1
+      },
+      {
+       "f2p": "97/103",
+       "p2p": "10093/10093",
+       "score": 0
+      },
+      {
+       "f2p": "100/103",
+       "p2p": "10093/10093",
+       "score": 0
+      },
+      {
+       "f2p": "98/103",
+       "p2p": "10093/10093",
+       "score": 0
+      }
+     ],
+     "unscored": 0
+    },
+    "sc14": {
+     "passed": 1,
+     "total": 5,
+     "rollouts": [
+      {
+       "slot": "sc14-r0",
+       "f2p": "102/103",
+       "p2p": "10093/10093",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r1",
+       "f2p": "100/103",
+       "p2p": "10093/10093",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r2",
+       "f2p": "101/103",
+       "p2p": "10093/10093",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r3",
+       "f2p": "101/103",
+       "p2p": "10093/10093",
+       "score": 0,
+       "status": "fail"
+      },
+      {
+       "slot": "sc14-r4",
+       "f2p": "103/103",
+       "p2p": "10093/10093",
+       "score": 1,
+       "status": "pass"
+      }
+     ],
+     "infra": 0,
+     "mean_f2p_ratio": 0.9845
+    }
+   },
+   "eligible": true,
+   "queue_rank": 1,
+   "run": "official1-narwhals"
+  }
+ ]
+}

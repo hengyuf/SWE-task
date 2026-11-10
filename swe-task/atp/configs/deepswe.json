@@ -1,0 +1,26 @@
+{
+  "benchmark": "deepswe_v1_1",
+  "gym_commit": "2f11dec3a1c11c0c5f302ab199f97754f7b5c8bd",
+  "dataset_revision": "435ee89ec2f2e2289f33b0da4f992f0b7b7266b9",
+  "expected_tasks": 113,
+  "models": {
+    "super": {"id": "nvidia/nvidia/nemotron-3.5-super-vl"},
+    "kimi": {"id": "nvidia/moonshotai/kimi-k3", "sampling_overrides": {"reasoning_effort": "max"}},
+    "glm": {"id": "nvidia/zai-org/glm-5.3", "sampling_overrides": {"reasoning_effort": "max"}}
+  },
+  "base_url": "https://inference-api.nvidia.com/v1",
+  "repeats": 16,
+  "temperature": 1.0,
+  "top_p": 0.95,
+  "context_window": 1048576,
+  "max_output_tokens": 131072,
+  "agent_timeout_seconds": 10800,
+  "max_attempts": 3,
+  "initial_concurrency_per_model": 16,
+  "max_concurrency_per_model": 2048,
+  "shards": 10,
+  "opencode_version": "1.17.11",
+  "python_version": "3.13.14",
+  "snapshot_interval_seconds": 60,
+  "shutdown_grace_seconds": 300
+}

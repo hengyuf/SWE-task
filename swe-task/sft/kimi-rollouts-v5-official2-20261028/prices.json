@@ -1,0 +1,58 @@
+{
+ "glm": {
+  "usd_per_M_uncached_prompt": 1.0276,
+  "usd_per_M_cached_prompt": 0.1028,
+  "usd_per_M_completion": 3.2296,
+  "points": 20003,
+  "max_rel_error": 0.0,
+  "median_rel_error": 0.0,
+  "per_token": [
+   1.0275999999999944e-06,
+   1.0276000000000007e-07,
+   3.2296000000000868e-06
+  ],
+  "nan": false
+ },
+ "glm_own_calls_only": {
+  "usd_per_M_uncached_prompt": 1.0276,
+  "usd_per_M_cached_prompt": 0.1028,
+  "usd_per_M_completion": 3.2296,
+  "points": 3,
+  "max_rel_error": 0.0,
+  "median_rel_error": 0.0,
+  "per_token": [
+   1.0276000000000003e-06,
+   1.0275999999999987e-07,
+   3.2295999999999995e-06
+  ],
+  "nan": false
+ },
+ "glm_judge_only": {
+  "usd_per_M_uncached_prompt": 1.0276,
+  "usd_per_M_cached_prompt": 0.1028,
+  "usd_per_M_completion": 3.2296,
+  "points": 20000,
+  "max_rel_error": 0.0,
+  "median_rel_error": 0.0,
+  "per_token": [
+   1.0275999999999948e-06,
+   1.0276000000000017e-07,
+   3.2296000000000796e-06
+  ],
+  "nan": false
+ },
+ "deepseek": {
+  "usd_per_M_uncached_prompt": 0.7068,
+  "usd_per_M_cached_prompt": 0.0644,
+  "usd_per_M_completion": 2.1198,
+  "points": 6,
+  "max_rel_error": 0.0,
+  "median_rel_error": 0.0,
+  "per_token": [
+   7.06842e-07,
+   6.44452e-08,
+   2.1197919999999994e-06
+  ],
+  "nan": false
+ }
+}

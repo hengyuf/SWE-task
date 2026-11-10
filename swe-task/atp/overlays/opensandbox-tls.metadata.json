@@ -1,0 +1,20 @@
+{
+  "target": "nemo_gym/sandbox/providers/opensandbox/provider.py",
+  "base_commit": "2f11dec3a1c11c0c5f302ab199f97754f7b5c8bd",
+  "base_sha256": "6e0d92c67cd4aa6c6f3ecd3b55ee2ae6028a91cbb3a2f77d5ee6ddcd5d438531",
+  "patched_sha256": "a292cd3154baa7e66d239f2063e09dca03b2eb48e08bf4133e5b7f80322df321",
+  "patch_sha256": "bc72b66635c1d841727eb2a04d4626d0e9713c8c7e0f4a207dad005ef0f5d6d1",
+  "source_repository": "/lustre/fsw/portfolios/nemotron/users/jonli/repositories/zirliu-gym",
+  "source_commit": "28a8fb71d75d9902dab058c10fda69afe28add85",
+  "source_file_sha256": "59c18d32329dc7ec355b27a164b0628bf5cf13b4c0d4dcc5e28427b2ff4a40c6",
+  "source_references": [
+    "NVIDIA-NeMo/Gym 76f3d7459 (#3104)",
+    "NVIDIA-NeMo/Gym 22ac2e3ed (#3438)"
+  ],
+  "adaptation": "Backport only connection.tls_verify support; preserve verification by default (True), unlike reference default False. No configuration opt-out is enabled by this patch.",
+  "validation": [
+    "Unified patch applied exactly to pinned base in memory",
+    "Patched Python parsed successfully",
+    "Every replacement matched exactly once"
+  ]
+}

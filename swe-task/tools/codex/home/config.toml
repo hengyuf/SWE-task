@@ -1,0 +1,22 @@
+# hengyuf's codex for the swe-task synth pipeline (replaces Baihe's ~/.local/bin/codex login):
+# gpt-6-astra on the NVIDIA inference hub; the key comes from env NVHUB_API_KEY (set by llm_engine).
+# The hub only accepts the full id, so the catalog clones codex 0.163.0's built-in gpt-6-astra
+# metadata under that slug (catalog/gpt-6-astra-native.json); without it codex falls back to generic metadata.
+model = "openai/openai/gpt-6-astra"
+model_provider = "nvhub"
+model_reasoning_effort = "xhigh"
+# Baihe's run dirs sat under a git repo whose root held .agents/skills; S/.swe-task-root reproduces that root.
+project_root_markers = [".git", ".swe-task-root"]
+model_catalog_json = "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/tools/codex/catalog/gpt-6-astra-native.json"
+
+[model_providers.nvhub]
+name = "NVIDIA inference hub"
+base_url = "https://inference-api.nvidia.com/v1"
+env_key = "NVHUB_API_KEY"
+wire_api = "responses"
+
+# Commands codex runs must not inherit credentials (codex itself needs NVHUB_API_KEY; its children do not).
+[shell_environment_policy]
+inherit = "all"
+ignore_default_excludes = false
+exclude = ["*KEY*", "*TOKEN*", "*SECRET*", "*PASSWORD*", "*CREDENTIAL*"]

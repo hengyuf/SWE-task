@@ -1,0 +1,44 @@
+{
+  "checks": [
+    "archive_traversal_and_link_validation",
+    "workspace_roots_and_exclusions",
+    "literal_credentials_and_environment_precedence",
+    "build_script_arguments_and_missing_digest_failure",
+    "create",
+    "separate_streams_and_exit_7",
+    "cli_create_and_exit_status",
+    "persistent_id_and_renew",
+    "bounded_command_timeout",
+    "binary_file_transfer",
+    "backup_excludes_credentials_and_caches",
+    "interrupted_restore_rolls_back",
+    "restore_history_modes_links_and_deletions",
+    "export_build_context"
+  ],
+  "live": true,
+  "job_id": "20320771",
+  "started_at": "2026-10-16T04:29:42Z",
+  "created_sandbox_ids": [
+    "cd3afe3f-d0bd-4491-90ef-d81fe9f7557d",
+    "a9926492-b6c3-444b-9ba0-face291165de"
+  ],
+  "image": "public.ecr.aws/d3j8x8q7/swe-bench-202605:kh75679ajj3b8dtd7se3h7z0a1833y6r-v1.1",
+  "timeout": {
+    "execution_id": "1a460f56eb0e4daaadc105de63981677",
+    "interrupt_attempted": true,
+    "interrupted": false,
+    "remote_running": false
+  },
+  "created_snapshot_ids": [
+    "1ff4f5c7-6bd2-466d-a352-0adb98feee5c"
+  ],
+  "cleanup_errors": [],
+  "cleanup_complete": true,
+  "status": "failed",
+  "error_type": "SandboxInternalException",
+  "run": "helper-check-cdb44a426391",
+  "cleanup_recovered_sandbox_ids": [
+    "c6a2be0d-8690-45ce-81e4-6d448605aa65"
+  ],
+  "cleanup_audit": "Exact run metadata filter returned zero after recovering timed-out creation"
+}

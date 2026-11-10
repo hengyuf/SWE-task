@@ -1,0 +1,190 @@
+{
+ "format": "glm53-replay-v1",
+ "created": "2026-11-06T17:56:08-0800",
+ "render": {
+  "renderer": "transformers",
+  "version": "transformers 5.12.1",
+  "model_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/models/GLM-5.3",
+  "chat_template": "/lustre/fsw/portfolios/nemotron/users/hengyuf/models/GLM-5.3/chat_template.jinja",
+  "chat_template_sha256": "0e2b6268ac54f04d2bc1157e8cfb896cb66f25c0b5e319ea12e56014c3914f24",
+  "tokenizer_sha256": "19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d",
+  "add_generation_prompt": true,
+  "add_special_tokens": false,
+  "history_reasoning": "keep",
+  "template_kwargs": {},
+  "per_call_template_kwargs_from_payload": [
+   "reasoning_effort"
+  ]
+ },
+ "sources": {
+  "synth": {
+   "rows_file": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/teacher-rollouts-v2-20261025/features/glm.jsonl",
+   "rows": 252,
+   "eligible": 251,
+   "selected": 64
+  }
+ },
+ "build_stats": {
+  "xcheck_calls": 11571,
+  "tok_full": 76,
+  "tok_incremental": 11495,
+  "tok_verified": 543,
+  "model_calls_seen": 11572,
+  "model_calls_failed": 1,
+  "http_429": 0
+ },
+ "summary": {
+  "overall": {
+   "sessions": 64,
+   "calls": 11571,
+   "calls_per_session": {
+    "min": 48,
+    "p10": 78,
+    "p50": 151,
+    "p90": 324,
+    "p99": 536,
+    "max": 536,
+    "mean": 180.797,
+    "n": 64
+   },
+   "prompt_len": {
+    "min": 6067,
+    "p10": 63166,
+    "p50": 164578,
+    "p90": 287553,
+    "p99": 464416,
+    "max": 541963,
+    "mean": 173291.772,
+    "n": 11571
+   },
+   "new_tokens_per_call": {
+    "min": 27,
+    "p10": 120,
+    "p50": 506,
+    "p90": 2817,
+    "p99": 14073,
+    "max": 305015,
+    "mean": 1451.627,
+    "n": 11571
+   },
+   "output_len": {
+    "min": 12,
+    "p10": 34,
+    "p50": 177,
+    "p90": 1447,
+    "p99": 11195,
+    "max": 54239,
+    "mean": 770.74,
+    "n": 11571
+   },
+   "reasoning_tokens": {
+    "min": 0,
+    "p10": 0,
+    "p50": 31,
+    "p90": 960,
+    "p99": 9714,
+    "max": 54130,
+    "mean": 535.267,
+    "n": 11571
+   },
+   "think_after_s": {
+    "min": 0.117,
+    "p10": 0.293,
+    "p50": 0.469,
+    "p90": 4.365,
+    "p99": 133.8,
+    "max": 1800.821,
+    "mean": 6.857,
+    "n": 11507
+   },
+   "final_context_len": {
+    "min": 141239,
+    "p10": 156709,
+    "p50": 238526,
+    "p90": 332112,
+    "p99": 543275,
+    "max": 543275,
+    "mean": 238747.75,
+    "n": 64
+   },
+   "recorded_session_wall_s": {
+    "min": 748.37,
+    "p10": 926.966,
+    "p50": 1889.028,
+    "p90": 5295.676,
+    "p99": 10742.526,
+    "max": 10742.526,
+    "mean": 2817.219,
+    "n": 64
+   },
+   "hub_latency_s": {
+    "min": 0.594,
+    "p10": 1.707,
+    "p50": 3.497,
+    "p90": 11.656,
+    "p99": 71.554,
+    "max": 362.556,
+    "mean": 7.113,
+    "n": 11571
+   },
+   "hub_decode_tok_s_lower_bound": {
+    "min": 6.494364940344383,
+    "p10": 62.252964426877476,
+    "p50": 106.57631295241028,
+    "p90": 155.18932705513046,
+    "p99": 215.58826251967045,
+    "max": 257.0487514307739,
+    "mean": 108.788,
+    "n": 5450
+   },
+   "totals": {
+    "prompt_tokens": 2005159092,
+    "output_tokens": 8918227,
+    "new_prompt_tokens_vs_prev_call": 16796775,
+    "think_s": 78898.9,
+    "hub_latency_s": 82298.9
+   },
+   "think_share_of_recorded_wall": 0.4376,
+   "hub_prompt_tokens_minus_rendered": {
+    "top": [
+     [
+      1,
+      11571
+     ]
+    ],
+    "n": 11571,
+    "within_1": 11571,
+    "within_16": 11571
+   },
+   "offline_prefix_hit_frac": {
+    "recorded_mode_sticky": 0.9914,
+    "splice_mode_sticky": 0.9958,
+    "hub_reported_cached_frac": 0.9903,
+    "block_size": 64
+   },
+   "hub_cache_vs_prev_call": {
+    "ambiguous(prev_output<2_blocks)": 4940,
+    "covers_prev_prompt_only": 6473,
+    "less_than_prev_prompt(miss/evicted/other replica)": 75,
+    "covers_prev_prompt_and_output": 7
+   },
+   "prev_output_len_vs_rendered_span_plus_1": {
+    "exact": 9692,
+    "within_2": 1796,
+    "output_longer": 4,
+    "span_longer": 3
+   },
+   "hub_spec_decode": {
+    "accepted_prediction_tokens": 5379926,
+    "rejected_prediction_tokens": 4708824,
+    "draft_acceptance": 0.5333
+   },
+   "finish_reason": {
+    "tool_calls": 11506,
+    "stop": 65
+   },
+   "non_prefix_calls": 12
+  }
+ },
+ "build_wall_s": 326.6
+}

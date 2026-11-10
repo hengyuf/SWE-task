@@ -1,0 +1,43 @@
+{
+  "checks": [
+    "archive_traversal_and_link_validation",
+    "workspace_roots_and_exclusions",
+    "literal_credentials_and_environment_precedence",
+    "build_script_arguments_and_missing_digest_failure",
+    "create",
+    "separate_streams_and_exit_7",
+    "cli_create_and_exit_status",
+    "find_by_ownership_metadata",
+    "persistent_id_and_renew",
+    "bounded_command_timeout",
+    "binary_file_transfer",
+    "backup_excludes_credentials_and_caches",
+    "interrupted_restore_rolls_back",
+    "restore_history_modes_links_and_deletions",
+    "export_build_context",
+    "snapshot_ready_and_restore"
+  ],
+  "live": true,
+  "job_id": "20320771",
+  "started_at": "2026-10-16T04:35:05Z",
+  "run": "helper-check-d9f20d432773",
+  "created_sandbox_ids": [
+    "db91f387-5843-4ccd-911c-0badc668f6b4",
+    "68b1406e-4230-4030-b56e-1c1ea7aa7ece",
+    "b3fdc922-015d-4985-8504-5010b031cfc5"
+  ],
+  "image": "public.ecr.aws/d3j8x8q7/swe-bench-202605:kh75679ajj3b8dtd7se3h7z0a1833y6r-v1.1",
+  "timeout": {
+    "execution_id": "4507ddf62452401ba6e7eb4fe03164bc",
+    "interrupt_attempted": true,
+    "interrupted": false,
+    "remote_running": false
+  },
+  "created_snapshot_ids": [
+    "2a52ac3a-8e46-458a-a9f1-2943bc708376"
+  ],
+  "cleanup_errors": [],
+  "cleanup_audit": "Exact run filters returned zero sandboxes and snapshots",
+  "cleanup_complete": true,
+  "status": "passed"
+}

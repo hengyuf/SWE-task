@@ -1,0 +1,655 @@
+#!/usr/bin/env python3
+"""glm-rollouts-tasksall keeper (2026-11-08; derived from glm-rollouts-sftv3-20261107/keeper.py): keeps the GLM-5.3
+server slots alive AND schedules the campaigns of tasks.json in priority order.
+
+    /usr/bin/python3 -I -B keeper.py [--once]     # runs in a CPU job (keeper.sbatch); state in keeper-status.json
+
+Every --interval s:
+* Servers (glm53-serve 2-node jobs, submitted with glm53-serve/scripts/submit_serve.sh): pool "main" = slots ta-NN
+  (batch, 4 h; target = int(servers-target.txt), replacement lead = lead_minutes) and pool "short" = ta-sNN
+  (batch_short, 2 h; target = config short_target, lead = short_lead_minutes). A slot is LIVE when a candidate is
+  PENDING, or RUNNING with more than its lead left; while live < target a new slot is submitted (at most max_per_hour
+  per rolling hour; after max_fast_fails slots in a row that ended within fast-fail-minutes the keeper stops
+  submitting servers: needs a human). Live > target: pending slots are cancelled only if config scale_down is true.
+* Campaigns (tasks.json "campaigns", tier-major order): a campaign is DONE when results/glmlocal-<c>.json has the
+  driver's sandbox_failure_rule, ACTIVE when released (GO-<c>) and not done. Its load = min(max_concurrency, slots
+  not yet terminal) (terminal = the slot's latest attempt has terminal.json). With config "release": true the next
+  campaigns in order are released (GO-<c>) while total load + the new campaign's load <= per_server x ready servers
+  and the owner's load stays within owner_caps[owner] (a campaign blocked only by its owner's cap is skipped, so the
+  other owner's next campaigns can go; within an owner the order is kept), at most max_active campaigns.
+  Every active campaign without a driver job (gta-<c>, any state) gets a leg (bash submit.sh <c> k<NN>: a fresh babysit
+  state dir per leg, so a lost sbatch response cannot wedge the campaign): at most max_legs successful submissions and
+  max_submit_failures failed ones per campaign (keeper-legs.json, persists across keeper jobs), one per leg_gap_minutes;
+  babysit/<c>/STOP blocks it. A campaign that hit a limit or has STOP and no driver job is PARKED: it holds no load and
+  no max_active slot (needs a human; listed in keeper-status.json).
+* keeper-config.json is re-read every pass (keys: lead_minutes, max_per_hour, max_fast_fails, release, per_server,
+  owner_caps, max_active, max_legs, leg_gap_minutes, venv, short_target, short_lead_minutes, scale_down,
+  cancel_running_when_done).
+* STOP file (keeper.STOP) or every campaign done or parked with no driver job left: stop submitting, cancel pending
+  server slots (and RUNNING ones too when cancel_running_when_done is true), write the status and exit 0.
+* Child processes (submit.sh, submit_serve.sh) get a scrubbed environment: no BABYSIT_* / RESULTS_DIR / EXP_NAME /
+  BATCH_SCRIPT of the keeper's own babysit job (they made the helper reuse the keeper's leg number) and none of its
+  resource-shaping SLURM_* variables (2026-11-07: they confined server engine steps to 1 CPU / 2 GB).
+* Circuit breaker: when breaker_parked campaigns got parked within breaker_hours, no new campaign is released (a
+  shared cause would otherwise park the whole plan one campaign after another); running ones continue. Un-park: raise
+  max_legs / max_submit_failures in keeper-config.json or remove babysit/<c>/STOP (the next leg tag is 1 + the highest
+  babysit/<c>/kNN); parked_at resets when a campaign is no longer parked.
+* Held leftovers: a gta-t* / glm53-serve-ta-* job PENDING with reason JobHeldUser for > 15 min (a babysit submit that
+  failed half-way) is cancelled, so it cannot block its campaign or server slot forever.
+* Servers: never more than max_servers server slots (pending + running, both pools) at once.
+* GPU outage: no ready server for outage_minutes -> no releases, no new legs, and the RUNNING gta-t*/gta-dip* legs
+  that got past their backend wait (their log has "probe: staging ATP": rollouts in flight) are cancelled once (their
+  in-flight attempts become retryable for the next leg) instead of burning ATP's 3 h agent timeout; legs still waiting
+  for a backend are left alone; normal service resumes with the first ready server.
+* Tier pause: with pause_after_tier N, once every campaign of tier <= N is done the keeper writes TIER-PAUSE.json and
+  from then on runs only tiers <= N (no releases or legs for the others; their RUNNING/PENDING legs are cancelled
+  once; in-flight attempts become retryable). Delete TIER-PAUSE.json to continue all tiers.
+* Idle GPUs: no campaign left to run (done or tier-paused) and no gta-dip* job -> after idle_release_minutes every
+  server slot is cancelled and none is submitted until there is work again.
+* Its own 23 h limit: with less than successor_minutes left it submits a successor keeper (submit_keeper.sh with
+  --dependency=afterany:<this job>) once, then keeps working until the end. A pass where squeue does not list this job
+  is skipped (an empty squeue answer must not look like "nothing is running").
+"""
+import argparse
+import collections
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import time
+
+GR = Path(__file__).resolve().parent
+G = Path("/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve")
+SUBMIT = G / "scripts" / "submit_serve.sh"
+ALIAS = "glmlocal"
+
+
+def sh(args, timeout=120):
+    """Read-only / cancel Slurm calls with this process's env; never raises."""
+    try:
+        return subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    except (subprocess.SubprocessError, OSError) as error:
+        return subprocess.CompletedProcess(args, 99, "", f"{type(error).__name__}: {error}")
+
+
+def parse_left(text):
+    text = text.strip()
+    if not text or text in ("UNLIMITED", "NOT_SET", "INVALID"):
+        return None
+    days = 0
+    if "-" in text:
+        day, text = text.split("-", 1)
+        days = int(day)
+    parts = [int(p) for p in text.split(":")]
+    while len(parts) < 3:
+        parts.insert(0, 0)
+    return days * 86400 + parts[0] * 3600 + parts[1] * 60 + parts[2]
+
+
+def my_jobs():
+    out = sh(["squeue", "--me", "-h", "-o", "%i|%j|%T|%L|%M|%r|%V|%S"])
+    if out.returncode != 0:
+        raise RuntimeError(f"squeue failed: {out.stderr[:200]}")
+    jobs = collections.defaultdict(list)
+    for line in out.stdout.splitlines():
+        parts = line.strip().split("|")
+        if len(parts) == 8:
+            stamps = []
+            for text in (parts[6], parts[7]):
+                try:
+                    stamps.append(time.mktime(time.strptime(text, "%Y-%m-%dT%H:%M:%S")))
+                except ValueError:
+                    stamps.append(None)
+            jobs[parts[1]].append({"job": parts[0], "state": parts[2], "left": parse_left(parts[3]),
+                                   "elapsed": parts[4], "reason": parts[5], "submitted": stamps[0],
+                                   "started": stamps[1]})
+    return dict(jobs)
+
+
+def cancel_stuck_held(jobs, now, log_path, prefixes=("gta-t", "glm53-serve-ta-"), max_age_s=900):
+    """A babysit submit that failed half-way leaves a user-HELD candidate that never runs; it would block the campaign
+    (its gta-<c> job "exists") or the server slot forever. Cancel such own jobs after max_age_s; returns the names."""
+    stuck = []
+    for name, entries in jobs.items():
+        if not name.startswith(prefixes):
+            continue
+        held = [j for j in entries if j["state"] == "PENDING" and j.get("reason") == "JobHeldUser"
+                and j.get("submitted") and now - j["submitted"] > max_age_s]
+        if held and all(j["state"] == "PENDING" for j in entries):
+            sh(["scancel", *[j["job"] for j in held]])
+            log(log_path, event="stuck_held_cancelled", name=name, jobs=[j["job"] for j in held])
+            stuck.append(name)
+            entries[:] = [j for j in entries if j not in held]
+    for name in [n for n, e in jobs.items() if not e]:
+        del jobs[name]
+    return stuck
+
+
+def ready(job):
+    """Is this glm53-serve job's engine up (status file: a 'ready' line with nothing terminal after it)?"""
+    try:
+        lines = (G / "logs" / "serve" / f"{job}.status").read_text().splitlines()
+    except OSError:
+        return False
+    state = False
+    for line in lines:
+        word = line.split(" ", 1)[0]
+        if word == "ready":
+            state = True
+        elif word in ("exited", "failed", "unhealthy"):
+            state = False
+    return state
+
+
+def log(path, **fields):
+    with open(path, "a") as stream:
+        stream.write(json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), **fields}) + "\n")
+
+
+def write_json_atomic(path: Path, value) -> None:
+    tmp = path.with_name("." + path.name + ".tmp")
+    tmp.write_text(json.dumps(value, indent=1) + "\n")
+    os.replace(tmp, path)
+
+
+CHILD_DROP = {"SLURM_MEM_PER_NODE", "SLURM_MEM_PER_CPU", "SLURM_MEM_PER_GPU", "SLURM_CPUS_PER_TASK",
+              "SLURM_CPUS_PER_GPU", "SLURM_TRES_PER_TASK", "RESULTS_DIR", "EXP_NAME", "BATCH_SCRIPT"}
+
+
+def child_env(**extra):
+    """os.environ without this job's babysit identity and resource-shaping SLURM_* variables, plus extra."""
+    env = {k: v for k, v in os.environ.items() if k not in CHILD_DROP and not k.startswith("BABYSIT_")}
+    env.update({k: str(v) for k, v in extra.items()})
+    return env
+
+
+def run(args, timeout=300, **env_extra):
+    """subprocess.run with a scrubbed env; never raises (returns an object with returncode/stdout/stderr)."""
+    try:
+        return subprocess.run(args, capture_output=True, text=True, timeout=timeout, env=child_env(**env_extra))
+    except (subprocess.SubprocessError, OSError) as error:
+        return subprocess.CompletedProcess(args, 99, "", f"{type(error).__name__}: {error}")
+
+
+def checked_config(overrides, log_path, last_good):
+    """DEFAULTS overlaid with type-checked overrides; a bad value keeps the last good one (logged once per pass)."""
+    config = {}
+    for key, default in DEFAULTS.items():
+        value = overrides.get(key, default)
+        ok = (isinstance(value, bool) if isinstance(default, bool) else
+              isinstance(value, dict) and all(isinstance(v, (int, float)) and not isinstance(v, bool)
+                                              for v in value.values()) if isinstance(default, dict) else
+              isinstance(value, (int, float)) and not isinstance(value, bool))
+        if not ok:
+            log(log_path, event="config_error", key=key, value=repr(value)[:100])
+            value = last_good.get(key, default)
+        config[key] = value
+    last_good.update(config)
+    return config
+
+
+def leg_started_atp(job_name, job_id):
+    """Did this driver leg (log logs/<job name>-<job id>.out) get past its backend wait and stage/run ATP?"""
+    try:
+        with open(GR / "logs" / f"{job_name}-{job_id}.out", "rb") as stream:
+            return b"probe: staging ATP" in stream.read()
+    except OSError:
+        return False
+
+
+def campaign_done(name):
+    path = GR / "results" / f"{ALIAS}-{name}.json"
+    try:
+        return "sandbox_failure_rule" in json.loads(path.read_text())
+    except (OSError, ValueError):
+        return False
+
+
+def terminal_slots(name):
+    """Slots of the campaign whose latest attempt has terminal.json (ATP: models/<alias>/attempts/<task>-<rep>/)."""
+    count = 0
+    root = GR / "probes" / ALIAS / name / "models" / ALIAS / "attempts"
+    try:
+        slots = [p for p in root.iterdir() if p.is_dir()]
+    except OSError:
+        return 0
+    for slot in slots:
+        attempts = [p for p in slot.glob("attempt-*") if p.name.split("-", 1)[1].isdigit()]
+        if attempts and (max(attempts, key=lambda p: int(p.name.split("-", 1)[1])) / "terminal.json").exists():
+            count += 1
+    return count
+
+
+POOLS = {
+    # name -> slot-name regex (Slurm job name glm53-serve-<slot>), slot format, extra submit settings
+    "main": {"regex": r"glm53-serve-ta-(\d+)", "slot": "ta-{:02d}", "partition": None, "extra": []},
+    "short": {"regex": r"glm53-serve-ta-s(\d+)", "slot": "ta-s{:02d}", "partition": "batch_short",
+              "extra": ["--time=02:00:00"]},
+}
+DEFAULTS = {"release": False, "per_server": 24, "owner_caps": {"hengyuf": 240, "baihe": 48}, "max_active": 16,
+            "max_legs": 6, "max_submit_failures": 6, "leg_gap_minutes": 10, "short_target": 0,
+            "short_lead_minutes": 25, "scale_down": False, "cancel_running_when_done": False, "successor_minutes": 30,
+            "breaker_parked": 3, "breaker_hours": 2, "max_servers": 14, "outage_minutes": 10,
+            "pause_after_tier": 0, "idle_release_minutes": 60}
+def tier_pause_path():
+    """Present = only its allowed_tiers run (user 2026-11-09: pause after tier 1). A function, not a constant, so
+    that tests which point GR elsewhere never touch the live file."""
+    return GR / "TIER-PAUSE.json"
+
+
+def schedule_campaigns(campaigns, jobs, ready_servers, config, legs_state, now, log_path, stopping, paused=False,
+                       allowed=None):
+    """Release campaigns in order and keep one driver leg per active campaign; returns (actions, summary).
+    allowed: set of tiers that may run (None = all); campaigns of other tiers are PAUSED (no release, no legs)."""
+    actions = []
+    done = {c["name"] for c in campaigns if campaign_done(c["name"])}
+    released = {c["name"] for c in campaigns if (GR / f"GO-{c['name']}").exists()}
+    tier_paused = {c["name"] for c in campaigns if allowed is not None and c["tier"] not in allowed}
+
+    def has_job(name):
+        return f"gta-{name}" in jobs
+
+    def parked(name):
+        entry = legs_state.get(name) or {}
+        return not has_job(name) and ((GR / "babysit" / name / "STOP").exists()
+                                      or len(entry.get("submitted", [])) >= config["max_legs"]
+                                      or len(entry.get("failed", [])) >= config["max_submit_failures"])
+
+    active = [c for c in campaigns if c["name"] in released and c["name"] not in done and not parked(c["name"])
+              and c["name"] not in tier_paused]
+    parked_names = [c["name"] for c in campaigns if c["name"] in released and c["name"] not in done
+                    and parked(c["name"]) and c["name"] not in tier_paused]
+    for name in parked_names:  # circuit breaker input: when each campaign got parked
+        entry = legs_state.setdefault(name, {"submitted": [], "failed": []})
+        if not entry.get("parked_at"):
+            entry["parked_at"] = now
+            log(log_path, event="parked", campaign=name, legs=len(entry.get("submitted", [])),
+                failed_submits=len(entry.get("failed", [])), stop_file=(GR / "babysit" / name / "STOP").exists())
+            write_json_atomic(Path(log_path).with_name("keeper-legs.json"), legs_state)
+    for name, entry in legs_state.items():
+        if entry.get("parked_at") and name not in parked_names:
+            entry["parked_at"] = None  # un-parked by a human (limits raised / STOP removed)
+    recent = [n for n, e in legs_state.items()
+              if e.get("parked_at") and now - e["parked_at"] < config["breaker_hours"] * 3600]
+    breaker = len(recent) >= config["breaker_parked"]
+    loads = {c["name"]: max(0, min(c["max_concurrency"], c["slots"] - terminal_slots(c["name"]))) for c in active}
+    total = sum(loads.values())
+    owner_load = collections.Counter()
+    for c in active:
+        owner_load[c["sandbox"]] += loads[c["name"]]
+    created = []
+    if breaker and config["release"] and not stopping:
+        actions.append({"breaker": f"{len(recent)} campaigns parked within {config['breaker_hours']} h: no new "
+                                   f"releases until a human looks", "parked": recent})
+    if config["release"] and not stopping and not paused and not breaker and ready_servers >= 1:
+        capacity = config["per_server"] * ready_servers
+        blocked_owners = set()
+        for c in campaigns:
+            name = c["name"]
+            if name in released or name in done or name in tier_paused:
+                continue
+            if len(active) + len(created) >= config["max_active"]:
+                break
+            owner = c["sandbox"]
+            if owner in blocked_owners:
+                continue
+            need = min(c["max_concurrency"], c["slots"])
+            if owner_load[owner] + need > config["owner_caps"].get(owner, 10 ** 9):
+                blocked_owners.add(owner)  # its own sandbox cap: the other owner's next campaigns may go
+                continue
+            if total + need > capacity and (active or created):
+                break
+            (GR / f"GO-{name}").write_text(json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+                                                       "ready_servers": ready_servers, "load_before": total,
+                                                       "need": need, "capacity": capacity}) + "\n")
+            created.append(name)
+            released.add(name)
+            total += need
+            owner_load[owner] += need
+            loads[name] = need
+        if created:
+            log(log_path, event="released", campaigns=created, ready_servers=ready_servers, load=total)
+            actions.append({"released": created})
+    active = [c for c in campaigns if c["name"] in released and c["name"] not in done and not parked(c["name"])
+              and c["name"] not in tier_paused]
+    if not stopping and not paused:
+        for c in active:
+            name = c["name"]
+            if has_job(name) or (GR / "babysit" / name / "STOP").exists():
+                continue
+            entry = legs_state.setdefault(name, {"submitted": [], "failed": []})
+            entry.setdefault("failed", [])
+            last = max(entry["submitted"][-1:] + entry["failed"][-1:] or [0])
+            if now - last < config["leg_gap_minutes"] * 60:
+                continue
+            existing = [int(d.name[1:]) for d in (GR / "babysit" / name).glob("k*") if d.name[1:].isdigit()]
+            tag = f"k{max(existing + [len(entry['submitted']) + len(entry['failed'])]) + 1:02d}"
+            result = run(["bash", str(GR / "submit.sh"), name, tag])
+            lines = result.stdout.strip().splitlines()
+            ok = result.returncode == 0 and bool(lines) and bool(re.search(r" \d+,\d+$", lines[-1]))
+            (entry["submitted"] if ok else entry["failed"]).append(now)
+            action = {"leg": name, "tag": tag, "rc": result.returncode, "out": lines[-1:] or None,
+                      "err": result.stderr.strip()[-300:] or None}
+            actions.append(action)
+            if not ok:
+                log(log_path, event="leg_submit_failed", **action)
+            write_json_atomic(Path(log_path).with_name("keeper-legs.json"), legs_state)
+    finished = len(done) + len(parked_names)
+    summary = {"campaigns": len(campaigns), "done": len(done), "released": len(released),
+               "active": [{"name": c["name"], "load": loads.get(c["name"]),
+                           "driver": [j["state"] for j in jobs.get(f"gta-{c['name']}", [])]} for c in active],
+               "parked": [{"name": n, "legs": len((legs_state.get(n) or {}).get("submitted", [])),
+                           "failed_submits": len((legs_state.get(n) or {}).get("failed", [])),
+                           "stop_file": (GR / "babysit" / n / "STOP").exists()} for n in parked_names],
+               "load": sum(loads.get(c["name"], 0) for c in active), "owner_load": dict(owner_load),
+               "next": next((c["name"] for c in campaigns if c["name"] not in released), None),
+               "breaker": breaker, "recently_parked": recent,
+               "all_done": len(done) == len(campaigns),
+               "tier_paused": sorted(n for n in tier_paused if n not in done),
+               "allowed_tiers": sorted(allowed) if allowed is not None else None,
+               "work_left": any(c["name"] not in done and c["name"] not in tier_paused for c in campaigns),
+               "all_finished": finished == len(campaigns) and not any(has_job(c["name"]) for c in campaigns)}
+    return actions, summary
+
+
+def successor_marker():
+    return GR / "babysit" / "keeper" / f"successor-of-{os.environ.get('SLURM_JOB_ID', 'none')}.json"
+
+
+def submit_successor(log_path):
+    """Chain the next keeper job (afterany this one) through submit_keeper.sh, once per keeper job (marker file)."""
+    job = os.environ.get("SLURM_JOB_ID", "")
+    result = run(["bash", str(GR / "submit_keeper.sh")], GR_KEEPER_AFTER=job)
+    action = {"successor": result.stdout.strip().splitlines()[-1:] or None, "rc": result.returncode,
+              "err": result.stderr.strip()[-300:] or None, "after": job}
+    log(log_path, event="successor", **action)
+    if result.returncode == 0:
+        successor_marker().parent.mkdir(parents=True, exist_ok=True)
+        write_json_atomic(successor_marker(), action)
+    return action
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--prefix", default="glm53-serve-ta-")
+    parser.add_argument("--target-file", default=str(GR / "servers-target.txt"))
+    parser.add_argument("--stop-file", default=str(GR / "keeper.STOP"))
+    parser.add_argument("--status-file", default=str(GR / "keeper-status.json"))
+    parser.add_argument("--log", default=str(GR / "keeper-log.jsonl"))
+    parser.add_argument("--legs-file", default=str(GR / "keeper-legs.json"))
+    parser.add_argument("--config-file", default=str(GR / "keeper-config.json"))
+    parser.add_argument("--interval", type=float, default=60)
+    parser.add_argument("--lead-minutes", type=float, default=30)
+    parser.add_argument("--max-per-hour", type=int, default=12)
+    parser.add_argument("--fast-fail-minutes", type=float, default=15)
+    parser.add_argument("--max-fast-fails", type=int, default=4)
+    parser.add_argument("--once", action="store_true")
+    args = parser.parse_args()
+    campaigns = json.loads((GR / "tasks.json").read_text())["campaigns"]
+    if (GR / "GO").exists():
+        raise SystemExit(f"{GR / 'GO'} exists: campaigns are released one by one (GO-<campaign>); remove it")
+    submissions = []          # server submissions (timestamps)
+    seen_running = {}         # slot name -> start time (now - elapsed at first sighting)
+    finished = set()
+    fast_fails = 0
+    halted = None
+    successor = json.loads(successor_marker().read_text()) if successor_marker().exists() else None
+    last_good = {}
+    last_overrides = {}
+    legs_path = Path(args.legs_file)
+    legs_state = json.loads(legs_path.read_text()) if legs_path.exists() else {}
+    my_job = os.environ.get("SLURM_JOB_ID")
+    end_time = float(os.environ.get("SLURM_JOB_END_TIME") or 0)
+    outage_since = None       # first pass with 0 ready servers (None while some server is ready)
+    outage_cancelled = set()  # driver legs cancelled for the current outage
+    tier_cancelled = set()    # legs cancelled by the tier pause
+    idle_since, idle_released = None, False
+    while True:
+        now = time.time()
+        try:
+            main_target = int(Path(args.target_file).read_text().strip())
+        except (OSError, ValueError):
+            main_target = 0
+        try:  # live overrides (no restart needed); a half-written / broken file keeps the last good overrides
+            overrides = json.loads(Path(args.config_file).read_text())
+            if not isinstance(overrides, dict):
+                raise ValueError("not an object")
+            last_overrides = overrides
+        except (OSError, ValueError) as error:
+            log(args.log, event="config_unreadable", error=str(error)[:200])
+            overrides = last_overrides
+        for key in ("lead_minutes", "max_per_hour", "max_fast_fails"):
+            if isinstance(overrides.get(key), (int, float)) and not isinstance(overrides.get(key), bool):
+                setattr(args, key, overrides[key])
+        config = checked_config(overrides, args.log, last_good)
+        targets = {"main": main_target, "short": int(config["short_target"])}
+        leads = {"main": args.lead_minutes, "short": float(config["short_lead_minutes"])}
+        try:
+            jobs = my_jobs()
+            if my_job and my_job not in {j["job"] for js in jobs.values() for j in js}:
+                raise RuntimeError(f"squeue does not list this keeper job {my_job}")
+        except (RuntimeError, OSError, subprocess.SubprocessError) as error:
+            log(args.log, event="squeue_error", error=str(error)[:300])
+            if args.once:
+                return 1
+            time.sleep(args.interval)
+            continue
+        stuck = cancel_stuck_held(jobs, now, args.log)
+        current = {name: js for name, js in jobs.items() if name.startswith(args.prefix)}
+        stop_reason = "stop file" if Path(args.stop_file).exists() else None
+        pools = {name: {"live": [], "pending": [], "running": []} for name in POOLS}
+        ready_servers = 0
+        for name, slot_jobs in sorted(current.items()):
+            pool = next((p for p, spec in POOLS.items() if re.fullmatch(spec["regex"], name)), None)
+            states = {j["state"] for j in slot_jobs}
+            run_jobs = [j for j in slot_jobs if j["state"] == "RUNNING"]
+            ready_servers += any(ready(j["job"]) for j in run_jobs)
+            if run_jobs:
+                elapsed = max((parse_left(j["elapsed"]) or 0) for j in run_jobs)
+                seen_running.setdefault(name, now - elapsed)
+            if pool is None:
+                continue
+            info = pools[pool]
+            if run_jobs:
+                lefts = [j["left"] for j in run_jobs if j["left"] is not None]
+                left = min(lefts) if lefts else None
+                info["running"].append((name, left))
+                if left is None or left > leads[pool] * 60:
+                    info["live"].append(name)
+            elif states & {"PENDING", "CONFIGURING"}:
+                info["pending"].append(name)
+                info["live"].append(name)
+        for name in list(seen_running):  # slots that ran and are gone now
+            if name not in current and name not in finished:
+                finished.add(name)
+                ran = now - seen_running[name]
+                if ran < args.fast_fail_minutes * 60:
+                    fast_fails += 1
+                    log(args.log, event="fast_fail", slot=name, ran_s=round(ran))
+                else:
+                    fast_fails = 0
+                    log(args.log, event="slot_ended", slot=name, ran_s=round(ran))
+        if fast_fails >= args.max_fast_fails and not halted:
+            halted = f"{fast_fails} slots in a row ended within {args.fast_fail_minutes} min"
+            log(args.log, event="halted", reason=halted)
+        # GPU outage (no ready server for outage_minutes, e.g. every 4 h batch slot expired with the replacements still
+        # queued: 2026-11-09 12:28 -> ~16:50): in-flight rollouts would only burn ATP's 3 h agent timeout and be graded
+        # as fails. So: no new legs, and the driver legs that were running when the outage began are cancelled (their
+        # in-flight attempts become retryable: the next leg's ATP recovery retries them); new legs start, and resume
+        # the campaigns, once a server is ready again.
+        if ready_servers >= 1:
+            if outage_since is not None:
+                log(args.log, event="outage_end", minutes=round((now - outage_since) / 60),
+                    cancelled=sorted(outage_cancelled))
+            outage_since, outage_cancelled = None, set()
+        elif outage_since is None:
+            outage_since = now
+            log(args.log, event="outage_begin")
+        paused = outage_since is not None and now - outage_since >= config["outage_minutes"] * 60
+        if paused:
+            # only legs whose driver got past its backend wait (ATP staged / campaign running): a leg still waiting
+            # for a backend holds no sandbox and simply starts when a server is back
+            victims = [j["job"] for name, entries in jobs.items() if name.startswith(("gta-t", "gta-dip"))
+                       for j in entries if j["state"] == "RUNNING" and j["job"] not in outage_cancelled
+                       and leg_started_atp(name, j["job"])]
+            if victims:
+                sh(["scancel", *victims])
+                outage_cancelled.update(victims)
+                log(args.log, event="outage_pause", cancelled=victims,
+                    minutes=round((now - outage_since) / 60))
+        # Tier pause (user 2026-11-09: "after tier 1 finishes, pause the other rollouts until I say continue"):
+        # with pause_after_tier = N, once every campaign of tier <= N has its results, TIER-PAUSE.json is written
+        # (allowed_tiers 1..N); while it exists only those tiers run and the RUNNING legs of other tiers are cancelled
+        # once (their in-flight attempts become retryable). Delete the file (or set allowed_tiers) to continue.
+        allowed = None
+        if tier_pause_path().exists():
+            try:
+                allowed = set(json.loads(tier_pause_path().read_text())["allowed_tiers"])
+            except (OSError, ValueError, KeyError, TypeError):
+                allowed = {1}
+        elif config["pause_after_tier"] and all(campaign_done(c["name"]) for c in campaigns
+                                                 if c["tier"] <= config["pause_after_tier"]):
+            allowed = set(range(1, int(config["pause_after_tier"]) + 1))
+            write_json_atomic(tier_pause_path(), {"paused_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+                                           "allowed_tiers": sorted(allowed),
+                                           "reason": f"all tier <= {config['pause_after_tier']} campaigns done; user "
+                                                     f"2026-11-09: pause the other tiers until told to continue"})
+            log(args.log, event="tier_pause", allowed_tiers=sorted(allowed))
+        if allowed is not None:
+            tiers = {c["name"]: c["tier"] for c in campaigns}
+            victims = [j["job"] for name, entries in jobs.items() if name.startswith("gta-t")
+                       and tiers.get(name[4:], 0) not in allowed for j in entries
+                       if j["state"] in ("RUNNING", "PENDING", "CONFIGURING") and j["job"] not in tier_cancelled]
+            if victims:
+                sh(["scancel", *victims])
+                tier_cancelled.update(victims)
+                log(args.log, event="tier_pause_cancel", jobs=victims, allowed_tiers=sorted(allowed))
+        actions, campaign_summary = schedule_campaigns(campaigns, jobs, ready_servers, config, legs_state, now,
+                                                       args.log, bool(stop_reason), paused=paused, allowed=allowed)
+        # Idle GPUs: no campaign left to run (all done or tier-paused) and no gta-dip* re-run job -> after
+        # idle_release_minutes cancel every server slot and submit none until there is work again.
+        busy = campaign_summary["work_left"] or any(name.startswith("gta-dip") for name in jobs)
+        if busy:
+            idle_since = None
+        elif idle_since is None:
+            idle_since = now
+            log(args.log, event="idle_begin")
+        idle = idle_since is not None and now - idle_since >= config["idle_release_minutes"] * 60
+        if idle and not idle_released:
+            ids = [j["job"] for name, entries in current.items() for j in entries]
+            if ids:
+                sh(["scancel", *ids])
+            idle_released = True
+            log(args.log, event="idle_release", jobs=ids)
+            actions.append({"idle_release": ids})
+        if busy:
+            idle_released = False
+        if paused:
+            actions.append({"outage_paused_min": round((now - outage_since) / 60)})
+        if campaign_summary["all_finished"] and not stop_reason:
+            stop_reason = (f"all {len(campaigns)} campaigns done" if campaign_summary["all_done"] else
+                           f"all campaigns done or parked ({len(campaign_summary['parked'])} parked)")
+        if (not stop_reason and not args.once and (successor is None or successor.get("rc") != 0) and end_time
+                and end_time - now < config["successor_minutes"] * 60
+                and (successor is None or now - successor.get("t", 0) > 600)):
+            successor = dict(submit_successor(args.log), t=now)  # a failed submission is retried every 10 min
+            actions.append(successor)
+        submissions = [t for t in submissions if now - t < 3600]
+        if stuck:
+            actions.append({"stuck_held_cancelled": stuck})
+        server_slots = sum(1 for name in current if any(re.fullmatch(s["regex"], name) for s in POOLS.values()))
+        for pool, spec in POOLS.items():
+            info = pools[pool]
+            if stop_reason:
+                for name in info["pending"]:
+                    ids = [j["job"] for j in current[name] if j["state"] != "RUNNING"]
+                    sh(["scancel", *ids])
+                    actions.append({"cancel_pending": name, "jobs": ids})
+                if campaign_summary["all_finished"] and config["cancel_running_when_done"]:
+                    for name, _ in info["running"]:
+                        ids = [j["job"] for j in current[name]]
+                        sh(["scancel", *ids])
+                        actions.append({"cancel_running": name, "jobs": ids})
+                continue
+            if halted or idle:
+                continue
+            missing = targets[pool] - len(info["live"])
+            if missing > 0:
+                used = set()
+                for n in list(current) + list(seen_running) + list(finished):
+                    m = re.fullmatch(spec["regex"], n)
+                    if m:
+                        used.add(int(m.group(1)))
+                for d in (G / "runs" / "serve").glob("ta-*"):
+                    m = re.fullmatch(spec["regex"], "glm53-serve-" + d.name)
+                    if m:
+                        used.add(int(m.group(1)))
+                next_id = max(used | {0}) + 1
+                for _ in range(missing):
+                    if len(submissions) >= args.max_per_hour:
+                        actions.append({"rate_limited": True, "pool": pool})
+                        break
+                    if server_slots >= config["max_servers"]:  # owner caps use at most ~12 servers' worth of load
+                        actions.append({"max_servers": config["max_servers"], "pool": pool})
+                        break
+                    server_slots += 1
+                    slot = spec["slot"].format(next_id)
+                    extra = {}
+                    if overrides.get("venv"):  # pin the servers' vLLM env (else the sbatch default)
+                        extra["VENV"] = str(overrides["venv"])
+                    if spec["partition"]:
+                        extra["PARTITION"] = spec["partition"]
+                    result = run(["bash", str(SUBMIT), slot, *spec["extra"]], **extra)
+                    submissions.append(now)
+                    actions.append({"submitted": slot, "pool": pool, "rc": result.returncode,
+                                    "out": result.stdout.strip().splitlines()[-1:] if result.stdout else None,
+                                    "err": result.stderr.strip()[-300:] or None})
+                    next_id += 1
+            elif missing < 0 and config["scale_down"]:  # opt-in: never cancel queued servers unless asked
+                newest = sorted(info["pending"], key=lambda n: int(re.fullmatch(spec["regex"], n).group(1)),
+                                reverse=True)
+                for name in newest[:-missing]:
+                    ids = [j["job"] for j in current[name] if j["state"] != "RUNNING"]
+                    sh(["scancel", *ids])
+                    actions.append({"cancel_pending": name, "jobs": ids})
+        status = {"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "targets": targets, "leads_min": leads,
+                  "pools": {p: {"live": i["live"], "pending": i["pending"],
+                                "running": [{"slot": n, "left_min": round(l / 60) if l is not None else None}
+                                            for n, l in i["running"]]} for p, i in pools.items()},
+                  "running": [{"slot": n, "left_min": round(l / 60) if l is not None else None}
+                              for i in pools.values() for n, l in i["running"]],
+                  "pending": [n for i in pools.values() for n in i["pending"]],
+                  "target": sum(targets.values()), "fast_fails_in_a_row": fast_fails, "halted": halted,
+                  "stop_reason": stop_reason, "submissions_last_hour": len(submissions), "actions": actions,
+                  "max_per_hour": args.max_per_hour, "ready_servers": ready_servers, "config": config,
+                  "campaigns": campaign_summary, "successor": successor, "job": my_job,
+                  "outage_since": time.strftime("%Y-%m-%dT%H:%M:%S%z", time.localtime(outage_since))
+                  if outage_since else None,
+                  "idle_since": time.strftime("%Y-%m-%dT%H:%M:%S%z", time.localtime(idle_since)) if idle_since else None,
+                  "idle_released": idle_released,
+                  "job_left_min": round((end_time - now) / 60) if end_time else None}
+        write_json_atomic(Path(args.status_file), status)
+        if actions:
+            log(args.log, event="actions", actions=actions, targets=targets)
+        if stop_reason:
+            log(args.log, event="stopped", reason=stop_reason)
+            return 0
+        if args.once:
+            print(json.dumps(status, indent=1))
+            return 0
+        time.sleep(args.interval)
+
+
+if __name__ == "__main__":
+    while True:
+        try:
+            sys.exit(main())
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except Exception as error:  # never let one bad pass end the keeper job: log and start over
+            log(str(GR / "keeper-log.jsonl"), event="keeper_exception", error=f"{type(error).__name__}: {error}"[:500])
+            if "--once" in sys.argv:
+                raise
+            time.sleep(60)

@@ -1,0 +1,836 @@
+From 322f90a2a356a83276bc07236e0e620a4e4fc93a Mon Sep 17 00:00:00 2001
+From: yzong-rh <yzong@redhat.com>
+Date: Thu, 29 Oct 2026 22:53:29 -0400
+Subject: [PATCH] [Bugfix][Spec Decode] Per-request draft retention for
+ structured output under PP (#63219)
+
+Signed-off-by: Yifan Zong <yzong@redhat.com>
+Signed-off-by: Nick Hill <nickhill123@gmail.com>
+Co-authored-by: Nick Hill <nickhill123@gmail.com>
+---
+ .buildkite/test_areas/engine.yaml             |   1 +
+ .../draft_model/test_draft_model.py           |  58 +++++---
+ .../draft_model/test_structured_output_pp.py  | 140 ++++++++++++++++++
+ .../test_rejection_sampler_utils.py           |   1 -
+ .../test_gpu_model_runner_v2_streaming.py     |   1 +
+ tests/v1/worker/test_draft_tokens_handler.py  |  84 +++++++++++
+ .../v1/worker/test_grammar_invalid_drafts.py  |  56 -------
+ vllm/v1/core/sched/output.py                  |   5 -
+ vllm/v1/core/sched/scheduler.py               |  10 +-
+ vllm/v1/worker/gpu/model_runner.py            |  14 +-
+ vllm/v1/worker/gpu/sample/batch_shard.py      |   5 -
+ .../gpu/spec_decode/rejection_sampler.py      |  30 +---
+ vllm/v1/worker/gpu/spec_decode/utils.py       |  70 +++++++--
+ vllm/v1/worker/gpu/structured_outputs.py      |  37 -----
+ 14 files changed, 322 insertions(+), 190 deletions(-)
+ create mode 100644 tests/v1/e2e/spec_decode/draft_model/test_structured_output_pp.py
+ create mode 100644 tests/v1/worker/test_draft_tokens_handler.py
+ delete mode 100644 tests/v1/worker/test_grammar_invalid_drafts.py
+
+diff --git a/.buildkite/test_areas/engine.yaml b/.buildkite/test_areas/engine.yaml
+index f6f91e26f86d..989abe9c8a92 100644
+--- a/.buildkite/test_areas/engine.yaml
++++ b/.buildkite/test_areas/engine.yaml
+@@ -262,6 +262,7 @@ steps:
+       pytest -v -s
+       v1/e2e/spec_decode/draft_model/test_draft_model.py::test_draft_model_tensor_parallelism
+       v1/e2e/spec_decode/draft_model/test_draft_model.py::test_draft_model_engine_args_tensor_parallelism
++      v1/e2e/spec_decode/draft_model/test_structured_output_pp.py::test_specdec_pp_structured_output
+   mirror:
+     amd:
+       label: ":amd: (MI300) V1 E2E"
+diff --git a/tests/v1/e2e/spec_decode/draft_model/test_draft_model.py b/tests/v1/e2e/spec_decode/draft_model/test_draft_model.py
+index 37a4a61d5259..177734672a16 100644
+--- a/tests/v1/e2e/spec_decode/draft_model/test_draft_model.py
++++ b/tests/v1/e2e/spec_decode/draft_model/test_draft_model.py
+@@ -1,7 +1,8 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ 
+-from dataclasses import dataclass
++from dataclasses import dataclass, field
++from typing import Any
+ 
+ import pytest
+ 
+@@ -42,6 +43,7 @@ class ArgsTest:
+     parallel_drafting: bool = False
+     target_tensor_parallel_size: int = 1
+     draft_tensor_parallel_size: int = 1
++    pipeline_parallel_size: int = 1
+     max_model_len: int = 2048
+     gpu_memory_utilization: float = 0.5
+     dataset: str = "test_prompts"
+@@ -51,6 +53,7 @@ class ArgsTest:
+     enable_prefix_caching: bool | None = None
+     chat_template_kwargs: dict | None = None
+     reject_full_acceptance: bool = False
++    engine_kwargs: dict[str, Any] = field(default_factory=dict)
+ 
+ 
+ def get_messages(dataset: str, n: int) -> list[Messages]:
+@@ -374,29 +377,8 @@ def assert_draft_model_correctness(args: ArgsTest, vllm_runner):
+         dataset=args.dataset, n=args.num_prompts
+     )
+ 
+-    with vllm_runner(
+-        args.target_model,
+-        block_size=None,
+-        trust_remote_code=False,
+-        enable_chunked_prefill=None,
+-        compilation_config=CompilationConfig(),
+-        speculative_config={
+-            "model": args.draft_model,
+-            "method": args.method,
+-            "num_speculative_tokens": args.num_speculative_tokens,
+-            "max_model_len": args.max_model_len,
+-            "enforce_eager": args.enforce_eager,
+-            "draft_tensor_parallel_size": args.draft_tensor_parallel_size,
+-            "parallel_drafting": args.parallel_drafting,
+-        },
+-        max_num_seqs=args.max_num_seqs,  # limit cudagraph capture runtime
+-        max_model_len=args.max_model_len,
+-        gpu_memory_utilization=args.gpu_memory_utilization,
+-        tensor_parallel_size=args.target_tensor_parallel_size,
+-        enforce_eager=args.enforce_eager,
+-        disable_log_stats=False,  # enables get_metrics()
+-        enable_prefix_caching=args.enable_prefix_caching,
+-    ) as spec_runner:
++    kwargs = vllm_runner_kwargs(args)
++    with vllm_runner(args.target_model, **kwargs) as spec_runner:
+         spec_llm = spec_runner.llm
+ 
+         # we don't check the outputs, only check the metrics
+@@ -443,3 +425,31 @@ def assert_draft_model_correctness(args: ArgsTest, vllm_runner):
+         has_async = spec_llm.llm_engine.vllm_config.scheduler_config.async_scheduling
+ 
+     assert has_async, f"Expected async_scheduling=True for {args.method} spec decode"
++
++
++def vllm_runner_kwargs(args: ArgsTest) -> dict[str, Any]:
++    kwargs = dict(
++        block_size=None,
++        trust_remote_code=False,
++        enable_chunked_prefill=None,
++        compilation_config=CompilationConfig(),
++        speculative_config={
++            "model": args.draft_model,
++            "method": args.method,
++            "num_speculative_tokens": args.num_speculative_tokens,
++            "max_model_len": args.max_model_len,
++            "enforce_eager": args.enforce_eager,
++            "draft_tensor_parallel_size": args.draft_tensor_parallel_size,
++            "parallel_drafting": args.parallel_drafting,
++        },
++        max_num_seqs=args.max_num_seqs,
++        max_model_len=args.max_model_len,
++        gpu_memory_utilization=args.gpu_memory_utilization,
++        tensor_parallel_size=args.target_tensor_parallel_size,
++        pipeline_parallel_size=args.pipeline_parallel_size,
++        enforce_eager=args.enforce_eager,
++        disable_log_stats=False,  # enables get_metrics()
++        enable_prefix_caching=args.enable_prefix_caching,
++    )
++    kwargs.update(args.engine_kwargs)
++    return kwargs
+diff --git a/tests/v1/e2e/spec_decode/draft_model/test_structured_output_pp.py b/tests/v1/e2e/spec_decode/draft_model/test_structured_output_pp.py
+new file mode 100644
+index 000000000000..fc7f72d26550
+--- /dev/null
++++ b/tests/v1/e2e/spec_decode/draft_model/test_structured_output_pp.py
+@@ -0,0 +1,140 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++"""Structured outputs must remain constrained across pipelined draft handoffs."""
++
++import json
++
++import jsonschema
++import pytest
++
++from tests.utils import multi_gpu_only
++from vllm import SamplingParams
++from vllm.outputs import RequestOutput
++from vllm.sampling_params import StructuredOutputsParams
++from vllm.v1.metrics.reader import Metric
++
++from ..utils import compute_acceptance_len, compute_acceptance_rate
++from .test_draft_model import ArgsTest, vllm_runner_kwargs
++
++NUM_REQUEST_CYCLES = 6
++STRUCTURED_OUTPUT_SCHEMA = {
++    "type": "array",
++    "minItems": 16,
++    "maxItems": 16,
++    "items": {"type": "string", "enum": ["red", "blue"]},
++}
++
++
++def case_to_test(pp_size: int, tp_size: int) -> ArgsTest:
++    """Exercise structured draft handoffs across repeated request cohorts."""
++    return ArgsTest(
++        target_model="Qwen/Qwen3-4B",
++        draft_model="z-lab/Qwen3-4B-DFlash-b16",
++        sampling_config=SamplingParams(temperature=0, max_tokens=256),
++        num_speculative_tokens=15,
++        method="dflash",
++        # reference for AL and AR is TP=1 PP=1
++        expected_acceptance_rate=0.0878 * 0.95,  # ref - 5% tolerance
++        expected_acceptance_len=2.3168 * 0.95,  # ref - 5% tolerance
++        pipeline_parallel_size=pp_size,
++        target_tensor_parallel_size=tp_size,
++        max_num_seqs=8,  # force multiple PP batches
++        gpu_memory_utilization=0.8,
++        engine_kwargs={
++            # The handoff race only exists with deferred (async) sampling.
++            "async_scheduling": True,
++            "structured_outputs_config": {
++                "backend": "xgrammar",
++                "disable_any_whitespace": True,
++            },
++        },
++    )
++
++
++@multi_gpu_only(num_gpus=2)
++@pytest.mark.parametrize(
++    "args",
++    [
++        pytest.param(case_to_test(pp_size=2, tp_size=1), id="pp2-tp1"),
++    ],
++)
++def test_specdec_pp_structured_output(args: ArgsTest, vllm_runner) -> None:
++    # Alternate full-size cohorts to turn over request IDs while PP batches are
++    # still in flight.
++    messages, sampling_params = _create_requests(
++        args.sampling_config,
++        num_cycles=NUM_REQUEST_CYCLES,
++        cohort_size=args.max_num_seqs,
++    )
++    kwargs = vllm_runner_kwargs(args)
++    with vllm_runner(args.target_model, **kwargs) as runner:
++        outputs = runner.llm.chat(
++            messages,
++            sampling_params,
++            chat_template_kwargs={"enable_thinking": False},
++        )
++        metrics = runner.llm.get_metrics()
++    _assert_outputs_are_structured(outputs, sampling_params)
++    _assert_specdec_metrics(
++        metrics,
++        expected_acceptance_rate=args.expected_acceptance_rate,
++        expected_acceptance_len=args.expected_acceptance_len,
++    )
++
++
++def _create_requests(
++    sampling: SamplingParams, num_cycles: int, cohort_size: int
++) -> tuple[list, list[SamplingParams]]:
++    messages = []
++    sampling_params: list[SamplingParams] = []
++    request_index = 0
++    for _ in range(num_cycles):
++        for is_structured in (True, False):
++            for _ in range(cohort_size):
++                messages.append(_make_messages(request_index, is_structured))
++                params = sampling.clone()
++                if is_structured:
++                    params.structured_outputs = StructuredOutputsParams(
++                        json=STRUCTURED_OUTPUT_SCHEMA
++                    )
++                sampling_params.append(params)
++                request_index += 1
++    return messages, sampling_params
++
++
++def _make_messages(index: int, is_structured: bool):
++    task = (
++        "list sixteen animals as JSON."
++        if is_structured
++        else "write a detailed travel story."
++    )
++    messages = [{"role": "user", "content": f"Case {index}: {task}"}]
++    return messages
++
++
++def _assert_specdec_metrics(
++    metrics: list[Metric],
++    expected_acceptance_rate: float,
++    expected_acceptance_len: float,
++) -> None:
++    actual_rate = compute_acceptance_rate(metrics)
++    actual_len = compute_acceptance_len(metrics)
++    print(f"acceptance_rate={actual_rate:.4f}, acceptance_len={actual_len:.4f}")
++    assert actual_rate >= expected_acceptance_rate, (
++        actual_rate,
++        expected_acceptance_rate,
++    )
++    assert actual_len >= expected_acceptance_len, (actual_len, expected_acceptance_len)
++
++
++def _assert_outputs_are_structured(
++    outputs: list[RequestOutput], sampling_params: list[SamplingParams]
++) -> None:
++    assert len(outputs) == len(sampling_params)
++    for output, params in zip(outputs, sampling_params, strict=True):
++        completion = output.outputs[0]
++        assert output.finished and completion.text
++        schema = params.structured_outputs
++        if schema is not None and schema.json is not None:
++            assert completion.finish_reason == "stop", completion.text
++            jsonschema.validate(json.loads(completion.text), schema.json)
+diff --git a/tests/v1/spec_decode/test_rejection_sampler_utils.py b/tests/v1/spec_decode/test_rejection_sampler_utils.py
+index a00f41929c56..95e61cdd5cb0 100644
+--- a/tests/v1/spec_decode/test_rejection_sampler_utils.py
++++ b/tests/v1/spec_decode/test_rejection_sampler_utils.py
+@@ -1178,7 +1178,6 @@ def verify() -> tuple[torch.Tensor, torch.Tensor]:
+             inputs["expanded_idx_mapping"],
+             inputs["expanded_local_pos"],
+             None,
+-            draft_sampled,
+         )
+         return sampled, num_sampled
+ 
+diff --git a/tests/v1/streaming_input/test_gpu_model_runner_v2_streaming.py b/tests/v1/streaming_input/test_gpu_model_runner_v2_streaming.py
+index fc316e336411..4714062b59fc 100644
+--- a/tests/v1/streaming_input/test_gpu_model_runner_v2_streaming.py
++++ b/tests/v1/streaming_input/test_gpu_model_runner_v2_streaming.py
+@@ -36,6 +36,7 @@ def mock_model_runner_with_req_states():
+     runner.model_state = Mock()
+     runner.block_tables = Mock()
+     runner.lora_state = Mock()
++    runner.draft_tokens_handler = Mock()
+     runner.pp_handler = None
+     runner.sampler = None
+     runner.prompt_logprobs_worker = None
+diff --git a/tests/v1/worker/test_draft_tokens_handler.py b/tests/v1/worker/test_draft_tokens_handler.py
+new file mode 100644
+index 000000000000..84150c98dcfe
+--- /dev/null
++++ b/tests/v1/worker/test_draft_tokens_handler.py
+@@ -0,0 +1,84 @@
++# SPDX-License-Identifier: Apache-2.0
++# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++from dataclasses import replace
++
++import pytest
++import torch
++
++from vllm.v1.worker.gpu.input_batch import InputBatch, InputBuffers
++from vllm.v1.worker.gpu.spec_decode.utils import DraftTokensHandler
++
++
++def _input_batch(req_ids: list[str], structured: bool) -> InputBatch:
++    num_reqs = len(req_ids)
++    buffers = InputBuffers(num_reqs, num_reqs, torch.device("cuda"))
++    batch = InputBatch.make_dummy(num_reqs, num_reqs, buffers, is_padding=False)
++    return replace(batch, req_ids=req_ids, has_structured_output_reqs=structured)
++
++
++def _set_draft_toks(
++    handler: DraftTokensHandler,
++    req_ids: list[str],
++    tokens: list[list[int]],
++    structured: bool,
++) -> None:
++    batch = _input_batch(req_ids=req_ids, structured=structured)
++    handler.set_draft_tokens(batch, torch.tensor(tokens, device="cuda"))
++
++
++def _get_draft_toks(handler: DraftTokensHandler) -> dict[str, list[int]]:
++    drafts = handler.get_draft_tokens()
++    assert drafts is not None
++    return dict(zip(drafts.req_ids, drafts.draft_token_ids, strict=True))
++
++
++@pytest.mark.skipif(not torch.cuda.is_available(), reason="Requires CUDA")
++def test_draft_tokens_follow_request_lifecycle() -> None:
++    handler = DraftTokensHandler(torch.device("cuda"))
++
++    # The worker samples two structured-output requests
++    _set_draft_toks(
++        handler,
++        req_ids=["a", "b"],
++        tokens=[[11, 12], [21, 22]],
++        structured=True,
++    )
++
++    # "b" finishes before this result is handed back to the scheduler
++    handler.discard("b")
++    assert _get_draft_toks(handler) == {"a": [11, 12]}
++
++    # "a" continues and "b" is re-added with a new draft row
++    _set_draft_toks(
++        handler,
++        req_ids=["a", "b"],
++        tokens=[[13, 14], [23, 24]],
++        structured=True,
++    )
++    assert _get_draft_toks(handler) == {
++        "a": [13, 14],
++        "b": [23, 24],
++    }
++
++    # A batch without structured-output must not erase drafts from live requests
++    _set_draft_toks(
++        handler,
++        req_ids=["plain"],
++        tokens=[[31, 32]],
++        structured=False,
++    )
++    assert _get_draft_toks(handler) == {
++        "a": [13, 14],
++        "b": [23, 24],
++        "plain": [-1, -1],
++    }
++
++    # Requests finish independently, and the handler is empty once all are gone
++    handler.discard("a")
++    assert _get_draft_toks(handler) == {
++        "b": [23, 24],
++        "plain": [-1, -1],
++    }
++    handler.discard("b")
++    handler.discard("plain")
++    assert _get_draft_toks(handler) == {}
+diff --git a/tests/v1/worker/test_grammar_invalid_drafts.py b/tests/v1/worker/test_grammar_invalid_drafts.py
+deleted file mode 100644
+index 77e0ef5242d5..000000000000
+--- a/tests/v1/worker/test_grammar_invalid_drafts.py
++++ /dev/null
+@@ -1,56 +0,0 @@
+-# SPDX-License-Identifier: Apache-2.0
+-# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+-"""Which speculative drafts a structured-output request may accept.
+-
+-`StructuredOutputManager.grammar_bitmask` fills row i before it inspects
+-`req_tokens[i]`, so with the first -1 placeholder at index j rows 0..j carry a
+-real mask and rows j+1.. carry the all-permissive `_full_mask`. Drafts j..K-1
+-must therefore be rejected, or the request samples with no grammar constraint
+-at a position the model really does sample.
+-"""
+-
+-from types import SimpleNamespace
+-
+-import numpy as np
+-import torch
+-
+-from vllm.v1.worker.gpu.structured_outputs import grammar_invalid_drafts
+-
+-
+-def _input_batch(req_ids, num_drafts, num_admitted=None):
+-    """`num_admitted` is what adaptive verification kept on device."""
+-    num_admitted = num_drafts if num_admitted is None else num_admitted
+-    rows = [n + 1 for n in num_admitted]
+-    return SimpleNamespace(
+-        req_ids=list(req_ids),
+-        num_reqs=len(req_ids),
+-        num_draft_tokens=sum(num_drafts),
+-        num_draft_tokens_per_req=np.array(num_drafts, dtype=np.int32),
+-        cu_num_logits=torch.tensor([0, *np.cumsum(rows)], dtype=torch.int32),
+-        expanded_local_pos=torch.cat(
+-            [torch.arange(n, dtype=torch.int32) for n in rows]
+-        ),
+-    )
+-
+-
+-def _invalid_rows(batch, grammar_req_ids, num_acceptable):
+-    mask = grammar_invalid_drafts(batch, grammar_req_ids, num_acceptable)
+-    return None if mask is None else mask.nonzero().flatten().tolist()
+-
+-
+-def test_reject_whole_window_when_nothing_was_backfilled():
+-    # Request "g" is at rows 0..3 (1 + 3 drafts), so its drafts are rows 1..3.
+-    batch = _input_batch(["g", "p"], [3, 3])
+-    assert _invalid_rows(batch, ["g"], [0]) == [1, 2, 3]
+-
+-
+-def test_keep_the_drafts_the_bitmask_could_see():
+-    batch = _input_batch(["g", "p"], [3, 3])
+-    assert _invalid_rows(batch, ["g"], [2]) == [3]
+-
+-
+-def test_follow_the_device_layout_under_adaptive_verification():
+-    # Scheduled 3 drafts each, but adaptive verification admitted 2 for "a" and
+-    # 3 for "b": the real rows are a=0..2, b=3..6, not the scheduled 0..3, 4..7.
+-    batch = _input_batch(["a", "b"], [3, 3], num_admitted=[2, 3])
+-    assert _invalid_rows(batch, ["a", "b"], [1, 0]) == [2, 4, 5, 6]
+diff --git a/vllm/v1/core/sched/output.py b/vllm/v1/core/sched/output.py
+index 7482f32d4fcb..34f9153b3af0 100644
+--- a/vllm/v1/core/sched/output.py
++++ b/vllm/v1/core/sched/output.py
+@@ -344,8 +344,3 @@ class GrammarOutput:
+     structured_output_request_ids: list[str]
+     # Bitmask ordered as structured_output_request_ids.
+     grammar_bitmask: "npt.NDArray[np.int32]"
+-    # Per request, ordered as structured_output_request_ids: how many leading
+-    # drafts the bitmask constrained. `grammar_bitmask` fills every row after
+-    # the first -1 placeholder with the all-permissive `_full_mask`, so drafts
+-    # from this index on must not be accepted. None invalidates every draft.
+-    num_acceptable_drafts: list[int] | None = None
+diff --git a/vllm/v1/core/sched/scheduler.py b/vllm/v1/core/sched/scheduler.py
+index 0db5e1f6bfc1..9d4287751e5a 100644
+--- a/vllm/v1/core/sched/scheduler.py
++++ b/vllm/v1/core/sched/scheduler.py
+@@ -77,7 +77,6 @@
+ from vllm.v1.spec_decode.dynamic.utils import build_dynamic_sd_schedule_lookup
+ from vllm.v1.spec_decode.metrics import SpecDecodingStats
+ from vllm.v1.structured_output import StructuredOutputManager
+-from vllm.v1.structured_output.utils import strip_speculative_padding
+ from vllm.v1.utils import record_function_or_nullcontext
+ 
+ logger = init_logger(__name__)
+@@ -2248,14 +2247,7 @@ def get_grammar_bitmask(
+             structured_output_request_ids,
+             scheduler_output.scheduled_spec_decode_tokens,
+         )
+-        spec_tokens = scheduler_output.scheduled_spec_decode_tokens
+-        num_acceptable_drafts = [
+-            len(strip_speculative_padding(spec_tokens.get(req_id, [])))
+-            for req_id in structured_output_request_ids
+-        ]
+-        return GrammarOutput(
+-            structured_output_request_ids, bitmask, num_acceptable_drafts
+-        )
++        return GrammarOutput(structured_output_request_ids, bitmask)
+ 
+     def update_from_output(
+         self,
+diff --git a/vllm/v1/worker/gpu/model_runner.py b/vllm/v1/worker/gpu/model_runner.py
+index ebfa9da5235c..268e137882ff 100644
+--- a/vllm/v1/worker/gpu/model_runner.py
++++ b/vllm/v1/worker/gpu/model_runner.py
+@@ -177,10 +177,7 @@
+     get_drafter_hidden_states,
+ )
+ from vllm.v1.worker.gpu.states import RequestState
+-from vllm.v1.worker.gpu.structured_outputs import (
+-    StructuredOutputsWorker,
+-    grammar_invalid_drafts,
+-)
++from vllm.v1.worker.gpu.structured_outputs import StructuredOutputsWorker
+ from vllm.v1.worker.gpu.ubatch_utils import (
+     UBatchRunner,
+     UBatchState,
+@@ -1199,6 +1196,7 @@ def _remove_request(self, req_id: str) -> bool:
+         # Call model_state.remove_request *before* req_states.remove_request
+         # so the model_state can still look up the slot index.
+         self.model_state.remove_request(req_id)
++        self.draft_tokens_handler.discard(req_id)
+         req_idx = self.req_states.remove_request(req_id)
+         if req_idx is None:
+             return False
+@@ -1683,7 +1681,6 @@ def sample(
+             sample_hidden_states = hidden_states[input_batch.logits_indices]
+             logits = self.model.compute_logits(sample_hidden_states)
+ 
+-        invalid_drafts = None
+         # A diffusion prefill has no logit rows even when a bitmask row
+         # arrived for it.
+         if grammar_output is not None and logits.shape[0] > 0:
+@@ -1695,11 +1692,6 @@ def sample(
+                 grammar_output.structured_output_request_ids,
+                 grammar_output.grammar_bitmask,
+             )
+-            invalid_drafts = grammar_invalid_drafts(
+-                input_batch,
+-                grammar_output.structured_output_request_ids,
+-                grammar_output.num_acceptable_drafts,
+-            )
+ 
+         sampler_output: SamplerOutput | None
+         if input_batch.num_reqs == 0:
+@@ -1718,7 +1710,6 @@ def sample(
+                 input_batch,
+                 # Draft logits are needed for probabilistic rejection sampling.
+                 self.speculator.draft_logits,
+-                invalid_drafts,
+             )
+ 
+         if shard_metadata is not None:
+@@ -1801,6 +1792,7 @@ def execute_model(
+         randomize_inputs: bool = False,
+     ) -> ModelRunnerOutput | IntermediateTensors | None:
+         if not dummy_run:
++            self.draft_tokens_handler.begin_step(scheduler_output)
+             # Update the request states.
+             self.update_pp_decode_requests()
+             self.finish_requests(scheduler_output)
+diff --git a/vllm/v1/worker/gpu/sample/batch_shard.py b/vllm/v1/worker/gpu/sample/batch_shard.py
+index 9c2da8d018c7..5af0854929a4 100644
+--- a/vllm/v1/worker/gpu/sample/batch_shard.py
++++ b/vllm/v1/worker/gpu/sample/batch_shard.py
+@@ -410,14 +410,9 @@ def _shard_grammar_output(
+     bitmask = grammar_output.grammar_bitmask
+     blocks = bitmask.reshape(len(grammar_req_ids), -1, bitmask.shape[-1])
+     local_bitmask = blocks[keep].reshape(-1, bitmask.shape[-1])
+-    # num_acceptable_drafts is ordered with structured_output_request_ids.
+-    num_acceptable = grammar_output.num_acceptable_drafts
+-    if num_acceptable is not None:
+-        num_acceptable = [num_acceptable[i] for i in keep]
+     return GrammarOutput(
+         structured_output_request_ids=local_ids,
+         grammar_bitmask=local_bitmask,
+-        num_acceptable_drafts=num_acceptable,
+     )
+ 
+ 
+diff --git a/vllm/v1/worker/gpu/spec_decode/rejection_sampler.py b/vllm/v1/worker/gpu/spec_decode/rejection_sampler.py
+index 2ee4bf402126..feec2cb32200 100644
+--- a/vllm/v1/worker/gpu/spec_decode/rejection_sampler.py
++++ b/vllm/v1/worker/gpu/spec_decode/rejection_sampler.py
+@@ -260,7 +260,6 @@ def _verify(
+         expanded_idx_mapping: torch.Tensor,
+         expanded_local_pos: torch.Tensor,
+         seq_lens_upper_bound_np: np.ndarray,
+-        verify_draft_sampled: torch.Tensor,
+     ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+         processed_logits = self.sampler.apply_sampling_params(
+             logits,
+@@ -275,7 +274,7 @@ def _verify(
+         sampled, num_sampled = rejection_sample(
+             processed_logits,
+             draft_logits,
+-            verify_draft_sampled,
++            draft_sampled,
+             cu_num_logits,
+             pos,
+             idx_mapping,
+@@ -296,7 +295,7 @@ def _verify(
+         )
+         if self.sampler.trace_replay_state is not None:
+             self.sampler.trace_replay_state.apply_trace_to_verified(
+-                sampled, num_sampled, verify_draft_sampled, cu_num_logits, idx_mapping
++                sampled, num_sampled, draft_sampled, cu_num_logits, idx_mapping
+             )
+         return processed_logits, sampled, num_sampled
+ 
+@@ -309,15 +308,12 @@ def _verify_in_chunks(
+         pos: torch.Tensor,
+         max_chunk_logits: int,
+         max_num_logprobs: int,
+-        verify_draft_sampled: torch.Tensor | None = None,
+     ) -> tuple[
+         torch.Tensor,
+         torch.Tensor,
+         LogprobsTensors | None,
+         SamplingMaskTensors | None,
+     ]:
+-        if verify_draft_sampled is None:
+-            verify_draft_sampled = draft_sampled
+         cu_num_logits_np = input_batch.cu_num_logits_np
+         use_processed_logits = self.sampler.logprobs_mode in PROCESSED_LOGPROBS_MODES
+         num_reqs = input_batch.num_reqs
+@@ -361,7 +357,6 @@ def _verify_in_chunks(
+                 input_batch.expanded_idx_mapping[lo:hi],
+                 input_batch.expanded_local_pos[lo:hi],
+                 input_batch.seq_lens_cpu_upper_bound.numpy()[start:end],
+-                verify_draft_sampled[lo:hi],
+             )
+             chunk_logprobs = self._get_logprobs_tensors(
+                 sampled,
+@@ -423,7 +418,6 @@ def __call__(
+         logits: torch.Tensor,
+         input_batch: InputBatch,
+         draft_logits: DraftLogitsCache | None = None,
+-        invalid_drafts: torch.Tensor | None = None,
+     ) -> SamplerOutput:
+         # NOTE(woosuk): We intentionally compute num_nans before sampling to make clear
+         # that num_nans is computed before applying penalties and temperature.
+@@ -438,25 +432,6 @@ def __call__(
+             self.sampler.req_states.prefill_len.gpu,
+         )
+ 
+-        # Marking a draft invalid (`is_valid_draft = draft_sampled >= 0`) pins the
+-        # accepted length before it reaches a permissive bitmask row. Only
+-        # verification sees the copy: `apply_sampling_params` and watermarking
+-        # keep the real draft ids.
+-        # A request skipped since its draft step may find its draft logits row
+-        # reused by another request. Reject those drafts.
+-        stale_drafts = (
+-            draft_logits.stale_drafts(input_batch) if draft_logits is not None else None
+-        )
+-        if stale_drafts is not None:
+-            invalid_drafts = (
+-                stale_drafts
+-                if invalid_drafts is None
+-                else invalid_drafts | stale_drafts
+-            )
+-        verify_draft_sampled = draft_sampled
+-        if invalid_drafts is not None:
+-            verify_draft_sampled = draft_sampled.masked_fill(invalid_drafts, -1)
+-
+         max_num_logprobs = self.sampler.sampling_states.max_num_logprobs(
+             input_batch.idx_mapping_np
+         )
+@@ -474,7 +449,6 @@ def __call__(
+             pos,
+             chunk_logit_limit,
+             max_num_logprobs,
+-            verify_draft_sampled,
+         )
+ 
+         num_sampled, num_rejected = get_num_sampled_and_rejected(
+diff --git a/vllm/v1/worker/gpu/spec_decode/utils.py b/vllm/v1/worker/gpu/spec_decode/utils.py
+index b005f5c3f3ae..975ba32e2263 100644
+--- a/vllm/v1/worker/gpu/spec_decode/utils.py
++++ b/vllm/v1/worker/gpu/spec_decode/utils.py
+@@ -1,11 +1,14 @@
+ # SPDX-License-Identifier: Apache-2.0
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
++from collections.abc import Iterable
++
+ import numpy as np
+ import torch
+ 
+ from vllm.config import LoadConfig, replace
+ from vllm.distributed import get_pp_group
+ from vllm.logger import init_logger
++from vllm.v1.core.sched.output import SchedulerOutput
+ from vllm.v1.outputs import DraftTokenIds
+ from vllm.v1.worker.gpu.async_utils import async_copy_to_np
+ from vllm.v1.worker.gpu.input_batch import InputBatch
+@@ -51,20 +54,34 @@ def __init__(self, device: torch.device | None = None):
+         self.copy_stream = torch.cuda.Stream(device)
+         # Blocking (sleep) event to avoid busy-polling the CUDA driver lock.
+         self.copy_event = torch.cuda.Event(blocking=True)
+-
+-        self.req_ids: list[str] = []
+-        self.draft_tokens_np: np.ndarray | None = None
+-        self.num_draft_tokens: int = 0
++        self._copy_pending = False
++
++        # Latest drafts per live request: a row view into an async-copied
++        # pinned array (synced in get_draft_tokens), or just the draft width
++        # when the scheduler doesn't need the token ids.
++        self._draft_tokens_by_req: dict[str, np.ndarray | int] = {}
++        # Requests whose drafts the scheduler will fetch for the latest step's
++        # deferred grammar bitmask; None means all requests.
++        self._deferred_req_ids: Iterable[str] | None = None
++
++    def begin_step(self, scheduler_output: SchedulerOutput) -> None:
++        # get_draft_tokens is only called for the most recently executed
++        # scheduler output.
++        self._deferred_req_ids = (
++            scheduler_output.scheduled_spec_decode_tokens.keys()
++            if scheduler_output.pending_structured_output_tokens
++            else None
++        )
+ 
+     def set_draft_tokens(
+         self, input_batch: InputBatch, draft_tokens: torch.Tensor
+     ) -> None:
+-        self.req_ids = input_batch.req_ids
+-        self.num_draft_tokens = draft_tokens.shape[1]
+         if not input_batch.has_structured_output_reqs:
+             # No draft token validation needs to be performed by
+-            # the scheduler for this batch.
+-            self.draft_tokens_np = None
++            # the scheduler for this batch. Record draft token widths only.
++            num_draft_tokens = draft_tokens.shape[1]
++            for req_id in input_batch.req_ids:
++                self._draft_tokens_by_req[req_id] = num_draft_tokens
+             return
+ 
+         # For spec decoding + structured outputs, we must transfer the
+@@ -72,21 +89,46 @@ def set_draft_tokens(
+         current_stream = torch.cuda.current_stream(self.device)
+         self.copy_stream.wait_stream(current_stream)
+         with torch.cuda.stream(self.copy_stream):
+-            self.draft_tokens_np = async_copy_to_np(draft_tokens)
++            draft_tokens_np = async_copy_to_np(draft_tokens)
+             # draft_tokens is a temporary allocation on the main stream and read here on
+             # copy_stream; without record_stream, the caching allocator may reuse its
+             # memory before the async copy executes.
+             draft_tokens.record_stream(self.copy_stream)
+             self.copy_event.record()
++            self._copy_pending = True
++
++        for req_id, row in zip(input_batch.req_ids, draft_tokens_np):
++            self._draft_tokens_by_req[req_id] = row
++
++    def discard(self, req_id: str) -> None:
++        self._draft_tokens_by_req.pop(req_id, None)
+ 
+     def get_draft_tokens(self) -> DraftTokenIds | None:
+-        if self.draft_tokens_np is not None:
++        """Return the latest drafts needed for the current step's deferred
++        grammar bitmask, or for all live requests if sampling isn't deferred.
++        Requests without retained drafts are omitted."""
++        if self._copy_pending:
+             self.copy_event.synchronize()
+-            draft_token_ids = self.draft_tokens_np.tolist()
++            self._copy_pending = False
++
++        drafts_by_req = self._draft_tokens_by_req
++        req_ids = self._deferred_req_ids
++        if req_ids is None:
++            out_req_ids = list(drafts_by_req)
+         else:
+-            # This case only happens when async scheduling is disabled.
+-            draft_token_ids = [[-1] * self.num_draft_tokens for _ in self.req_ids]
+-        return DraftTokenIds(self.req_ids, draft_token_ids)
++            out_req_ids = [req_id for req_id in req_ids if req_id in drafts_by_req]
++        draft_token_ids: list[list[int]] = []
++        for req_id in out_req_ids:
++            draft_tokens = drafts_by_req[req_id]
++            if isinstance(draft_tokens, int):
++                # Construct placeholders from draft token width
++                draft_tokens = [-1] * draft_tokens
++            else:
++                # Convert numpy view to list
++                draft_tokens = draft_tokens.tolist()
++            draft_token_ids.append(draft_tokens)
++
++        return DraftTokenIds(out_req_ids, draft_token_ids)
+ 
+ 
+ def get_parallel_drafting_token_id(hf_config) -> int:
+diff --git a/vllm/v1/worker/gpu/structured_outputs.py b/vllm/v1/worker/gpu/structured_outputs.py
+index 46a276e7a4c1..dc5d23d85e5f 100644
+--- a/vllm/v1/worker/gpu/structured_outputs.py
++++ b/vllm/v1/worker/gpu/structured_outputs.py
+@@ -12,43 +12,6 @@
+ GRAMMAR_BITMASK_BLOCK_SIZE = 8192
+ 
+ 
+-def grammar_invalid_drafts(
+-    input_batch: InputBatch,
+-    grammar_req_ids: list[str],
+-    num_acceptable_drafts: list[int] | None,
+-) -> torch.Tensor | None:
+-    """Mask over logit rows whose draft was verified against a permissive row.
+-
+-    Draft i sits at local position i + 1, and drafts from `num_acceptable_drafts`
+-    on met `_full_mask`. Local positions come from the device `cu_num_logits`, so
+-    this stays right when adaptive verification trims drafts on device.
+-    Returns None when there is nothing to invalidate.
+-    """
+-    if not grammar_req_ids or input_batch.num_draft_tokens == 0:
+-        return None
+-    req_id_to_idx = {req_id: i for i, req_id in enumerate(input_batch.req_ids)}
+-    limit = np.full(input_batch.num_reqs, np.iinfo(np.int32).max, dtype=np.int32)
+-    for i, req_id in enumerate(grammar_req_ids):
+-        req_idx = req_id_to_idx.get(req_id)
+-        if req_idx is not None:
+-            # None (an older scheduler, or warmup): invalidate the whole window.
+-            limit[req_idx] = (
+-                num_acceptable_drafts[i] if num_acceptable_drafts is not None else 0
+-            )
+-    # Adaptive verification only trims drafts, so this bound holds either way.
+-    num_drafts = input_batch.num_draft_tokens_per_req
+-    if num_drafts is not None and (limit >= num_drafts).all():
+-        return None
+-    local_pos = input_batch.expanded_local_pos
+-    cu_num_logits = input_batch.cu_num_logits
+-    row_limit = torch.repeat_interleave(
+-        async_tensor_h2d(limit, device=local_pos.device),
+-        cu_num_logits[1:] - cu_num_logits[:-1],
+-        output_size=local_pos.shape[0],
+-    )
+-    return local_pos > row_limit
+-
+-
+ class StructuredOutputsWorker:
+     def __init__(
+         self,

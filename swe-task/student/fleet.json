@@ -1,0 +1,57 @@
+{
+ "target": 0,
+ "horizon_min": 45,
+ "max_jobs": 24,
+ "max_submits_per_pass": 10,
+ "account": "nemotron_agents_dev",
+ "partition": "batch",
+ "time": "04:00:00",
+ "job_prefix": "swe-task-student-w",
+ "daemon_job_name": "swe-task-student-fleetd",
+ "daemon_partition": "cpu_datamover",
+ "daemon_time": "7-00:00:00",
+ "user": "hengyuf",
+ "exclude_nodes": [
+  "pool0-00058",
+  "pool0-00484",
+  "pool0-00502",
+  "pool0-01460",
+  "pool0-00613",
+  "pool0-00196",
+  "pool0-01970",
+  "pool0-00128",
+  "pool0-00560",
+  "pool0-01813",
+  "pool0-00862",
+  "pool0-00861",
+  "pool0-00899"
+ ],
+ "comment": {
+  "OccupiedIdleGPUsJobReaper": {
+   "exemptIdleTimeMins": "240",
+   "reason": "inference_server",
+   "description": "Persistent 1-node 8-GPU vLLM inference worker for the swe-task synthetic-task student (4h job, continuously resubmitted); GPUs can idle between on-demand rollout bursts"
+  }
+ },
+ "stuck_startup_min": 25,
+ "terminal_grace_min": 5,
+ "heartbeat_stale_min": 10,
+ "exclude_on_unhealthy": true,
+ "breaker_failures": 4,
+ "breaker_window_min": 120,
+ "coverage_partitions": [
+  "batch"
+ ],
+ "breaker_cooldown_min": 60,
+ "adaptive_horizon": true,
+ "horizon_max_min": 150,
+ "horizon_margin_min": 20,
+ "startup_s": 600,
+ "wait_quantile": 0.75,
+ "wait_window_h": 3,
+ "stagger_min": 40,
+ "worker_accounts": [
+  "nemotron_agents_dev",
+  "nemotron_rl_algo"
+ ]
+}

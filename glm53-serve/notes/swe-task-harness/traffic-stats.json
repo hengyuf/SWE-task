@@ -1,0 +1,848 @@
+{
+ "tr2": {
+  "rollouts": 250,
+  "rollout_status": {
+   "pass": 191,
+   "fail": 58,
+   "infra": 1
+  },
+  "calls_200": 44708,
+  "http_status_counts": {
+   "200": 44708,
+   "408": 96,
+   "502": 1,
+   "500": 1
+  },
+  "call_kinds": {
+   "main": 43341,
+   "other": 1367
+  },
+  "other_system_prompts": {
+   "other:You are a file search specialist. You excel at t": 1367
+  },
+  "request_param_sets": {
+   "max_tokens,model,reasoning_effort,temperature,tool_choice,top_p": 44708
+  },
+  "reasoning_effort_values": {
+   "max": 44708
+  },
+  "finish_reasons": {
+   "tool_calls": 44435,
+   "stop": 273
+  },
+  "response_reasoning_key": {
+   "reasoning_content": 24841,
+   "None": 19867
+  },
+  "content_leak_markers": {},
+  "per_rollout": {
+   "calls": {
+    "n": 250,
+    "mean": 179,
+    "p10": 79,
+    "p50": 154,
+    "p90": 324,
+    "p99": 459,
+    "max": 536
+   },
+   "http_attempts_incl_retries": {
+    "n": 250,
+    "mean": 179,
+    "p10": 81,
+    "p50": 154,
+    "p90": 324,
+    "p99": 459,
+    "max": 536
+   },
+   "non200_replies": {
+    "n": 250,
+    "mean": 0,
+    "p10": 0,
+    "p50": 0,
+    "p90": 1,
+    "p99": 9,
+    "max": 10
+   },
+   "prompt_tokens_sum": {
+    "n": 250,
+    "mean": 30546164,
+    "p10": 8952765,
+    "p50": 22527019,
+    "p90": 59645476,
+    "p99": 119137437,
+    "max": 173817810
+   },
+   "uncached_prompt_tokens_sum": {
+    "n": 250,
+    "mean": 299958,
+    "p10": 163395,
+    "p50": 251735,
+    "p90": 499933,
+    "p99": 1096530,
+    "max": 1931715
+   },
+   "completion_tokens_sum": {
+    "n": 250,
+    "mean": 142869,
+    "p10": 99192,
+    "p50": 135460,
+    "p90": 198263,
+    "p99": 261997,
+    "max": 345936
+   },
+   "reasoning_tokens_sum": {
+    "n": 250,
+    "mean": 99059,
+    "p10": 66842,
+    "p50": 94674,
+    "p90": 142802,
+    "p99": 171579,
+    "max": 226465
+   },
+   "max_prompt_tokens": {
+    "n": 250,
+    "mean": 237892,
+    "p10": 157001,
+    "p50": 228699,
+    "p90": 333851,
+    "p99": 474478,
+    "max": 557931
+   },
+   "max_prompt_plus_output": {
+    "n": 250,
+    "mean": 238586,
+    "p10": 157425,
+    "p50": 229442,
+    "p90": 334448,
+    "p99": 474968,
+    "max": 558629
+   },
+   "mean_prompt_tokens": {
+    "n": 250,
+    "mean": 154090,
+    "p10": 106922,
+    "p50": 146480,
+    "p90": 205983,
+    "p99": 268315,
+    "max": 324287
+   },
+   "time_weighted_live_context_tokens": {
+    "n": 250,
+    "mean": 156340,
+    "p10": 93655,
+    "p50": 145825,
+    "p90": 230429,
+    "p99": 329945,
+    "max": 355223
+   },
+   "llm_span_wall_min": {
+    "n": 250,
+    "mean": 45.2,
+    "p10": 16.6,
+    "p50": 35.7,
+    "p90": 85.6,
+    "p99": 173.4,
+    "max": 179.0
+   },
+   "slot_wall_min_started_to_terminal": {
+    "n": 250,
+    "mean": 47.8,
+    "p10": 18.3,
+    "p50": 39.0,
+    "p90": 88.0,
+    "p99": 180.8,
+    "max": 182.1
+   },
+   "llm_busy_fraction": {
+    "n": 250,
+    "mean": 0.612,
+    "p10": 0.272,
+    "p50": 0.66,
+    "p90": 0.892,
+    "p99": 0.943,
+    "max": 0.953
+   },
+   "calls_per_min": {
+    "n": 250,
+    "mean": 4.74,
+    "p10": 2.31,
+    "p50": 4.55,
+    "p90": 7.44,
+    "p99": 8.83,
+    "max": 9.41
+   },
+   "tool_arg_errors": {
+    "n": 250,
+    "mean": 0,
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "p99": 8,
+    "max": 9
+   },
+   "compaction_calls": {
+    "n": 250,
+    "mean": 0,
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "p99": 0,
+    "max": 0
+   }
+  },
+  "rollouts_with_compaction_call": 0,
+  "rollouts_with_export_compaction": 0,
+  "rollouts_max_prompt_over_242144": 112,
+  "rollouts_max_prompt_over_131072": 248,
+  "rollouts_max_prompt_over_262144": 79,
+  "rollouts_max_ctx_over_393216": 9,
+  "per_call_all": {
+   "prompt_tokens": {
+    "n": 44708,
+    "mean": 170809,
+    "p10": 59726,
+    "p50": 162941,
+    "p90": 284098,
+    "p99": 423633,
+    "max": 557931
+   },
+   "cached_tokens": {
+    "n": 44708,
+    "mean": 169132,
+    "p10": 56128,
+    "p50": 161600,
+    "p90": 283200,
+    "p99": 422976,
+    "max": 557824
+   },
+   "uncached_prompt_tokens": {
+    "n": 44708,
+    "mean": 1677,
+    "p10": 155,
+    "p50": 576,
+    "p90": 3036,
+    "p99": 16013,
+    "max": 556596
+   },
+   "completion_tokens": {
+    "n": 44708,
+    "mean": 799,
+    "p10": 34,
+    "p50": 180,
+    "p90": 1526,
+    "p99": 11329,
+    "max": 54239
+   },
+   "reasoning_tokens": {
+    "n": 44708,
+    "mean": 554,
+    "p10": 0,
+    "p50": 36,
+    "p90": 1025,
+    "p99": 9671,
+    "max": 54130
+   },
+   "hub_latency_s": {
+    "n": 44708,
+    "mean": 7.3,
+    "p10": 1.7,
+    "p50": 3.5,
+    "p90": 12.2,
+    "p99": 72.2,
+    "max": 362.6
+   },
+   "hub_decode_tok_per_s_calls_ge_1000_out": {
+    "n": 6936,
+    "mean": 143.6,
+    "p10": 111.3,
+    "p50": 138.6,
+    "p90": 187.2,
+    "p99": 230.9,
+    "max": 266.2
+   },
+   "messages_per_request": {
+    "n": 44708,
+    "mean": 229,
+    "p10": 43,
+    "p50": 189,
+    "p90": 473,
+    "p99": 742,
+    "max": 1072
+   },
+   "request_bytes": {
+    "n": 44708,
+    "mean": 1640428,
+    "p10": 503759,
+    "p50": 1613643,
+    "p90": 2710867,
+    "p99": 3910162,
+    "max": 4875237
+   },
+   "tool_calls_per_response": {
+    "n": 44708,
+    "mean": 1.1,
+    "p10": 1,
+    "p50": 1,
+    "p90": 1,
+    "p99": 2,
+    "max": 14
+   }
+  },
+  "per_call_main": {
+   "prompt_tokens": {
+    "n": 43341,
+    "mean": 173529,
+    "p10": 63560,
+    "p50": 165846,
+    "p90": 286144,
+    "p99": 425125,
+    "max": 557931
+   },
+   "completion_tokens": {
+    "n": 43341,
+    "mean": 811,
+    "p10": 34,
+    "p50": 183,
+    "p90": 1558,
+    "p99": 11413,
+    "max": 54239
+   }
+  },
+  "compaction_calls": {
+   "count": 0,
+   "share_of_calls": 0.0,
+   "prompt_tokens": {
+    "n": 0
+   },
+   "cached_tokens": {
+    "n": 0
+   },
+   "completion_tokens": {
+    "n": 0
+   },
+   "hub_latency_s": {
+    "n": 0
+   }
+  },
+  "share_calls_prompt_over": {
+   "65536": 0.888,
+   "131072": 0.6617,
+   "200000": 0.3414,
+   "242144": 0.1936,
+   "262144": 0.1374
+  },
+  "calls_prompt_plus_131072_over_262144": 29585,
+  "share_calls_out_over": {
+   "4096": 0.03554,
+   "16384": 0.00512,
+   "32768": 0.00195,
+   "65536": 0.0,
+   "131071": 0.0
+  },
+  "max_completion_tokens_seen": 54239,
+  "token_totals": {
+   "prompt": 7636541036,
+   "cached": 7561551616,
+   "completion": 35717190,
+   "reasoning": 24764790,
+   "cached_share": 0.9902,
+   "reasoning_share_of_completion": 0.6934
+  },
+  "hub_mtp": {
+   "accepted": 21489843,
+   "rejected": 19128822,
+   "acceptance": 0.5291,
+   "accepted_per_completion_token": 0.6017
+  },
+  "history_reasoning_check": {
+   "pairs_prompt_grew_by_full_output (reasoning kept in history)": 23685,
+   "pairs_prompt_grew_less_than_output (reasoning dropped?)": 0
+  },
+  "history_reasoning_sent_as_field_calls": 44428,
+  "history_think_in_content_calls": 0,
+  "tool_arg_error_tool_results": 63,
+  "tool_calls_with_unparsable_arguments": 0,
+  "tool_arg_types_top": {
+   "bash:command:str": 30147,
+   "read:filePath:str": 7974,
+   "bash:timeout:int": 7889,
+   "edit:filePath:str": 7824,
+   "edit:newString:str": 7824,
+   "edit:oldString:str": 7818,
+   "bash:workdir:str": 4129,
+   "read:limit:int": 3827,
+   "read:offset:int": 3431,
+   "grep:pattern:str": 1438,
+   "grep:path:str": 1299,
+   "write:content:str": 1276,
+   "write:filePath:str": 1275,
+   "grep:include:str": 537,
+   "todowrite:todos:list": 346,
+   "glob:pattern:str": 231,
+   "webfetch:url:str": 55,
+   "webfetch:format:str": 55,
+   "task:description:str": 27,
+   "task:prompt:str": 27,
+   "task:subagent_type:str": 27,
+   "glob:path:str": 13,
+   "edit:replaceAll:bool": 5,
+   "webfetch:timeout:int": 2,
+   "grep:rn:str": 1,
+   "grep:n:bool": 1,
+   "grep:filePath:str": 1,
+   "read:path:str": 1,
+   "bash:pattern:str": 1,
+   "bash:path:str": 1,
+   "bash:include:str": 1
+  },
+  "non200_bodies_top": {
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.004 seconds\\n": 23,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.005 seconds\\n": 18,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.006 seconds\\n": 10,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.009 seconds\\n": 8,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.008 seconds\\n": 6,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.007 seconds\\n": 6,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.011 seconds\\n": 3,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.015 seconds\\n": 2,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.013 seconds\\n": 1,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.01 seconds\\n\\": 1
+  },
+  "rollouts_with_context_length_400": 0,
+  "rollouts_budget_timeout": 3
+ },
+ "tdw": {
+  "rollouts": 264,
+  "rollout_status": {
+   "pass": 182,
+   "fail": 82
+  },
+  "calls_200": 37731,
+  "http_status_counts": {
+   "200": 37731,
+   "429": 3062,
+   "408": 140,
+   "503": 6,
+   "502": 1
+  },
+  "call_kinds": {
+   "main": 36605,
+   "other": 1055,
+   "compaction": 71
+  },
+  "other_system_prompts": {
+   "other:You are a file search specialist. You excel at t": 1055
+  },
+  "request_param_sets": {
+   "max_tokens,model,reasoning_effort,temperature,tool_choice,top_p": 37660,
+   "max_tokens,model,reasoning_effort,temperature,top_p": 71
+  },
+  "reasoning_effort_values": {
+   "max": 37731
+  },
+  "finish_reasons": {
+   "tool_calls": 37362,
+   "stop": 369
+  },
+  "response_reasoning_key": {
+   "reasoning_content": 21347,
+   "None": 16384
+  },
+  "content_leak_markers": {},
+  "per_rollout": {
+   "calls": {
+    "n": 264,
+    "mean": 143,
+    "p10": 75,
+    "p50": 134,
+    "p90": 220,
+    "p99": 305,
+    "max": 443
+   },
+   "http_attempts_incl_retries": {
+    "n": 264,
+    "mean": 155,
+    "p10": 79,
+    "p50": 138,
+    "p90": 239,
+    "p99": 443,
+    "max": 643
+   },
+   "non200_replies": {
+    "n": 264,
+    "mean": 12,
+    "p10": 0,
+    "p50": 0,
+    "p90": 30,
+    "p99": 185,
+    "max": 315
+   },
+   "prompt_tokens_sum": {
+    "n": 264,
+    "mean": 18248720,
+    "p10": 7169105,
+    "p50": 17253166,
+    "p90": 30552598,
+    "p99": 38355839,
+    "max": 52407490
+   },
+   "uncached_prompt_tokens_sum": {
+    "n": 264,
+    "mean": 350389,
+    "p10": 161174,
+    "p50": 251819,
+    "p90": 675903,
+    "p99": 901124,
+    "max": 1243061
+   },
+   "completion_tokens_sum": {
+    "n": 264,
+    "mean": 123758,
+    "p10": 82012,
+    "p50": 117871,
+    "p90": 176004,
+    "p99": 263554,
+    "max": 310926
+   },
+   "reasoning_tokens_sum": {
+    "n": 264,
+    "mean": 88639,
+    "p10": 53166,
+    "p50": 84239,
+    "p90": 127258,
+    "p99": 206646,
+    "max": 241029
+   },
+   "max_prompt_tokens": {
+    "n": 264,
+    "mean": 195532,
+    "p10": 132734,
+    "p50": 199396,
+    "p90": 242101,
+    "p99": 244180,
+    "max": 249185
+   },
+   "max_prompt_plus_output": {
+    "n": 264,
+    "mean": 196489,
+    "p10": 133689,
+    "p50": 199916,
+    "p90": 243283,
+    "p99": 249268,
+    "max": 253394
+   },
+   "mean_prompt_tokens": {
+    "n": 264,
+    "mean": 123524,
+    "p10": 86657,
+    "p50": 125785,
+    "p90": 154961,
+    "p99": 171431,
+    "max": 176879
+   },
+   "time_weighted_live_context_tokens": {
+    "n": 264,
+    "mean": 120543,
+    "p10": 78533,
+    "p50": 124482,
+    "p90": 155733,
+    "p99": 181028,
+    "max": 193941
+   },
+   "llm_span_wall_min": {
+    "n": 264,
+    "mean": 47.2,
+    "p10": 23.6,
+    "p50": 42.6,
+    "p90": 79.5,
+    "p99": 148.2,
+    "max": 177.7
+   },
+   "slot_wall_min_started_to_terminal": {
+    "n": 264,
+    "mean": 49.2,
+    "p10": 25.1,
+    "p50": 43.6,
+    "p90": 81.5,
+    "p99": 149.8,
+    "max": 182.3
+   },
+   "llm_busy_fraction": {
+    "n": 264,
+    "mean": 0.695,
+    "p10": 0.432,
+    "p50": 0.736,
+    "p90": 0.899,
+    "p99": 0.944,
+    "max": 0.971
+   },
+   "calls_per_min": {
+    "n": 264,
+    "mean": 3.4,
+    "p10": 1.64,
+    "p50": 3.45,
+    "p90": 4.95,
+    "p99": 6.06,
+    "max": 6.34
+   },
+   "tool_arg_errors": {
+    "n": 264,
+    "mean": 0,
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "p99": 1,
+    "max": 3
+   },
+   "compaction_calls": {
+    "n": 264,
+    "mean": 0,
+    "p10": 0,
+    "p50": 0,
+    "p90": 1,
+    "p99": 1,
+    "max": 1
+   }
+  },
+  "rollouts_with_compaction_call": 71,
+  "rollouts_with_export_compaction": 71,
+  "rollouts_max_prompt_over_242144": 24,
+  "rollouts_max_prompt_over_131072": 239,
+  "rollouts_max_prompt_over_262144": 0,
+  "rollouts_max_ctx_over_393216": 0,
+  "per_call_all": {
+   "prompt_tokens": {
+    "n": 37731,
+    "mean": 127684,
+    "p10": 35459,
+    "p50": 133417,
+    "p90": 209812,
+    "p99": 238310,
+    "max": 249185
+   },
+   "cached_tokens": {
+    "n": 37731,
+    "mean": 125233,
+    "p10": 30976,
+    "p50": 131584,
+    "p90": 208768,
+    "p99": 237504,
+    "max": 242048
+   },
+   "uncached_prompt_tokens": {
+    "n": 37731,
+    "mean": 2452,
+    "p10": 155,
+    "p50": 607,
+    "p90": 4163,
+    "p99": 24989,
+    "max": 234368
+   },
+   "completion_tokens": {
+    "n": 37731,
+    "mean": 866,
+    "p10": 35,
+    "p50": 180,
+    "p90": 1701,
+    "p99": 13612,
+    "max": 39353
+   },
+   "reasoning_tokens": {
+    "n": 37731,
+    "mean": 620,
+    "p10": 0,
+    "p50": 33,
+    "p90": 1079,
+    "p99": 13020,
+    "max": 38341
+   },
+   "hub_latency_s": {
+    "n": 37731,
+    "mean": 12.5,
+    "p10": 2.3,
+    "p50": 5.2,
+    "p90": 23.6,
+    "p99": 147.5,
+    "max": 358.7
+   },
+   "hub_decode_tok_per_s_calls_ge_1000_out": {
+    "n": 5749,
+    "mean": 99.0,
+    "p10": 66.0,
+    "p50": 94.2,
+    "p90": 138.7,
+    "p99": 191.0,
+    "max": 241.8
+   },
+   "messages_per_request": {
+    "n": 37731,
+    "mean": 149,
+    "p10": 32,
+    "p50": 133,
+    "p90": 290,
+    "p99": 418,
+    "max": 552
+   },
+   "request_bytes": {
+    "n": 37731,
+    "mean": 1282899,
+    "p10": 308655,
+    "p50": 1347797,
+    "p90": 2143882,
+    "p99": 2504569,
+    "max": 2733231
+   },
+   "tool_calls_per_response": {
+    "n": 37731,
+    "mean": 1.14,
+    "p10": 1,
+    "p50": 1,
+    "p90": 2,
+    "p99": 3,
+    "max": 13
+   }
+  },
+  "per_call_main": {
+   "prompt_tokens": {
+    "n": 36605,
+    "mean": 129487,
+    "p10": 36739,
+    "p50": 135473,
+    "p90": 210786,
+    "p99": 238460,
+    "max": 249185
+   },
+   "completion_tokens": {
+    "n": 36605,
+    "mean": 869,
+    "p10": 35,
+    "p50": 181,
+    "p90": 1694,
+    "p99": 13758,
+    "max": 39353
+   }
+  },
+  "compaction_calls": {
+   "count": 71,
+   "share_of_calls": 0.00188,
+   "prompt_tokens": {
+    "n": 71,
+    "mean": 175552,
+    "p10": 149735,
+    "p50": 179184,
+    "p90": 198354,
+    "p99": 204255,
+    "max": 209821
+   },
+   "cached_tokens": {
+    "n": 71,
+    "mean": 13,
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "p99": 128,
+    "max": 384
+   },
+   "completion_tokens": {
+    "n": 71,
+    "mean": 4398,
+    "p10": 2545,
+    "p50": 4120,
+    "p90": 5888,
+    "p99": 7401,
+    "max": 13140
+   },
+   "hub_latency_s": {
+    "n": 71,
+    "mean": 61.0,
+    "p10": 38.6,
+    "p50": 57.9,
+    "p90": 86.3,
+    "p99": 108.7,
+    "max": 164.4
+   }
+  },
+  "share_calls_prompt_over": {
+   "65536": 0.7957,
+   "131072": 0.5134,
+   "200000": 0.1386,
+   "242144": 0.0006,
+   "262144": 0.0
+  },
+  "calls_prompt_plus_131072_over_262144": 19370,
+  "share_calls_out_over": {
+   "4096": 0.04561,
+   "16384": 0.00668,
+   "32768": 0.00016,
+   "65536": 0.0,
+   "131071": 0.0
+  },
+  "max_completion_tokens_seen": 39353,
+  "token_totals": {
+   "prompt": 4817661993,
+   "cached": 4725159296,
+   "completion": 32672193,
+   "reasoning": 23400582,
+   "cached_share": 0.9808,
+   "reasoning_share_of_completion": 0.7162
+  },
+  "hub_mtp": {
+   "accepted": 19549400,
+   "rejected": 18748615,
+   "acceptance": 0.5105,
+   "accepted_per_completion_token": 0.5983
+  },
+  "history_reasoning_check": {
+   "pairs_prompt_grew_by_full_output (reasoning kept in history)": 20239,
+   "pairs_prompt_grew_less_than_output (reasoning dropped?)": 0
+  },
+  "history_reasoning_sent_as_field_calls": 37433,
+  "history_think_in_content_calls": 0,
+  "tool_arg_error_tool_results": 26,
+  "tool_calls_with_unparsable_arguments": 0,
+  "tool_arg_types_top": {
+   "bash:command:str": 21543,
+   "read:filePath:str": 8934,
+   "edit:filePath:str": 8695,
+   "edit:newString:str": 8695,
+   "edit:oldString:str": 8690,
+   "bash:timeout:int": 5659,
+   "bash:workdir:str": 4510,
+   "read:limit:int": 3831,
+   "read:offset:int": 3427,
+   "write:content:str": 1679,
+   "write:filePath:str": 1677,
+   "grep:pattern:str": 1273,
+   "grep:path:str": 1169,
+   "todowrite:todos:list": 472,
+   "grep:include:str": 441,
+   "glob:pattern:str": 279,
+   "webfetch:url:str": 135,
+   "webfetch:format:str": 135,
+   "bash:path:str": 59,
+   "task:description:str": 34,
+   "task:prompt:str": 34,
+   "task:subagent_type:str": 34,
+   "glob:path:str": 16,
+   "edit:replaceAll:bool": 14,
+   "skill:name:str": 8,
+   "webfetch:timeout:int": 6,
+   "write:newString:str": 1,
+   "write:oldString:str": 1,
+   "bash:bashcommand:str": 1
+  },
+  "non200_bodies_top": {
+   "429: {\"error\":{\"message\":\"litellm.RateLimitError: RateLimitError: OpenAIException - {\\\"error\\\": \\\"Too Many Requests\\\"}\\n\\nLiteLLM: model group 'nvidia/zai-org/glm-5.": 2726,
+   "429: {\"error\":{\"message\":\"Model capacity reached for nvidia/zai-org/glm-5.3. Priority: prod, Rate limit type: tokens, Model TPM: 100000000, Model RPM: not configured": 290,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.005 seconds\\n": 35,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.004 seconds\\n": 25,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.006 seconds\\n": 20,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.007 seconds\\n": 7,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.008 seconds\\n": 6,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.01 seconds\\n\\": 5,
+   "503: upstream connect error or disconnect/reset before headers. reset reason: connection termination": 4,
+   "408: {\"error\":{\"message\":\"litellm.Timeout: Timeout Error: OpenAIException - litellm.Timeout: Connection timed out. Timeout passed=360.0, time taken=360.009 seconds\\n": 3
+  },
+  "rollouts_with_context_length_400": 0,
+  "rollouts_budget_timeout": 0
+ }
+}

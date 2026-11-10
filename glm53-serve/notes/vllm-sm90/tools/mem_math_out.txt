@@ -1,0 +1,62 @@
+checkpoint bytes (sanity vs index 755,617,140,416): 755,617,140,416
+
+===== KV dtype fp8_e4m3  (MTP layer included; reserve = activations+workspace+graphs, see notes) =====
+config                                       GiB wts/GPU B/tok/GPU | u=0.85: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.9: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.93: free  KVtok/GPU  KVtok/engine  100k-seqs
+TP16 (MoE TP16)                                    45.77     48408 |   21.9       309k      0.31M      3 |   25.9       397k      0.40M      3 |   28.3       450k      0.45M      4
+TP16 + EP16                                        45.77     48408 |   21.9       309k      0.31M      3 |   25.9       397k      0.40M      3 |   28.3       450k      0.45M      4
+TP8xPP2 (even 39/39)                               47.42     24360 |   20.3       541k      0.54M      5 |   24.3       717k      0.72M      7 |   26.7       822k      0.82M      8
+TP8xPP2 (VLLM_PP_LAYER_PARTITION=40,38)            46.25     24624 |   21.5       607k      0.61M      6 |   25.4       787k      0.79M      7 |   27.8       895k      0.89M      8
+DP2xTP8 + EP16 (SP-MoE)                            49.91     48408 |   17.8       217k      0.43M      4 |   21.8       305k      0.61M      6 |   24.2       358k      0.72M      6
+DP16xEP16 (TP1 attn)                               64.49     48408 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        35k      0.56M      0
+DP4xTP4 + EP16 (SP-MoE)                            52.00     48408 |   15.7       171k      0.68M      4 |   19.7       259k      1.04M      8 |   22.1       312k      1.25M     12
+DP32xEP32 (TP1 attn)                               43.11     48408 |   24.6       368k     11.77M     96 |   28.6       456k     14.60M    128 |   31.0       509k     16.30M    160
+2 x [DP16xEP16] replicas                           64.49     48408 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        35k      0.56M      0
+TP8xPP4 (VLLM_PP_LAYER_PARTITION=21,20,19,18)       23.42     13020 |   44.3      3150k      3.15M     31 |   48.3      3478k      3.48M     34 |   50.7      3675k      3.68M     36
+DP4xTP8 + EP32 (SP-MoE)                            28.53     48408 |   39.2       691k      2.77M     24 |   43.1       780k      3.12M     28 |   45.5       833k      3.33M     32
+DP8xTP4 + EP32 (SP-MoE)                            30.62     48408 |   37.1       645k      5.16M     48 |   41.1       733k      5.87M     56 |   43.5       786k      6.29M     56
+DP16xTP2 + EP32 (SP-MoE)                           34.78     48408 |   32.9       553k      8.84M     80 |   36.9       641k     10.26M     96 |   39.3       694k     11.11M     96
+
+===== KV dtype fp8_ds_mla  (MTP layer included; reserve = activations+workspace+graphs, see notes) =====
+config                                       GiB wts/GPU B/tok/GPU | u=0.85: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.9: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.93: free  KVtok/GPU  KVtok/engine  100k-seqs
+TP16 (MoE TP16)                                    45.77     54728 |   21.9       273k      0.27M      2 |   25.9       351k      0.35M      3 |   28.3       398k      0.40M      3
+TP16 + EP16                                        45.77     54728 |   21.9       273k      0.27M      2 |   25.9       351k      0.35M      3 |   28.3       398k      0.40M      3
+TP8xPP2 (even 39/39)                               47.42     27560 |   20.3       479k      0.48M      4 |   24.3       634k      0.63M      6 |   26.7       727k      0.73M      7
+TP8xPP2 (VLLM_PP_LAYER_PARTITION=40,38)            46.25     27824 |   21.5       537k      0.54M      5 |   25.4       696k      0.70M      6 |   27.8       791k      0.79M      7
+DP2xTP8 + EP16 (SP-MoE)                            49.91     54728 |   17.8       192k      0.38M      2 |   21.8       270k      0.54M      4 |   24.2       317k      0.63M      6
+DP16xEP16 (TP1 attn)                               64.49     54728 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        31k      0.50M      0
+DP4xTP4 + EP16 (SP-MoE)                            52.00     54728 |   15.7       151k      0.60M      4 |   19.7       229k      0.92M      8 |   22.1       276k      1.10M      8
+DP32xEP32 (TP1 attn)                               43.11     54728 |   24.6       325k     10.41M     96 |   28.6       404k     12.91M    128 |   31.0       450k     14.41M    128
+2 x [DP16xEP16] replicas                           64.49     54728 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        31k      0.50M      0
+TP8xPP4 (VLLM_PP_LAYER_PARTITION=21,20,19,18)       23.42     14700 |   44.3      2790k      2.79M     27 |   48.3      3081k      3.08M     30 |   50.7      3255k      3.26M     32
+DP4xTP8 + EP32 (SP-MoE)                            28.53     54728 |   39.2       611k      2.45M     24 |   43.1       690k      2.76M     24 |   45.5       737k      2.95M     28
+DP8xTP4 + EP32 (SP-MoE)                            30.62     54728 |   37.1       571k      4.57M     40 |   41.1       649k      5.19M     48 |   43.5       696k      5.57M     48
+DP16xTP2 + EP32 (SP-MoE)                           34.78     54728 |   32.9       489k      7.82M     64 |   36.9       567k      9.07M     80 |   39.3       614k      9.82M     96
+
+===== KV dtype bf16  (MTP layer included; reserve = activations+workspace+graphs, see notes) =====
+config                                       GiB wts/GPU B/tok/GPU | u=0.85: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.9: free  KVtok/GPU  KVtok/engine  100k-seqs | u=0.93: free  KVtok/GPU  KVtok/engine  100k-seqs
+TP16 (MoE TP16)                                    45.77     93912 |   21.9       159k      0.16M      1 |   25.9       205k      0.20M      2 |   28.3       232k      0.23M      2
+TP16 + EP16                                        45.77     93912 |   21.9       159k      0.16M      1 |   25.9       205k      0.20M      2 |   28.3       232k      0.23M      2
+TP8xPP2 (even 39/39)                               47.42     47400 |   20.3       278k      0.28M      2 |   24.3       368k      0.37M      3 |   26.7       423k      0.42M      4
+TP8xPP2 (VLLM_PP_LAYER_PARTITION=40,38)            46.25     47664 |   21.5       312k      0.31M      3 |   25.4       405k      0.40M      4 |   27.8       460k      0.46M      4
+DP2xTP8 + EP16 (SP-MoE)                            49.91     93912 |   17.8       112k      0.22M      2 |   21.8       157k      0.31M      2 |   24.2       185k      0.37M      2
+DP16xEP16 (TP1 attn)                               64.49     93912 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        18k      0.29M      0
+DP4xTP4 + EP16 (SP-MoE)                            52.00     93912 |   15.7        88k      0.35M      0 |   19.7       134k      0.53M      4 |   22.1       161k      0.64M      4
+DP32xEP32 (TP1 attn)                               43.11     93912 |   24.6       190k      6.07M     32 |   28.6       235k      7.53M     64 |   31.0       263k      8.40M     64
+2 x [DP16xEP16] replicas                           64.49     93912 |    3.2         0k      0.00M      0 |    7.2         0k      0.00M      0 |    9.6        18k      0.29M      0
+TP8xPP4 (VLLM_PP_LAYER_PARTITION=21,20,19,18)       23.42     25116 |   44.3      1633k      1.63M     16 |   48.3      1803k      1.80M     18 |   50.7      1905k      1.91M     19
+DP4xTP8 + EP32 (SP-MoE)                            28.53     93912 |   39.2       356k      1.43M     12 |   43.1       402k      1.61M     16 |   45.5       429k      1.72M     16
+DP8xTP4 + EP32 (SP-MoE)                            30.62     93912 |   37.1       333k      2.66M     24 |   41.1       378k      3.02M     24 |   43.5       405k      3.24M     32
+DP16xTP2 + EP32 (SP-MoE)                           34.78     93912 |   32.9       285k      4.56M     32 |   36.9       330k      5.29M     48 |   39.3       358k      5.72M     48
+
+free = u*79.65 GiB - weights (before the reserve); KVtok/GPU uses free - reserve(8 GiB);
+each 1 GiB of reserve = 1 GiB / (B/tok) tokens; engine = DP ranks x per-GPU (MLA KV replicated across TP).
+PP2 partition=39,39 stage0: layers 0-38 weights/GPU 42.59 GiB, MLA layers 39, indexer layers 12, fp8_e4m3 B/token 24048
+PP2 partition=39,39 stage1: layers 39-77 weights/GPU 47.42 GiB, MLA layers 40, indexer layers 10, fp8_e4m3 B/token 24360
+PP2 partition=[40, 38] stage0: layers 0-39 weights/GPU 43.75 GiB, MLA layers 40, indexer layers 12, fp8_e4m3 B/token 24624
+PP2 partition=[40, 38] stage1: layers 40-77 weights/GPU 46.25 GiB, MLA layers 39, indexer layers 10, fp8_e4m3 B/token 23784
+
+component bytes: ATT_REPL 16.2 MB, ATT_TP 148.9 MB, absorb/layer@TP1 29.4 MB, IDX_REPL 10.4 MB, expert 37.76 MB, routed/MoE-layer 9.67 GB, shared 37.8 MB, router 3.1 MB, dense 226.5 MB, emb 1.90 GB, MTP extra 151.0 MB
+
+HSG calibration DP8xEP8 TP1 weights/GPU (model) = 107.3 GiB (HSG NOTES: 106.6 GiB)
+  GB200 u=0.9: budget 166.5 GiB - weights 107.3 - KV 39.3 = other 20.0 GiB
+  GB200 u=0.93: budget 172.1 GiB - weights 107.3 - KV 55.7 = other 9.1 GiB

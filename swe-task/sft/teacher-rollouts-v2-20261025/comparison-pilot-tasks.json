@@ -1,0 +1,922 @@
+{
+ "sc14": {
+  "source": "sc14",
+  "label": "base Nemotron (sc14)",
+  "rollouts": 10,
+  "graded": 10,
+  "infra": 0,
+  "with_export": 10,
+  "pass_at_1": 40.0,
+  "task_mean_pass": 40.0,
+  "pass_at_5": 50.0,
+  "tasks": 2,
+  "turns_per_rollout_mean": 169.8,
+  "turns_per_rollout_median": 182.5,
+  "pct_turns_with_reasoning": 99.9,
+  "pct_action_turns_with_reasoning": 99.9,
+  "pct_rollouts_all_actions_reasoned": 90.0,
+  "rollout_mean_pct_action_reasoned": 99.9,
+  "longest_unreasoned_action_run_median": 0.0,
+  "pct_first_action_reasoned": 100.0,
+  "reasoning_tokens_per_reasoning_turn_median": 104,
+  "reasoning_tokens_per_reasoning_turn_mean": 544.74,
+  "reasoning_chars_per_reasoning_turn_median": 397,
+  "reasoning_tokens_per_turn_mean_incl_zero": 544.4,
+  "reasoning_tokens_per_rollout_mean": 92442.4,
+  "reasoning_tokens_per_rollout_median": 92369.5,
+  "pct_turns_with_visible_text": 5.2,
+  "pct_action_turns_with_visible_text": 4.6,
+  "pct_action_turns_bare": 0.1,
+  "visible_chars_median": 78.5,
+  "tool_calls_per_turn": 1.13,
+  "tool_calls_per_action_turn": 1.14,
+  "pct_turns_parallel_calls": 12.5,
+  "tool_calls_per_rollout_mean": 192.2,
+  "pct_turns_notool": 0.6,
+  "pct_turns_reasoning_only": 0.0,
+  "pct_turns_text_notool": 0.6,
+  "pct_turns_empty": 0.0,
+  "turn_class_mix": {
+   "action+reasoning": 99.4,
+   "action, no reasoning": 0.1,
+   "no-tool reasoning-only": 0.0,
+   "no-tool text": 0.6,
+   "no-tool empty": 0.0
+  },
+  "pct_rollouts_git_commit": 90.0,
+  "pct_rollouts_commit_in_last_3_calls": 80.0,
+  "pct_rollouts_branch_created": 100.0,
+  "pct_rollouts_final_notool_message": 100.0,
+  "pct_rollouts_final_summary_200": 100.0,
+  "final_message_chars_median": 2454.5,
+  "pct_rollouts_final_reasoning": 100.0,
+  "pct_rollouts_todowrite": 80.0,
+  "todowrite_calls_per_rollout_mean": 1.3,
+  "pct_rollouts_task_subagent": 10.0,
+  "task_calls_per_rollout_mean": 0.1,
+  "pct_rollouts_webfetch": 30.0,
+  "webfetch_calls_total": 5,
+  "pct_rollouts_skill": 0.0,
+  "compactions_per_rollout_mean": 0.5,
+  "pct_rollouts_compacted": 50.0,
+  "tool_share": {
+   "bash": 50.9,
+   "edit": 22.8,
+   "read": 16.2,
+   "grep": 8.1,
+   "write": 0.7,
+   "todowrite": 0.7,
+   "glob": 0.3,
+   "webfetch": 0.3,
+   "task": 0.1
+  },
+  "agent_wall_min_median": 37.8,
+  "patch_empty_pct": 10.0,
+  "pct_action_reasoned_by_first_tool": {
+   "bash": [
+    99.9,
+    886
+   ],
+   "edit": [
+    100.0,
+    401
+   ],
+   "read": [
+    100.0,
+    268
+   ],
+   "grep": [
+    100.0,
+    102
+   ],
+   "write": [
+    100.0,
+    13
+   ],
+   "todowrite": [
+    100.0,
+    11
+   ],
+   "webfetch": [
+    100.0,
+    4
+   ],
+   "glob": [
+    100.0,
+    2
+   ],
+   "task": [
+    100.0,
+    1
+   ]
+  },
+  "top_reasoning_openers": [
+   [
+    "Let me",
+    138
+   ],
+   [
+    "Now let",
+    77
+   ],
+   [
+    "Now I",
+    36
+   ],
+   [
+    "Wait I",
+    15
+   ],
+   [
+    "Now add",
+    12
+   ],
+   [
+    "Wait there's",
+    11
+   ],
+   [
+    "OK so",
+    11
+   ],
+   [
+    "Now the",
+    11
+   ]
+  ],
+  "pct_action_reasoned_by_decile": [
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   99.4
+  ],
+  "pct_action_reasoned_after": {
+   "prev_reasoned": 99.9,
+   "prev_unreasoned": 100.0,
+   "prev_error": 100.0,
+   "prev_ok": 99.9
+  },
+  "pct_unreasoned_action_after_reasoned": 100.0,
+  "ci95_by_task": {
+   "pct_action_turns_with_reasoning": [
+    99.9,
+    100.0
+   ],
+   "pct_action_turns_with_visible_text": [
+    2.6,
+    6.4
+   ],
+   "pct_turns_parallel_calls": [
+    12.4,
+    12.5
+   ]
+  }
+ },
+ "kimi": {
+  "source": "kimi",
+  "label": "Kimi-K3",
+  "rollouts": 10,
+  "graded": 10,
+  "infra": 0,
+  "with_export": 10,
+  "pass_at_1": 70.0,
+  "task_mean_pass": 70.0,
+  "pass_at_5": 100.0,
+  "tasks": 2,
+  "turns_per_rollout_mean": 87.0,
+  "turns_per_rollout_median": 80.0,
+  "pct_turns_with_reasoning": 58.7,
+  "pct_action_turns_with_reasoning": 59.1,
+  "pct_rollouts_all_actions_reasoned": 0.0,
+  "rollout_mean_pct_action_reasoned": 58.8,
+  "longest_unreasoned_action_run_median": 4.5,
+  "pct_first_action_reasoned": 100.0,
+  "reasoning_tokens_per_reasoning_turn_median": 131,
+  "reasoning_tokens_per_reasoning_turn_mean": 831.64,
+  "reasoning_chars_per_reasoning_turn_median": 528,
+  "reasoning_tokens_per_turn_mean_incl_zero": 488.5,
+  "reasoning_tokens_per_rollout_mean": 42496.7,
+  "reasoning_tokens_per_rollout_median": 46508.0,
+  "pct_turns_with_visible_text": 33.2,
+  "pct_action_turns_with_visible_text": 32.4,
+  "pct_action_turns_bare": 38.5,
+  "visible_chars_median": 82,
+  "tool_calls_per_turn": 1.2,
+  "tool_calls_per_action_turn": 1.21,
+  "pct_turns_parallel_calls": 20.5,
+  "tool_calls_per_rollout_mean": 104.0,
+  "pct_turns_notool": 1.1,
+  "pct_turns_reasoning_only": 0.0,
+  "pct_turns_text_notool": 1.1,
+  "pct_turns_empty": 0.0,
+  "turn_class_mix": {
+   "action+reasoning": 58.4,
+   "action, no reasoning": 40.5,
+   "no-tool reasoning-only": 0.0,
+   "no-tool text": 1.1,
+   "no-tool empty": 0.0
+  },
+  "pct_rollouts_git_commit": 100.0,
+  "pct_rollouts_commit_in_last_3_calls": 100.0,
+  "pct_rollouts_branch_created": 100.0,
+  "pct_rollouts_final_notool_message": 100.0,
+  "pct_rollouts_final_summary_200": 100.0,
+  "final_message_chars_median": 2035.5,
+  "pct_rollouts_final_reasoning": 30.0,
+  "pct_rollouts_todowrite": 100.0,
+  "todowrite_calls_per_rollout_mean": 2.8,
+  "pct_rollouts_task_subagent": 0.0,
+  "task_calls_per_rollout_mean": 0.0,
+  "pct_rollouts_webfetch": 30.0,
+  "webfetch_calls_total": 6,
+  "pct_rollouts_skill": 0.0,
+  "compactions_per_rollout_mean": 0.0,
+  "pct_rollouts_compacted": 0.0,
+  "tool_share": {
+   "bash": 66.6,
+   "edit": 14.2,
+   "read": 9.2,
+   "grep": 5.3,
+   "todowrite": 2.7,
+   "write": 1.0,
+   "webfetch": 0.6,
+   "glob": 0.4
+  },
+  "agent_wall_min_median": 40.0,
+  "patch_empty_pct": 0.0,
+  "pct_action_reasoned_by_first_tool": {
+   "bash": [
+    61.1,
+    571
+   ],
+   "edit": [
+    51.0,
+    145
+   ],
+   "read": [
+    53.9,
+    76
+   ],
+   "grep": [
+    86.2,
+    29
+   ],
+   "todowrite": [
+    38.5,
+    26
+   ],
+   "write": [
+    60.0,
+    10
+   ],
+   "webfetch": [
+    100.0,
+    3
+   ]
+  },
+  "top_reasoning_openers": [
+   [
+    "Now let",
+    49
+   ],
+   [
+    "Let me",
+    31
+   ],
+   [
+    "Now I",
+    21
+   ],
+   [
+    "No network",
+    9
+   ],
+   [
+    "All pass",
+    6
+   ],
+   [
+    "Two failures",
+    3
+   ],
+   [
+    "The THREAT",
+    3
+   ],
+   [
+    "Good Now",
+    3
+   ]
+  ],
+  "pct_action_reasoned_by_decile": [
+   67.9,
+   62.8,
+   61.6,
+   65.5,
+   59.8,
+   48.8,
+   58.6,
+   62.8,
+   51.2,
+   52.2
+  ],
+  "pct_action_reasoned_after": {
+   "prev_reasoned": 57.5,
+   "prev_unreasoned": 60.2,
+   "prev_error": 67.7,
+   "prev_ok": 57.4
+  },
+  "pct_unreasoned_action_after_reasoned": 61.4,
+  "hub_cost": {
+   "slots": 50,
+   "usd_total": 138.2,
+   "usd_per_slot_mean": 2.764,
+   "usd_per_slot_median": 2.214,
+   "prompt_Mtok_per_slot": 11.52,
+   "cached_pct": 96.6,
+   "completion_ktok_per_slot": 75.3,
+   "calls_per_slot": 108.1
+  },
+  "ci95_by_task": {
+   "pct_action_turns_with_reasoning": [
+    57.8,
+    60.2
+   ],
+   "pct_action_turns_with_visible_text": [
+    29.9,
+    34.7
+   ],
+   "pct_turns_parallel_calls": [
+    17.0,
+    24.4
+   ]
+  },
+  "distance_to_sc14": {
+   "turn_class_tv": 0.41,
+   "ks_reasoning_tokens_per_turn": 0.412,
+   "ks_tool_calls_per_turn": 0.08,
+   "ks_turns_per_rollout": 0.9,
+   "ks_reasoning_tokens_per_rollout": 1.0
+  }
+ },
+ "glm": {
+  "source": "glm",
+  "label": "GLM-5.3",
+  "rollouts": 2,
+  "graded": 2,
+  "infra": 0,
+  "with_export": 2,
+  "pass_at_1": 50.0,
+  "task_mean_pass": 50.0,
+  "pass_at_5": 50.0,
+  "tasks": 2,
+  "turns_per_rollout_mean": 151.0,
+  "turns_per_rollout_median": 151.0,
+  "pct_turns_with_reasoning": 60.3,
+  "pct_action_turns_with_reasoning": 60.7,
+  "pct_rollouts_all_actions_reasoned": 0.0,
+  "rollout_mean_pct_action_reasoned": 62.6,
+  "longest_unreasoned_action_run_median": 5.0,
+  "pct_first_action_reasoned": 100.0,
+  "reasoning_tokens_per_reasoning_turn_median": 242.5,
+  "reasoning_tokens_per_reasoning_turn_mean": 990.95,
+  "reasoning_chars_per_reasoning_turn_median": 928.0,
+  "reasoning_tokens_per_turn_mean_incl_zero": 597.2,
+  "reasoning_tokens_per_rollout_mean": 90176.5,
+  "reasoning_tokens_per_rollout_median": 90176.5,
+  "pct_turns_with_visible_text": 29.5,
+  "pct_action_turns_with_visible_text": 29.0,
+  "pct_action_turns_bare": 36.7,
+  "visible_chars_median": 84,
+  "tool_calls_per_turn": 1.13,
+  "tool_calls_per_action_turn": 1.14,
+  "pct_turns_parallel_calls": 12.6,
+  "tool_calls_per_rollout_mean": 171.0,
+  "pct_turns_notool": 0.7,
+  "pct_turns_reasoning_only": 0.0,
+  "pct_turns_text_notool": 0.7,
+  "pct_turns_empty": 0.0,
+  "turn_class_mix": {
+   "action+reasoning": 60.3,
+   "action, no reasoning": 39.1,
+   "no-tool reasoning-only": 0.0,
+   "no-tool text": 0.7,
+   "no-tool empty": 0.0
+  },
+  "pct_rollouts_git_commit": 100.0,
+  "pct_rollouts_commit_in_last_3_calls": 50.0,
+  "pct_rollouts_branch_created": 100.0,
+  "pct_rollouts_final_notool_message": 100.0,
+  "pct_rollouts_final_summary_200": 100.0,
+  "final_message_chars_median": 2697.5,
+  "pct_rollouts_final_reasoning": 0.0,
+  "pct_rollouts_todowrite": 100.0,
+  "todowrite_calls_per_rollout_mean": 3.0,
+  "pct_rollouts_task_subagent": 0.0,
+  "task_calls_per_rollout_mean": 0.0,
+  "pct_rollouts_webfetch": 0.0,
+  "webfetch_calls_total": 0,
+  "pct_rollouts_skill": 0.0,
+  "compactions_per_rollout_mean": 0.0,
+  "pct_rollouts_compacted": 0.0,
+  "tool_share": {
+   "bash": 52.6,
+   "read": 17.5,
+   "edit": 17.0,
+   "grep": 9.6,
+   "todowrite": 1.8,
+   "glob": 0.9,
+   "write": 0.6
+  },
+  "agent_wall_min_median": 35.6,
+  "patch_empty_pct": 0.0,
+  "pct_action_reasoned_by_first_tool": {
+   "bash": [
+    57.1,
+    175
+   ],
+   "edit": [
+    62.5,
+    48
+   ],
+   "read": [
+    60.4,
+    48
+   ],
+   "grep": [
+    85.0,
+    20
+   ],
+   "todowrite": [
+    66.7,
+    6
+   ],
+   "write": [
+    50.0,
+    2
+   ],
+   "glob": [
+    100.0,
+    1
+   ]
+  },
+  "top_reasoning_openers": [
+   [
+    "Now let",
+    14
+   ],
+   [
+    "Let me",
+    12
+   ],
+   [
+    "Now I",
+    4
+   ],
+   [
+    "Now the",
+    3
+   ],
+   [
+    "I have",
+    2
+   ],
+   [
+    "Now update",
+    2
+   ],
+   [
+    "Wait I",
+    2
+   ],
+   [
+    "No network",
+    2
+   ]
+  ],
+  "pct_action_reasoned_by_decile": [
+   82.8,
+   63.3,
+   70.0,
+   70.0,
+   48.4,
+   62.1,
+   46.7,
+   53.3,
+   63.3,
+   48.4
+  ],
+  "pct_action_reasoned_after": {
+   "prev_reasoned": 58.8,
+   "prev_unreasoned": 62.9,
+   "prev_error": 75.0,
+   "prev_ok": 58.4
+  },
+  "pct_unreasoned_action_after_reasoned": 63.6,
+  "hub_cost": {
+   "slots": 2,
+   "usd_total": 6.33,
+   "usd_per_slot_mean": 3.166,
+   "usd_per_slot_median": 3.166,
+   "prompt_Mtok_per_slot": 24.97,
+   "cached_pct": 99.1,
+   "completion_ktok_per_slot": 117.8,
+   "calls_per_slot": 151.0
+  },
+  "ci95_by_task": {
+   "pct_action_turns_with_reasoning": [
+    50.6,
+    74.6
+   ],
+   "pct_action_turns_with_visible_text": [
+    21.3,
+    39.7
+   ],
+   "pct_turns_parallel_calls": [
+    11.4,
+    14.2
+   ]
+  },
+  "distance_to_sc14": {
+   "turn_class_tv": 0.391,
+   "ks_reasoning_tokens_per_turn": 0.397,
+   "ks_tool_calls_per_turn": 0.006,
+   "ks_turns_per_rollout": 0.6,
+   "ks_reasoning_tokens_per_rollout": 0.5
+  }
+ },
+ "deepseek": {
+  "source": "deepseek",
+  "label": "DeepSeek-V4-Pro",
+  "rollouts": 2,
+  "graded": 2,
+  "infra": 0,
+  "with_export": 2,
+  "pass_at_1": 50.0,
+  "task_mean_pass": 50.0,
+  "pass_at_5": 50.0,
+  "tasks": 2,
+  "turns_per_rollout_mean": 121.0,
+  "turns_per_rollout_median": 121.0,
+  "pct_turns_with_reasoning": 57.9,
+  "pct_action_turns_with_reasoning": 57.9,
+  "pct_rollouts_all_actions_reasoned": 0.0,
+  "rollout_mean_pct_action_reasoned": 58.6,
+  "longest_unreasoned_action_run_median": 6.5,
+  "pct_first_action_reasoned": 100.0,
+  "reasoning_tokens_per_reasoning_turn_median": 159.0,
+  "reasoning_tokens_per_reasoning_turn_mean": 1015.68,
+  "reasoning_chars_per_reasoning_turn_median": 608.0,
+  "reasoning_tokens_per_turn_mean_incl_zero": 587.6,
+  "reasoning_tokens_per_rollout_mean": 71097.5,
+  "reasoning_tokens_per_rollout_median": 71097.5,
+  "pct_turns_with_visible_text": 11.2,
+  "pct_action_turns_with_visible_text": 10.4,
+  "pct_action_turns_bare": 39.6,
+  "visible_chars_median": 66,
+  "tool_calls_per_turn": 1.09,
+  "tool_calls_per_action_turn": 1.1,
+  "pct_turns_parallel_calls": 9.9,
+  "tool_calls_per_rollout_mean": 132.0,
+  "pct_turns_notool": 0.8,
+  "pct_turns_reasoning_only": 0.0,
+  "pct_turns_text_notool": 0.8,
+  "pct_turns_empty": 0.0,
+  "turn_class_mix": {
+   "action+reasoning": 57.4,
+   "action, no reasoning": 41.7,
+   "no-tool reasoning-only": 0.0,
+   "no-tool text": 0.8,
+   "no-tool empty": 0.0
+  },
+  "pct_rollouts_git_commit": 100.0,
+  "pct_rollouts_commit_in_last_3_calls": 100.0,
+  "pct_rollouts_branch_created": 100.0,
+  "pct_rollouts_final_notool_message": 100.0,
+  "pct_rollouts_final_summary_200": 100.0,
+  "final_message_chars_median": 2085.5,
+  "pct_rollouts_final_reasoning": 50.0,
+  "pct_rollouts_todowrite": 50.0,
+  "todowrite_calls_per_rollout_mean": 2.0,
+  "pct_rollouts_task_subagent": 0.0,
+  "task_calls_per_rollout_mean": 0.0,
+  "pct_rollouts_webfetch": 0.0,
+  "webfetch_calls_total": 0,
+  "pct_rollouts_skill": 0.0,
+  "compactions_per_rollout_mean": 0.0,
+  "pct_rollouts_compacted": 0.0,
+  "tool_share": {
+   "bash": 65.9,
+   "edit": 12.9,
+   "read": 11.4,
+   "grep": 7.6,
+   "todowrite": 1.5,
+   "write": 0.4,
+   "glob": 0.4
+  },
+  "agent_wall_min_median": 20.3,
+  "patch_empty_pct": 0.0,
+  "pct_action_reasoned_by_first_tool": {
+   "bash": [
+    63.1,
+    168
+   ],
+   "edit": [
+    35.3,
+    34
+   ],
+   "read": [
+    52.2,
+    23
+   ],
+   "grep": [
+    70.0,
+    10
+   ],
+   "todowrite": [
+    50.0,
+    4
+   ],
+   "write": [
+    0.0,
+    1
+   ]
+  },
+  "top_reasoning_openers": [
+   [
+    "Now let",
+    7
+   ],
+   [
+    "Let me",
+    6
+   ],
+   [
+    "Now add",
+    4
+   ],
+   [
+    "Wait I",
+    2
+   ],
+   [
+    "Good Now",
+    2
+   ],
+   [
+    "No network",
+    2
+   ],
+   [
+    "This is",
+    2
+   ],
+   [
+    "security IsNamespaceEnabled",
+    2
+   ]
+  ],
+  "pct_action_reasoned_by_decile": [
+   87.0,
+   62.5,
+   58.3,
+   50.0,
+   58.3,
+   54.2,
+   37.5,
+   66.7,
+   58.3,
+   48.0
+  ],
+  "pct_action_reasoned_after": {
+   "prev_reasoned": 57.2,
+   "prev_unreasoned": 58.0,
+   "prev_error": 72.7,
+   "prev_ok": 56.8
+  },
+  "pct_unreasoned_action_after_reasoned": 58.4,
+  "hub_cost": {
+   "slots": 2,
+   "usd_total": 2.59,
+   "usd_per_slot_mean": 1.293,
+   "usd_per_slot_median": 1.293,
+   "prompt_Mtok_per_slot": 15.76,
+   "cached_pct": 99.3,
+   "completion_ktok_per_slot": 95.3,
+   "calls_per_slot": 121.0
+  },
+  "ci95_by_task": {
+   "pct_action_turns_with_reasoning": [
+    54.6,
+    62.6
+   ],
+   "pct_action_turns_with_visible_text": [
+    7.1,
+    15.2
+   ],
+   "pct_turns_parallel_calls": [
+    9.0,
+    10.6
+   ]
+  },
+  "distance_to_sc14": {
+   "turn_class_tv": 0.419,
+   "ks_reasoning_tokens_per_turn": 0.421,
+   "ks_tool_calls_per_turn": 0.026,
+   "ks_turns_per_rollout": 0.7,
+   "ks_reasoning_tokens_per_rollout": 0.6
+  }
+ },
+ "sftv2": {
+  "source": "sftv2",
+  "label": "v2 SFT (sc14 + kimi SFT)",
+  "rollouts": 10,
+  "graded": 10,
+  "infra": 0,
+  "with_export": 10,
+  "pass_at_1": 50.0,
+  "task_mean_pass": 50.0,
+  "pass_at_5": 100.0,
+  "tasks": 2,
+  "turns_per_rollout_mean": 208.6,
+  "turns_per_rollout_median": 203.0,
+  "pct_turns_with_reasoning": 66.9,
+  "pct_action_turns_with_reasoning": 67.0,
+  "pct_rollouts_all_actions_reasoned": 0.0,
+  "rollout_mean_pct_action_reasoned": 65.1,
+  "longest_unreasoned_action_run_median": 5.5,
+  "pct_first_action_reasoned": 100.0,
+  "reasoning_tokens_per_reasoning_turn_median": 209.5,
+  "reasoning_tokens_per_reasoning_turn_mean": 689.55,
+  "reasoning_chars_per_reasoning_turn_median": 793.5,
+  "reasoning_tokens_per_turn_mean_incl_zero": 461.5,
+  "reasoning_tokens_per_rollout_mean": 96261.3,
+  "reasoning_tokens_per_rollout_median": 78938.0,
+  "pct_turns_with_visible_text": 32.2,
+  "pct_action_turns_with_visible_text": 32.0,
+  "pct_action_turns_bare": 32.4,
+  "visible_chars_median": 92.0,
+  "tool_calls_per_turn": 1.08,
+  "tool_calls_per_action_turn": 1.09,
+  "pct_turns_parallel_calls": 8.1,
+  "tool_calls_per_rollout_mean": 225.4,
+  "pct_turns_notool": 0.5,
+  "pct_turns_reasoning_only": 0.0,
+  "pct_turns_text_notool": 0.3,
+  "pct_turns_empty": 0.1,
+  "turn_class_mix": {
+   "action+reasoning": 66.7,
+   "action, no reasoning": 32.8,
+   "no-tool reasoning-only": 0.0,
+   "no-tool text": 0.3,
+   "no-tool empty": 0.1
+  },
+  "pct_rollouts_git_commit": 70.0,
+  "pct_rollouts_commit_in_last_3_calls": 70.0,
+  "pct_rollouts_branch_created": 90.0,
+  "pct_rollouts_final_notool_message": 100.0,
+  "pct_rollouts_final_summary_200": 70.0,
+  "final_message_chars_median": 1853.5,
+  "pct_rollouts_final_reasoning": 50.0,
+  "pct_rollouts_todowrite": 80.0,
+  "todowrite_calls_per_rollout_mean": 2.6,
+  "pct_rollouts_task_subagent": 0.0,
+  "task_calls_per_rollout_mean": 0.0,
+  "pct_rollouts_webfetch": 40.0,
+  "webfetch_calls_total": 7,
+  "pct_rollouts_skill": 0.0,
+  "compactions_per_rollout_mean": 0.6,
+  "pct_rollouts_compacted": 50.0,
+  "tool_share": {
+   "bash": 62.5,
+   "edit": 20.7,
+   "read": 11.3,
+   "write": 2.2,
+   "grep": 1.6,
+   "todowrite": 1.2,
+   "webfetch": 0.3,
+   "glob": 0.2,
+   "invalid": 0.0
+  },
+  "agent_wall_min_median": 51.8,
+  "patch_empty_pct": 30.0,
+  "pct_action_reasoned_by_first_tool": {
+   "bash": [
+    68.5,
+    1284
+   ],
+   "edit": [
+    60.0,
+    460
+   ],
+   "read": [
+    66.4,
+    229
+   ],
+   "write": [
+    83.3,
+    48
+   ],
+   "todowrite": [
+    72.0,
+    25
+   ],
+   "grep": [
+    86.4,
+    22
+   ],
+   "webfetch": [
+    100.0,
+    6
+   ],
+   "glob": [
+    0.0,
+    1
+   ],
+   "invalid": [
+    0.0,
+    1
+   ]
+  },
+  "top_reasoning_openers": [
+   [
+    "Let me",
+    65
+   ],
+   [
+    "Now let",
+    50
+   ],
+   [
+    "Wait I",
+    34
+   ],
+   [
+    "Now I",
+    29
+   ],
+   [
+    "Now the",
+    14
+   ],
+   [
+    "The file",
+    14
+   ],
+   [
+    "Wait the",
+    10
+   ],
+   [
+    "No network",
+    6
+   ]
+  ],
+  "pct_action_reasoned_by_decile": [
+   68.0,
+   66.8,
+   67.1,
+   60.9,
+   57.1,
+   63.6,
+   68.6,
+   70.5,
+   73.6,
+   73.7
+  ],
+  "pct_action_reasoned_after": {
+   "prev_reasoned": 68.9,
+   "prev_unreasoned": 62.6,
+   "prev_error": 69.6,
+   "prev_ok": 66.3
+  },
+  "pct_unreasoned_action_after_reasoned": 62.9,
+  "ci95_by_task": {
+   "pct_action_turns_with_reasoning": [
+    63.1,
+    70.0
+   ],
+   "pct_action_turns_with_visible_text": [
+    26.2,
+    36.6
+   ],
+   "pct_turns_parallel_calls": [
+    6.8,
+    9.8
+   ]
+  },
+  "distance_to_sc14": {
+   "turn_class_tv": 0.329,
+   "ks_reasoning_tokens_per_turn": 0.331,
+   "ks_tool_calls_per_turn": 0.043,
+   "ks_turns_per_rollout": 0.4,
+   "ks_reasoning_tokens_per_rollout": 0.4
+  }
+ }
+}

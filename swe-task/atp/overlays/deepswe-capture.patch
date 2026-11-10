@@ -1,0 +1,257 @@
+--- a/responses_api_agents/opencode_sandboxed_agent/app.py
++++ b/responses_api_agents/opencode_sandboxed_agent/app.py
+@@ -14,6 +14,7 @@
+ # limitations under the License.
+ 
+ import json
++import os
+ import sqlite3
+ import sys
+ from pathlib import Path
+@@ -23,6 +24,11 @@
+ from typing import Any, Dict, List, Optional
+ from uuid import uuid4
+ 
++from deepswe_capture import (
++    REMOTE_DATA, capture_attempt, capture_before_stop, capture_model_headers,
++    install_opencode, mark_sandbox_stopped, run_opencode, save_export, save_verify_request,
++)
++
+ from fastapi import Request
+ from openai.types.responses import ResponseInputTextParam
+ from pydantic import ConfigDict, Field
+@@ -550,8 +556,9 @@
+                     "options": {
+                         "baseURL": base_url,
+                         "apiKey": "dummy_key",  # pragma: allowlist secret
++                        "headers": await capture_model_headers(request),
+                         "timeout": False,
+-                        "chunkTimeout": 600000,  # in milliseconds, 10 min
++                        "chunkTimeout": (int(os.environ.get("ATP_DEEPSWE_AGENT_TIMEOUT", "10800")) + 300) * 1000,
+                     },
+                     "models": {
+                         "dummy_model": {
+@@ -559,7 +566,7 @@
+                                 "context": self.config.opencode_max_context_window,
+                                 "input": self.config.opencode_max_context_window,
+                                 # See the OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX flag below for more information.
+-                                "output": self.config.opencode_max_context_window,
++                                "output": int(os.environ.get("ATP_DEEPSWE_MAX_OUTPUT_TOKENS", "16384")),
+                             },
+                         },
+                     },
+@@ -672,7 +679,9 @@
+ 
+         opencode_thinking_str = "--thinking"
+ 
+-        if self.config.remote_opencode_binary_path and self.config.remote_opencode_install_script_path:
++        if os.environ.get("ATP_DEEPSWE_OPENCODE_BINARY"):
++            install_str = await install_opencode(sandbox)
++        elif self.config.remote_opencode_binary_path and self.config.remote_opencode_install_script_path:
+             if self.config.remote_opencode_musl_binary_path:
+                 install_str = _build_remote_opencode_install_command(
+                     install_script_path=self.config.remote_opencode_install_script_path,
+@@ -700,7 +709,7 @@
+         xdg_home_str = ""
+         remote_data_home = None
+         if collect_observations:
+-            remote_data_home = f"/tmp/nemo-gym-opencode-{uuid4().hex}"
++            remote_data_home = REMOTE_DATA
+             xdg_home_str = f"XDG_DATA_HOME={remote_data_home}"
+ 
+         # @bxyu-nvidia: Regarding `OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX=1000000000` below:
+@@ -724,10 +733,7 @@
+ 
+         run_error_type = None
+         try:
+-            result = await sandbox.exec(
+-                command=command,
+-                timeout_s=self.config.sandbox_timeout,
+-            )
++            result = await run_opencode(sandbox, command, request, self.config.sandbox_timeout)
+         except Exception as exc:
+             result = None
+             run_error_type = type(exc).__name__
+@@ -773,6 +779,7 @@
+                 print(f"Downloading results from {export_remote_fpath} to {results_local_fpath}", file=sys.stderr)
+             try:
+                 await sandbox.download(export_remote_fpath, results_local_fpath)
++                save_export(results_local_fpath)
+             except:
+                 print(f"Failed to download export results to {results_local_fpath}", format_exc(), file=sys.stderr)
+                 print("Export stdout:\n", export_result.stdout, file=sys.stderr)
+@@ -833,10 +840,13 @@
+         result_stdout = (result.stdout if result else "") or ""
+         result_stderr = (result.stderr if result else "") or ""
+         opencode_finished = False
+-        std_out_split = result_stdout.rsplit("Shell: ", maxsplit=1)
+-        if len(std_out_split) > 1:
+-            opencode_finished = "OpenCode run finished" in std_out_split[1]
++        if os.environ.get("ATP_DEEPSWE_CAMPAIGN"):
++            opencode_finished = result is not None and result.return_code == 0
++        else:
++            std_out_split = result_stdout.rsplit("Shell: ", maxsplit=1)
++            if len(std_out_split) > 1:
++                opencode_finished = "OpenCode run finished" in std_out_split[1]
+ 
+         if collect_observations and observations is not None:
+             agent_sandbox_observation = self._agent_sandbox_observation(
+                 sandbox=sandbox,
+@@ -861,6 +871,8 @@
+             observations.gaps.append(ObservationGap(code="sandbox_lifecycle_timing_unavailable"))
+ 
+         run_result = {
++            "opencode_exit_code": getattr(result, "return_code", None),
++            "opencode_run_error_type": getattr(result, "error_type", None) or run_error_type,
+             "opencode_results_fpath": str(results_local_fpath) if opencode_export_found else "",
+             "opencode_run_stdout": result_stdout,
+             "opencode_run_stderr": result_stderr,
+@@ -883,6 +895,7 @@
+             usage=usage,
+         )
+ 
++    @capture_attempt
+     async def run(
+         self, request: Request, body: OpenCodeSandboxedAgentRunRequest
+     ) -> OpenCodeSandboxedAgentVerifyResponse:
+@@ -921,6 +934,7 @@
+             observations = run_result.pop("_ng_agent_observations", None)
+ 
+         verify_request = OpenCodeSandboxedAgentVerifyRequest.model_validate(body.model_dump() | {"response": response})
++        save_verify_request(verify_request, self._sandbox_id_to_run_result.get(session_key, {}))
+ 
+         verify_response = await self.server_client.post(
+             server_name=self.config.resources_server.name,
+@@ -931,7 +945,10 @@
+         await raise_for_status(verify_response)
+ 
+         try:
+-            await sandbox.stop()
++            if await capture_before_stop(sandbox, "agent"):
++                descriptor = await sandbox.serialize()
++                await sandbox.stop()
++                mark_sandbox_stopped(descriptor, "agent")
+         except Exception:
+             print("Failed to stop sandbox", format_exc(), file=sys.stderr)
+ 
+--- a/resources_servers/deepswe/app.py
++++ b/resources_servers/deepswe/app.py
+@@ -19,6 +19,11 @@
+ from traceback import format_exc
+ from typing import Any
+ 
++from deepswe_capture import (
++    attempt_metadata, capture_attempt, capture_before_stop, mark_sandbox_stopped, register_sandbox,
++    run_verifier, save_model_patch, saved_patch_for_regrade, verifier_directory,
++)
++
+ from fastapi import Request
+ from pydantic import BaseModel, ConfigDict, Field
+ 
+@@ -245,12 +250,15 @@
+                 "deepswe-task": current_task_id[:63],
+                 "deepswe-phase": phase,
+                 "nemo_gym_agent": self.config.name or "deepswe",
++                **attempt_metadata(),
+             },
+             resources=SandboxResources.from_mapping(resources),
+             provider_options=self._provider_options(phase=phase),
+         )
+         sandbox = AsyncSandbox(provider)
+         await sandbox.start(spec)
++        collect = task_collect_hook(task)
++        await register_sandbox(sandbox, phase, collect.command, collect.timeout_sec)
+         if phase == "agent":
+             # The task images ship no git user identity, and git's identity
+             # auto-detection is hostname-dependent: an FQDN hostname passes
+@@ -268,8 +276,12 @@
+         return sandbox
+ 
+     async def _stop_sandbox(self, sandbox: AsyncSandbox, *, task_id: str, phase: str) -> None:
++        if not await capture_before_stop(sandbox, phase):
++            return
+         try:
++            descriptor = await sandbox.serialize()
+             await sandbox.stop()
++            mark_sandbox_stopped(descriptor, phase)
+         except Exception:
+             print(f"Failed to stop DeepSWE {phase} sandbox for {task_id}: {format_exc()}", file=sys.stderr)
+ 
+@@ -323,11 +335,7 @@
+     ) -> VerifierResult:
+         await self._stage_verifier(sandbox, task, model_patch)
+         try:
+-            command_result = await sandbox.exec(
+-                "bash /tests/test.sh",
+-                cwd="/app",
+-                timeout_s=task.config.verifier.timeout_sec,
+-            )
++            command_result = await run_verifier(sandbox, "bash /tests/test.sh", task.config.verifier.timeout_sec)
+         except TimeoutError:
+             return VerifierResult(
+                 evaluation_completed=False,
+@@ -399,6 +407,7 @@
+             partial=float(reward_data.get("partial", 0.0)),
+         )
+ 
++    @capture_attempt
+     async def seed_session(self, request: Request, body: DeepSWESeedSessionRequest) -> DeepSWESeedSessionResponse:
+         if self.config.is_verifying_golden_patch:
+             raise RuntimeError("DeepSWE seed_session is unavailable in golden-patch mode")
+@@ -439,6 +448,7 @@
+                 await self._stop_sandbox(sandbox, task_id=task_id(task), phase="failed-agent-seed")
+             raise
+ 
++    @capture_attempt
+     async def verify(self, request: Request, body: DeepSWEVerifyRequest) -> DeepSWEVerifyResponse:
+         task = _resolve_task(body, self._task_store)
+         current_task_id = task_id(task)
+@@ -448,7 +458,10 @@
+         patch_collection_time_s = 0.0
+         patch_error: str | None = None
+ 
+-        if self.config.is_verifying_golden_patch:
++        saved_patch = saved_patch_for_regrade(body)
++        if saved_patch is not None:
++            model_patch = saved_patch
++        elif self.config.is_verifying_golden_patch:
+             model_patch = task_solution_patch_path(task).read_bytes()
+         else:
+             model_patch = b""
+@@ -470,6 +483,7 @@
+                             f"{current_task_image!r}"
+                         )
+                     model_patch = await self._collect_model_patch(agent_session.sandbox, task)
++                    save_model_patch(model_patch)
+                 except Exception as error:
+                     print(
+                         f"Failed to collect DeepSWE model patch for {current_task_id}: {format_exc()}",
+@@ -481,7 +495,7 @@
+                     await self._stop_sandbox(agent_session.sandbox, task_id=current_task_id, phase="agent")
+ 
+         patch_sha256 = hashlib.sha256(model_patch).hexdigest()
+-        log_dir = _resolve_repo_path(self.config.logs_dir) / current_task_id / session_id
++        log_dir = verifier_directory()
+ 
+         sandbox: AsyncSandbox | None = None
+         sandbox_start_time_s = 0.0
+--- a/nemo_gym/sandbox/providers/opensandbox/pty.py
++++ b/nemo_gym/sandbox/providers/opensandbox/pty.py
+@@ -467,7 +467,7 @@
+             pass
+         return bytes(output + stderr), int(exit_text) if exit_text.isdigit() else None
+ 
+-    async def close(self) -> None:
++    async def close(self, *, preserve_session: bool = False) -> None:
+         if self._closed:
+             return
+         self._closed = True
+@@ -485,7 +485,7 @@
+             await self._stderr.put(None)
+         try:
+             await self._ws.close()
+-            if self._owned:
++            if self._owned and not preserve_session:
+                 try:
+                     await self._client.delete(
+                         self._session_url,

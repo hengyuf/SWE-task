@@ -1,0 +1,94 @@
+{
+ "what": "slots in flight when hengyuf's Lustre user quota filled (EDQUOT, 2026-10-26 ~11:13-11:16 PDT; drivers of sel50-g2/g4 and the ATP workers of sel50-g1/g3 died on 'Disk quota exceeded'). ATP left them needs_review (terminal, never retried) or active. driver.py re-runs a listed slot ONCE in a recovery probe of the same settings if the slot is still infra when its campaign is otherwise complete (as for budget refusals); an active one that ATP's own recovery makes retryable is re-run by ATP inside the campaign instead.",
+ "listed_at": "2026-10-26T13:19:35-0700",
+ "slots": [
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-aiohttp-cand-c03-r1b1-b706aac1",
+   "slot": "kimi-r0",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/0-0/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:06-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-aiohttp-cand-c03-r1b1-b706aac1",
+   "slot": "kimi-r4",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/0-4/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:09-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-bitecs-cand-c05-r1b4-bc99c654",
+   "slot": "kimi-r0",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/1-0/attempt-0",
+   "atp_status_at_listing": "active",
+   "last_write": "2026-10-26T11:14:08-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-ibis-cand-c03-r1b4-3d3b86b5",
+   "slot": "kimi-r3",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/3-3/attempt-0",
+   "atp_status_at_listing": "active",
+   "last_write": "2026-10-26T11:14:06-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-pylama-cand-c02-r1b0-r2b2-02688723",
+   "slot": "kimi-r2",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/5-2/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:08-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-transitions-cand-c03-c910069f",
+   "slot": "kimi-r2",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/6-2/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:08-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-transitions-cand-c03-c910069f",
+   "slot": "kimi-r3",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/6-3/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:13:00-0700"
+  },
+  {
+   "campaign": "sel50-g1",
+   "task_id": "syn-yq-cand-c02-r1b1-2f81d284",
+   "slot": "kimi-r3",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g1/models/kimi/attempts/9-3/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:11-0700"
+  },
+  {
+   "campaign": "sel50-g2",
+   "task_id": "syn-ibis-cand-c04-86a17614",
+   "slot": "kimi-r0",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g2/models/kimi/attempts/3-0/attempt-1",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:13:54-0700"
+  },
+  {
+   "campaign": "sel50-g3",
+   "task_id": "syn-transitions-cand-c05-r1b2-6a1e0dca",
+   "slot": "kimi-r2",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g3/models/kimi/attempts/6-2/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:16:48-0700"
+  },
+  {
+   "campaign": "sel50-g4",
+   "task_id": "syn-jest-cand-c05-r1b2-d6a136fe",
+   "slot": "kimi-r3",
+   "attempt_dir": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/kimi-rollouts-v3-20261026/probes/kimi/sel50-g4/models/kimi/attempts/4-3/attempt-0",
+   "atp_status_at_listing": "needs_review",
+   "last_write": "2026-10-26T11:14:22-0700"
+  }
+ ]
+}

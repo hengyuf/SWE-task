@@ -1,0 +1,496 @@
+{
+ "created": "2026-11-02",
+ "requested_by": "hengyuf, 2026-11-02: \"现在我想启动这23个task的合成, 但是在做failure analysis的时候每个不是放5个之前的kimi 的rollouts 和base的rollout, 而是放所有正确的kimi rollouts 和所有错误的base rollout, 帮我修改task 生成的pipeline,随后启动这23个task的生成. 并行最多进行5个不同DeepSWE task的生成\" (the 23 = DeepSWE targets with Kimi K3 >= 5/10 and base sc14 <= 5/10 that no accepted task in hengyuf's synth/runs covers; 7 of them are covered by Baihe's fork, see settings_notes.order)",
+ "settings": {
+  "max_active": 5,
+  "max_launches_per_run": 12,
+  "walltime": "24:00:00",
+  "partitions": "cpu_datamover,cpu_dataprocessing,cpu_interactive",
+  "build_args": [
+   "--rounds",
+   "1"
+  ],
+  "poll_s": 120,
+  "budget_every_s": 600,
+  "key_order": [
+   "NVAPI_KEY_NEW_3",
+   "NVAPI_KEY_NEW_2"
+  ],
+  "switch_key_below_usd": 1500,
+  "stop_launching_below_usd": 3000,
+  "spend_caps": {
+   "NVAPI_KEY_NEW_3": {
+    "baseline_spend_usd": -4996.83,
+    "cap_usd": 7000,
+    "read_at": "2026-11-03T10:41:00-0800",
+    "previous_baselines": [
+     {
+      "baseline_spend_usd": -9013.58,
+      "read_at": "2026-11-02T00:23:51-0800"
+     }
+    ],
+    "rebaseline_note": "hub corrected NEW_3's counter between 10:30:57 (spend -4026.75) and 10:41:00 (spend 0.00003, remaining 10000.0); real spend since the first baseline was 4986.83 at 10:30:57, so the new baseline = 0 - (4986.83 + ~10 unrecorded) = -4996.83 keeps 'spent since the baseline' = real NEW_3 spend this month; the runner's 10:51 switch to NEW_2 was caused by the reset (main reverted it)"
+   }
+  },
+  "fleet_target": 10,
+  "target_source": {
+   "dataset": "S/data/targets/sc14x10-kimix10-20261102",
+   "show": "teacher_pass_student_fail",
+   "requested_by": "hengyuf 2026-11-02: 所有正确的kimi rollouts 和所有错误的base rollout"
+  }
+ },
+ "settings_notes": {
+  "target_source": "every run's target failure analysis reads data/targets/sc14x10-kimix10-20261102 (per task: sc14-r0..r4 = base-step0-rep5-out131k, sc14-r5..r9 = base-step0-rep5-out131k-rerun1, kimi 1M-context export slots < r16, kimi-r16..r20 = teacher-deepswe-20261030 256k) and shows every passing kimi and every failing sc14 rollout; stats.json pass_stats (the target rates task_builder uses) count all graded slots",
+  "keys": "NVAPI_KEY_NEW_3 first (synth's key since official3). Its hub counter read spend -$9,013.58 / remaining $19,013.58 after the 2026-11-01 reset, so spend_caps caps it at $7,000 spent since that reading. hengyuf 2026-11-02 ~19:00 PST: \"use NEW_2\": once NEW_3's cap is reached the runner switches the active key to NVAPI_KEY_NEW_2 (switch_key: hub_key_active.txt + tools/make_secrets.py) and keeps launching; NEW_2 also carries the r6 RL judge, so stop_launching_below_usd = $3,000 on NEW_2 stops everything there (in-flight builds can still spend ~$2k after that; r6's key reserve gate needs ~max($500, 2x a segment's judge spend)). NEW_2 read $7,696 remaining at 2026-11-02 20:06.",
+  "order": "coverage first, then qualifying.csv order (largest Kimi-minus-base gap first) within a group: the 13 targets never synthesized anywhere, then the 3 that Baihe's fork (/lustre/fsw/portfolios/nemotron/users/baiheh/swe-task-hengyu/synth/runs) built with 0 accepted, then the 7 that his fork already covers (43 accepted sc14 tasks; those targets are in the v2/v3 SFT corpora). Main 2026-11-02, after the pre-launch review found that qualifying.csv's coverage counted hengyuf's runs only: with the spend cap the 7 covered targets would start last, after hengyuf has seen the correction. 2026-11-02 ~19:00: the 7 covered targets were dropped (see \"dropped\")",
+  "repos": "task_builder's default host (best-ranked eligible top100.jsonl repo), except: the 3 targets Baihe's fork built with 0 accepted get the best-ranked eligible host the fork did not try (repo_default keeps the default); both koota targets default to NateTheGreatt/bitECS",
+  "kimi": "the probes' kimi side stays the pipeline's config (synth/settings.json kimi-k3, reasoning_effort max, context 1048576, output 131072, stock OpenCode prompt), as in official3",
+  "rounds": "round 0 + round 1 (--rounds 1), as official3",
+  "coverage": "'uncovered' in qualifying.csv = no accepted task in hengyuf's synth/runs; per entry, baihe_fork lists the fork's runs for the target and their accepted counts, coverage_group the resulting group",
+  "hold": "superseded: hengyuf dropped the 7 held (Baihe-covered) targets on 2026-11-02; they are listed under \"dropped\" and are no longer runs of this queue",
+  "max_launches_per_run": "main 2026-11-05 19:45: 6 -> 12. participle round 1 legs 2-4 each ended after its probe waited 3 h for an sc14 worker (batch congested, worker est. start sliding); at 6 the run would be parked FAILED and, with every other run done, the runner would end the queue and cancel the fleet"
+ },
+ "runs": [
+  {
+   "run": "official4-igel-schema",
+   "task": "igel-persist-feature-schema",
+   "repo": "ludwig-ai/ludwig",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 2,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-tspattern-each",
+   "task": "ts-pattern-match-each",
+   "repo": "h3js/rou3",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 10,
+   "kimi_graded": 10,
+   "base_pass_10": 3,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-valibot-recursive",
+   "task": "valibot-recursive-schema-composition",
+   "repo": "colinhacks/zod",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 2,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-kcp-streams",
+   "task": "kcp-go-multiplexed-kcp-streams",
+   "repo": "hashicorp/yamux",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 3,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-textual-richlog",
+   "task": "textual-richlog-follow-state",
+   "repo": "tconbeer/harlequin",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 3,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-anko-typed",
+   "task": "anko-typed-variable-bindings",
+   "repo": "google/starlark-go",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 10,
+   "kimi_graded": 10,
+   "base_pass_10": 5,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-sqlite-checkpoints",
+   "task": "sqlite-utils-safe-import-checkpoints",
+   "repo": "thombashi/sqlitebiter",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-tomlkit-converters",
+   "task": "tomlkit-toml-table-converters",
+   "repo": "crdoconnor/strictyaml",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 10,
+   "kimi_graded": 10,
+   "base_pass_10": 5,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-yaegi-embed",
+   "task": "yaegi-go-embed-directives",
+   "repo": "cosmos72/gomacro",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 7,
+   "kimi_graded": 10,
+   "base_pass_10": 2,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-gocritic-doclink",
+   "task": "go-critic-doc-link-checker",
+   "repo": "golang/tools",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 5,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-kgateway-hash",
+   "task": "kgateway-consistent-hash-policy",
+   "repo": "envoyproxy/gateway",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 7,
+   "kimi_graded": 10,
+   "base_pass_10": 3,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-koota-snapshot",
+   "task": "koota-entity-snapshot-rollback",
+   "repo": "NateTheGreatt/bitECS",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 8,
+   "kimi_graded": 10,
+   "base_pass_10": 5,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-koota-predicates",
+   "task": "koota-query-predicates",
+   "repo": "NateTheGreatt/bitECS",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 6,
+   "kimi_graded": 9,
+   "base_pass_10": 3,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [],
+    "accepted": 0
+   },
+   "coverage_group": "never_synthesized"
+  },
+  {
+   "run": "official4-participle-conflict",
+   "task": "participle-grammar-conflict-analysis",
+   "repo": "mna/pigeon",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 0,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "q11-participle-grammar-conflict-analysis",
+      "accepted": 0
+     }
+    ],
+    "accepted": 0
+   },
+   "coverage_group": "baihe_fork_0_accepted",
+   "repo_default": "pointlander/peg",
+   "repo_note": "best-ranked eligible top100.jsonl host not already tried by Baihe's fork (tried: pointlander/peg; 0 accepted there); main 2026-11-02 after the delta review"
+  },
+  {
+   "run": "official4-arktype-refs",
+   "task": "arktype-json-schema-refs-dependencies",
+   "repo": "jquense/yup",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "q16-arktype-json-schema-refs-dependencies",
+      "accepted": 0
+     },
+     {
+      "run": "q16b-arktype-json-schema-refs-dependencies",
+      "accepted": 0
+     }
+    ],
+    "accepted": 0
+   },
+   "coverage_group": "baihe_fork_0_accepted",
+   "repo_default": "ajv-validator/ajv",
+   "repo_note": "best-ranked eligible top100.jsonl host not already tried by Baihe's fork (tried: APIDevTools/json-schema-ref-parser, ajv-validator/ajv; 0 accepted there); main 2026-11-02 after the delta review"
+  },
+  {
+   "run": "official4-happydom-observer",
+   "task": "happy-dom-deterministic-intersectionobserver",
+   "repo": "ulixee/hero",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 5,
+   "kimi_graded": 10,
+   "base_pass_10": 2,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "pilot11-happydom-jsdom-inline",
+      "accepted": 0
+     },
+     {
+      "run": "pilot5-happydom-intersectionobserver",
+      "accepted": 0
+     }
+    ],
+    "accepted": 0
+   },
+   "coverage_group": "baihe_fork_0_accepted",
+   "repo_default": "jsdom/jsdom",
+   "repo_note": "best-ranked eligible top100.jsonl host not already tried by Baihe's fork (tried: jsdom/jsdom; 0 accepted there); main 2026-11-02 after the delta review"
+  }
+ ],
+ "dropped": [
+  {
+   "run": "official4-textual-kitty",
+   "task": "textual-kitty-key-phases",
+   "repo": "prompt-toolkit/python-prompt-toolkit",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 0,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "q19-textual-kitty-key-phases",
+      "accepted": 4
+     }
+    ],
+    "accepted": 4
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-httpx-multipart",
+   "task": "httpx-multipart-response-parsing",
+   "repo": "urllib3/urllib3",
+   "batch": "kimi-vs-base-gap",
+   "language": "python",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "pilot1-httpx-multipart",
+      "accepted": 6
+     }
+    ],
+    "accepted": 6
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-opa-template",
+   "task": "opa-template-string-reconstruction",
+   "repo": "google/go-jsonnet",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 9,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "q18-opa-template-string-reconstruction",
+      "accepted": 6
+     }
+    ],
+    "accepted": 6
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-clack-autocomplete",
+   "task": "clack-async-autocomplete-options",
+   "repo": "SBoudrias/Inquirer.js",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 7,
+   "kimi_graded": 10,
+   "base_pass_10": 0,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "q10-clack-async-autocomplete-options",
+      "accepted": 7
+     }
+    ],
+    "accepted": 7
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-optique-deps",
+   "task": "optique-conditional-option-dependencies",
+   "repo": "unjs/citty",
+   "batch": "kimi-vs-base-gap",
+   "language": "typescript",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 0,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "pilot8-optique-option-deps",
+      "accepted": 5
+     }
+    ],
+    "accepted": 5
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-expr-trycatch",
+   "task": "expr-try-catch-errors",
+   "repo": "PaesslerAG/gval",
+   "batch": "kimi-vs-base-gap",
+   "language": "go",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 1,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "pilot2-expr-try-catch",
+      "accepted": 6
+     }
+    ],
+    "accepted": 6
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  },
+  {
+   "run": "official4-katex-multicolumn",
+   "task": "katex-multicolumn-array-spans",
+   "repo": "mathjax/MathJax-src",
+   "batch": "kimi-vs-base-gap",
+   "language": "javascript",
+   "kimi_pass_10": 6,
+   "kimi_graded": 10,
+   "base_pass_10": 2,
+   "base_graded": 10,
+   "baihe_fork": {
+    "runs": [
+     {
+      "run": "pilot1-katex-multicolumn",
+      "accepted": 9
+     }
+    ],
+    "accepted": 9
+   },
+   "coverage_group": "baihe_fork_accepted",
+   "dropped": "hengyuf 2026-11-02 ~19:00 PST: \"Drop the 7 held targets that Baihe's fork already covers.\" (covered by accepted sc14 tasks in Baihe's fork, in the v2/v3 SFT corpora)"
+  }
+ ]
+}

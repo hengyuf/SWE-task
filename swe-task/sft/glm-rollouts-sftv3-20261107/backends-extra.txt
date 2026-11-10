@@ -1,0 +1,2 @@
+# extra GLM-5.3 backends for the glm-rollouts routers (one .../v1 URL per line; re-read every 20 s)
+# (dev hold 21455472 removed 2026-11-07 10:20 after the pilots passed)

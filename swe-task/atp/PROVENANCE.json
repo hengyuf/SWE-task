@@ -1,0 +1,484 @@
+{
+  "description": "hengyuf-owned copy of Baihe's agent-teacher-pipelines (ATP) DeepSWE campaign app",
+  "source_app": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines",
+  "created_at": "2026-10-16T17:40:38-0700",
+  "created_by": "hengyuf",
+  "copy_method": "cp -p (regular files, mtimes preserved); byte-identical to the source at copy time",
+  "files": {
+    "configs/deepswe.json": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/configs/deepswe.json",
+      "sha256": "b1933594dfe87247126ce878f4f58142ed3ca130bfd4257aba8859455927d361",
+      "bytes": 907,
+      "source_mtime": "2026-10-14T03:13:39-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "b1933594dfe87247126ce878f4f58142ed3ca130bfd4257aba8859455927d361",
+      "modified_by_hengyuf": false
+    },
+    "deepswe.sbatch": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/deepswe.sbatch",
+      "sha256": "4945f48ddad42a543af3843908efb501c85dfecccbfd0909da9bcfa97d2ed0b0",
+      "bytes": 3389,
+      "source_mtime": "2026-10-14T18:28:06-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "4945f48ddad42a543af3843908efb501c85dfecccbfd0909da9bcfa97d2ed0b0",
+      "modified_by_hengyuf": false
+    },
+    "overlays/README.md": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/README.md",
+      "sha256": "21f85327125b8cb76e5d8581817262b20be57cb9361a9ba0efd0feae9605f19e",
+      "bytes": 1777,
+      "source_mtime": "2026-10-08T15:43:38-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "21f85327125b8cb76e5d8581817262b20be57cb9361a9ba0efd0feae9605f19e",
+      "modified_by_hengyuf": false
+    },
+    "overlays/deepswe-capture.patch": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/deepswe-capture.patch",
+      "sha256": "419fc15b75e4b97f62b5fea0feb07229e0e6b174818751c48899681cba018e81",
+      "bytes": 11303,
+      "source_mtime": "2026-10-14T09:44:16-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "419fc15b75e4b97f62b5fea0feb07229e0e6b174818751c48899681cba018e81",
+      "modified_by_hengyuf": false
+    },
+    "overlays/deepswe-collector.patch": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/deepswe-collector.patch",
+      "sha256": "4d42dc1b2515105990f4980eee53e8fb1a88af24749002a4d44e9abbc87da044",
+      "bytes": 5845,
+      "source_mtime": "2026-10-14T03:09:53-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "4d42dc1b2515105990f4980eee53e8fb1a88af24749002a4d44e9abbc87da044",
+      "modified_by_hengyuf": false
+    },
+    "overlays/deepswe-http.patch": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/deepswe-http.patch",
+      "sha256": "0f751e5280f2fea7f9e13b946bae90ed8c3ee26b5c2ee2fff3a9efed907938e7",
+      "bytes": 4152,
+      "source_mtime": "2026-10-14T10:08:03-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "0f751e5280f2fea7f9e13b946bae90ed8c3ee26b5c2ee2fff3a9efed907938e7",
+      "modified_by_hengyuf": false
+    },
+    "overlays/opensandbox-tls.metadata.json": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/opensandbox-tls.metadata.json",
+      "sha256": "19fed016490cc98cd80b4fc29bba5bbe3982454ca485b36c5d09a701e1d694ef",
+      "bytes": 1109,
+      "source_mtime": "2026-10-08T12:29:17-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "19fed016490cc98cd80b4fc29bba5bbe3982454ca485b36c5d09a701e1d694ef",
+      "modified_by_hengyuf": false
+    },
+    "overlays/opensandbox-tls.patch": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/overlays/opensandbox-tls.patch",
+      "sha256": "bc72b66635c1d841727eb2a04d4626d0e9713c8c7e0f4a207dad005ef0f5d6d1",
+      "bytes": 2513,
+      "source_mtime": "2026-10-08T12:29:17-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "bc72b66635c1d841727eb2a04d4626d0e9713c8c7e0f4a207dad005ef0f5d6d1",
+      "modified_by_hengyuf": false
+    },
+    "scripts/atp_runtime.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/atp_runtime.py",
+      "sha256": "fdf26bbc42411a06c6d92a9d715858a5ab2782e3884257bae89728fd43ce96f0",
+      "bytes": 8618,
+      "source_mtime": "2026-10-08T12:47:03-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "fdf26bbc42411a06c6d92a9d715858a5ab2782e3884257bae89728fd43ce96f0",
+      "modified_by_hengyuf": false
+    },
+    "scripts/audit_completed_exports.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/audit_completed_exports.py",
+      "sha256": "67cb6fdc2bba2655ccea9b613b1f27a5f49647caa1df41d5a44d7709c439a9fa",
+      "bytes": 7888,
+      "source_mtime": "2026-10-08T21:32:51-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "67cb6fdc2bba2655ccea9b613b1f27a5f49647caa1df41d5a44d7709c439a9fa",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_cpu.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_cpu.py",
+      "sha256": "7f45268f76900bf991a4f06ff949fd848399744ed760146d4c609d48d07eabc4",
+      "bytes": 13663,
+      "source_mtime": "2026-10-08T14:31:35-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "7f45268f76900bf991a4f06ff949fd848399744ed760146d4c609d48d07eabc4",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_deepswe.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_deepswe.py",
+      "sha256": "061d8d6bf78638045ba368291061a5911f2ed22cce3c14e4e9e58be94f3c345d",
+      "bytes": 15940,
+      "source_mtime": "2026-10-14T17:42:01-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "061d8d6bf78638045ba368291061a5911f2ed22cce3c14e4e9e58be94f3c345d",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_deepswe_limits.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_deepswe_limits.py",
+      "sha256": "94b047c36f287a9ace748ee1a44cf2e8364ebe501ada7155c9d1c76d36b449f5",
+      "bytes": 2809,
+      "source_mtime": "2026-10-14T09:48:51-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "94b047c36f287a9ace748ee1a44cf2e8364ebe501ada7155c9d1c76d36b449f5",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_deepswe_repair.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_deepswe_repair.py",
+      "sha256": "22c54700b25a3aeefd389f9b8e166ce8569564eb8c930471ec8298498bf2fbb2",
+      "bytes": 12493,
+      "source_mtime": "2026-10-14T10:25:40-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "22c54700b25a3aeefd389f9b8e166ce8569564eb8c930471ec8298498bf2fbb2",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_deepswe_smoke.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_deepswe_smoke.py",
+      "sha256": "9eb25fdf88b93587c31ef5dae837e232ee4051a182e214dab0c6b011bd31536a",
+      "bytes": 7904,
+      "source_mtime": "2026-10-14T17:47:35-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "9eb25fdf88b93587c31ef5dae837e232ee4051a182e214dab0c6b011bd31536a",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_deepswe_validity.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_deepswe_validity.py",
+      "sha256": "08d559686b7900efd1d1f282f0f370b8a97b3b57adf7a1af767e208c688b0785",
+      "bytes": 11311,
+      "source_mtime": "2026-10-14T17:45:08-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "08d559686b7900efd1d1f282f0f370b8a97b3b57adf7a1af767e208c688b0785",
+      "modified_by_hengyuf": false
+    },
+    "scripts/check_serving_cpu.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/check_serving_cpu.py",
+      "sha256": "7979d53e8e25bb44e920fbc53ae978b0691a94133f6586bf1c0f6ab615525ae3",
+      "bytes": 11092,
+      "source_mtime": "2026-10-08T15:42:13-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "7979d53e8e25bb44e920fbc53ae978b0691a94133f6586bf1c0f6ab615525ae3",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_admission.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_admission.py",
+      "sha256": "aa0b23c3dbabf18a8cfa582faa960030bf9d360fa19ad0a528a31ba6780e63cf",
+      "bytes": 22697,
+      "source_mtime": "2026-10-14T18:24:46-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "aa0b23c3dbabf18a8cfa582faa960030bf9d360fa19ad0a528a31ba6780e63cf",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_campaign.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_campaign.py",
+      "sha256": "707c6375a6cb8bc627501780219571d683bfeeb59e28b4b6790cfb4053899f8a",
+      "bytes": 58207,
+      "source_mtime": "2026-10-14T23:56:26-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "707c6375a6cb8bc627501780219571d683bfeeb59e28b4b6790cfb4053899f8a",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_capture.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_capture.py",
+      "sha256": "b1babe29bfe228fbc3808bdc6bffb6daac475fe798e9dd17720744b186949fe8",
+      "bytes": 43655,
+      "source_mtime": "2026-10-14T13:53:40-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "56f34ab96f42dca3a7561ca2ffb5d3d91d185ce32f8a45f89ea4d00ed019d89d",
+      "modified_by_hengyuf": true
+    },
+    "scripts/deepswe_credentials.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_credentials.py",
+      "sha256": "1d8a643fc88ce83b6f5ff051a996dec23b373afbefd2e383c0699ba05c7124a2",
+      "bytes": 2814,
+      "source_mtime": "2026-10-14T18:24:46-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "1d8a643fc88ce83b6f5ff051a996dec23b373afbefd2e383c0699ba05c7124a2",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_delivery.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_delivery.py",
+      "sha256": "45aa73dc04d210c79ef32fab55e534f29dc9c60384fc6dc62f0285dbc92ce6be",
+      "bytes": 4821,
+      "source_mtime": "2026-10-14T17:36:14-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "45aa73dc04d210c79ef32fab55e534f29dc9c60384fc6dc62f0285dbc92ce6be",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_historical.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_historical.py",
+      "sha256": "fd03d0a9ab6350fdbc8a9b2e4f61b2dec417dc8b9549b6e804fea2d42cf41434",
+      "bytes": 6829,
+      "source_mtime": "2026-10-14T18:24:44-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "fd03d0a9ab6350fdbc8a9b2e4f61b2dec417dc8b9549b6e804fea2d42cf41434",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_http.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_http.py",
+      "sha256": "dd4d26685a73442f46f0a289627169ad3d2615d5f8adaff8326073142592beb2",
+      "bytes": 23906,
+      "source_mtime": "2026-10-14T18:28:19-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "e4901ca52c851521f88429ed231003f35f579344b1f07f32c8200802e522a22a",
+      "modified_by_hengyuf": true
+    },
+    "scripts/deepswe_recovery.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_recovery.py",
+      "sha256": "9be84d85542b4dacd122942bb0da83b019cd5ceace5ac979652616699d8dcf1a",
+      "bytes": 8984,
+      "source_mtime": "2026-10-14T18:23:02-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "9be84d85542b4dacd122942bb0da83b019cd5ceace5ac979652616699d8dcf1a",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_source.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_source.py",
+      "sha256": "9af5d06714baca5fc8b7b406117d0da55efb4ec30bc8e1dd0995b27d8a79e3f1",
+      "bytes": 6826,
+      "source_mtime": "2026-10-14T18:28:40-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "9af5d06714baca5fc8b7b406117d0da55efb4ec30bc8e1dd0995b27d8a79e3f1",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_stage.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_stage.py",
+      "sha256": "08cf62c4dd8b863e807cd8ac67b35e8cee2da75df1f0db6e009745a15d63a3bf",
+      "bytes": 20183,
+      "source_mtime": "2026-10-14T18:27:06-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "67603ae8dac6d41985a1c9a9d932b4922fc1dd9197576b1fdc37912dc10a2106",
+      "modified_by_hengyuf": true
+    },
+    "scripts/deepswe_streaming.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_streaming.py",
+      "sha256": "83520ab1244c225638659e6966f145bec3df800d6c5671fe8ba6d225b76f289b",
+      "bytes": 3420,
+      "source_mtime": "2026-10-14T10:06:34-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "83520ab1244c225638659e6966f145bec3df800d6c5671fe8ba6d225b76f289b",
+      "modified_by_hengyuf": false
+    },
+    "scripts/deepswe_upstream.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_upstream.py",
+      "sha256": "06fb469b8526ebaff627138f151d578d3165da92801f74bc19215cdb25a7571e",
+      "bytes": 9004,
+      "source_mtime": "2026-10-14T17:35:55-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "06fb469b8526ebaff627138f151d578d3165da92801f74bc19215cdb25a7571e",
+      "modified_by_hengyuf": false
+    },
+    "scripts/gpu_monitor.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/gpu_monitor.py",
+      "sha256": "2e86d8c1de8ba3af0a277c0f968c01fd5ae3585201bdf777fc03cde8bb64b1de",
+      "bytes": 7823,
+      "source_mtime": "2026-10-08T15:55:03-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "2e86d8c1de8ba3af0a277c0f968c01fd5ae3585201bdf777fc03cde8bb64b1de",
+      "modified_by_hengyuf": false
+    },
+    "scripts/prepare.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/prepare.py",
+      "sha256": "1372dd1c334bbc0673c09e169fa45679056e3cacb68720654b8d68ca6b6973c0",
+      "bytes": 9266,
+      "source_mtime": "2026-10-08T13:08:08-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "1372dd1c334bbc0673c09e169fa45679056e3cacb68720654b8d68ca6b6973c0",
+      "modified_by_hengyuf": false
+    },
+    "scripts/run_deepswe.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/run_deepswe.py",
+      "sha256": "85940dc6f3cc84f9914aaf2c7d0f93b9bb03ef75d740aa7f47a9c217bbb2e49c",
+      "bytes": 31360,
+      "source_mtime": "2026-10-14T17:46:27-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "ae44ccd623327f0d84b06b60f86cb0b77b2bab9dd364dfd2bb98aa16aef76b98",
+      "modified_by_hengyuf": true
+    },
+    "scripts/run_eval.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/run_eval.py",
+      "sha256": "326f29e4aab40f72911675fe851d27a8b3c93827d5c656038ed322c59c1275ce",
+      "bytes": 25197,
+      "source_mtime": "2026-10-08T17:42:29-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "326f29e4aab40f72911675fe851d27a8b3c93827d5c656038ed322c59c1275ce",
+      "modified_by_hengyuf": false
+    },
+    "scripts/run_eval_frozen_3f07ad49.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/run_eval_frozen_3f07ad49.py",
+      "sha256": "3f07ad49e0b89f482aeaf3fe2b2cb95b510136d6c7bf3c256ed7369efcee1eec",
+      "bytes": 23437,
+      "source_mtime": "2026-10-08T17:42:28-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "3f07ad49e0b89f482aeaf3fe2b2cb95b510136d6c7bf3c256ed7369efcee1eec",
+      "modified_by_hengyuf": false
+    },
+    "scripts/score_adjudicated.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/score_adjudicated.py",
+      "sha256": "6c81343d3c06dfd1cab34416e4b0a987063024d4b951a2116f40e710a9c8bdfd",
+      "bytes": 14906,
+      "source_mtime": "2026-10-08T21:35:19-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "6c81343d3c06dfd1cab34416e4b0a987063024d4b951a2116f40e710a9c8bdfd",
+      "modified_by_hengyuf": false
+    },
+    "scripts/score_deepswe_adjudicated.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/score_deepswe_adjudicated.py",
+      "sha256": "17da2bb5c190835ba822d5e9e66883bf4f23f54b7cb13f630fc27428a656f90c",
+      "bytes": 20236,
+      "source_mtime": "2026-10-14T22:41:33-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "17da2bb5c190835ba822d5e9e66883bf4f23f54b7cb13f630fc27428a656f90c",
+      "modified_by_hengyuf": false
+    },
+    "scripts/shard_plan.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/shard_plan.py",
+      "sha256": "c5cefdbe9bc96433803fc89252b21a3aece2c6abbb8f447b60cbc60d7186c61d",
+      "bytes": 17032,
+      "source_mtime": "2026-10-08T17:47:05-0700",
+      "copied_at": "2026-10-16T17:40:26-0700",
+      "current_sha256": "c5cefdbe9bc96433803fc89252b21a3aece2c6abbb8f447b60cbc60d7186c61d",
+      "modified_by_hengyuf": false
+    }
+  },
+  "upstream_pristine_copies": {
+    "upstream/deepswe_campaign.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_campaign.py",
+      "sha256": "707c6375a6cb8bc627501780219571d683bfeeb59e28b4b6790cfb4053899f8a"
+    },
+    "upstream/deepswe_capture.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_capture.py",
+      "sha256": "b1babe29bfe228fbc3808bdc6bffb6daac475fe798e9dd17720744b186949fe8"
+    },
+    "upstream/deepswe_http.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_http.py",
+      "sha256": "dd4d26685a73442f46f0a289627169ad3d2615d5f8adaff8326073142592beb2"
+    },
+    "upstream/deepswe_stage.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/deepswe_stage.py",
+      "sha256": "08cf62c4dd8b863e807cd8ac67b35e8cee2da75df1f0db6e009745a15d63a3bf"
+    },
+    "upstream/run_deepswe.py": {
+      "source": "/lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines/scripts/run_deepswe.py",
+      "sha256": "85940dc6f3cc84f9914aaf2c7d0f93b9bb03ef75d740aa7f47a9c217bbb2e49c"
+    }
+  },
+  "vendor": {
+    "vendor/Gym.tar": {
+      "sha256": "f774ae85423cf93ab316a9db280cf53870ea2ddcab028f28601d2058b778a0ab",
+      "provenance": [
+        "2f11dec3a1c11c0c5f302ab199f97754f7b5c8bd Sadegh Mahdavi Fri Sep 4 14:54:15 2026 -0700 Fix math with judge parsing and formatting (#3095)",
+        "source: /lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/pipeline/nemo_rl/3rdparty/Gym-workspace/Gym (git archive, 2026-10-16T17:21:46-07:00)"
+      ]
+    },
+    "vendor/Gym": {
+      "commit": "2f11dec3a1c11c0c5f302ab199f97754f7b5c8bd",
+      "pristine": true,
+      "read_only": true,
+      "files": 4732,
+      "member_filter": "deepswe_stage.stage(): skip .claude/, .codex/, CLAUDE.md",
+      "opensandbox_provider_sha256": "6e0d92c67cd4aa6c6f3ecd3b55ee2ae6028a91cbb3a2f77d5ee6ddcd5d438531"
+    },
+    "vendor/Gym-controller-src": {
+      "commit": "2f11dec3a1c11c0c5f302ab199f97754f7b5c8bd",
+      "read_only": true,
+      "overlays": [
+        "overlays/opensandbox-tls.patch"
+      ],
+      "opensandbox_provider_sha256": "a292cd3154baa7e66d239f2063e09dca03b2eb48e08bf4133e5b7f80322df321"
+    }
+  },
+  "updated_at": "2026-11-08T19:50:04-0800",
+  "hengyuf_changes": {
+    "diff": "hengyuf-changes.diff",
+    "diff_sha256": "264148e56bab3c5ffd3e6fb230100e3832c12f5c73ddd3028edaa8eb3402b1ab",
+    "scripts": [
+      "scripts/deepswe_capture.py",
+      "scripts/deepswe_http.py",
+      "scripts/deepswe_stage.py",
+      "scripts/run_deepswe.py"
+    ],
+    "marker": "# hengyuf:",
+    "note": "Baihe's originals are kept byte-identical in upstream/ (deepswe_campaign.py too: reverted to Baihe's on 2026-10-16); hengyuf-changes.diff = 3 comment lines + diff -ru a/scripts b/scripts (a = Baihe's scripts/*.py, b = scripts/*.py); deepswe_capture.py changed 2026-11-08 (OpenCode stream write + fsync off the event loop, README item 6)"
+  },
+  "runtime": {
+    "uv": {
+      "path": "runtime/bin/uv",
+      "version": "uv 0.12.9 (x86_64-unknown-linux-gnu)",
+      "sha256": "671793498fe0a545432e2524b6691ffb9eea4540d9fda43ca2f978df2dbf8426",
+      "copied_from": "/lustre/fsw/portfolios/nemotron/projects/nemotron_agents_dev/users/hengyuf/SWE-rollout/Gym-opencode-glm53-rubric-ab/responses_api_agents/swe_agents/swe_r2e_gym_setup/uv/uv",
+      "copied_from_sha256": "671793498fe0a545432e2524b6691ffb9eea4540d9fda43ca2f978df2dbf8426"
+    },
+    "python": {
+      "version": "3.13.14",
+      "path": "runtime/python/cpython-3.13.14-linux-x86_64-gnu",
+      "installed_by": "uv python install 3.13.14 (UV_PYTHON_INSTALL_DIR=runtime/python)"
+    },
+    "controller": {
+      "path": "runtime/controller",
+      "built_at": "2026-10-16T17:45:24-0700",
+      "recipe": "tools/build_runtime.py controller: extract vendor/Gym.tar (stage() member filter) -> vendor/Gym-controller-src; opensandbox-tls overlay only (prepare.py); uv sync --frozen --python runtime/python 3.13.14 --extra sandbox; uv pip install --no-deps safetensors==0.8.0; uv export constraints (prepare.py)",
+      "env": {
+        "UV_PROJECT_ENVIRONMENT": "runtime/controller",
+        "UV_PYTHON_INSTALL_DIR": "runtime/python",
+        "UV_PYTHON_BIN_DIR": "runtime/bin",
+        "UV_CACHE_DIR": "cache/uv",
+        "UV_LINK_MODE": "hardlink"
+      },
+      "editable_source": "vendor/Gym-controller-src (read-only; keep in place)",
+      "freeze": "runtime/controller.freeze.txt",
+      "freeze_sha256": "ccad58e72f57767e2f2d6f336ed0760dc64ebd2ee08b8ae721db3906fe5eb8bd",
+      "distributions": 170,
+      "key_versions": {
+        "aiohttp": "3.14.1",
+        "httpx": "0.28.1",
+        "opensandbox": "0.1.15",
+        "pydantic": "2.13.4",
+        "safetensors": "0.8.0"
+      }
+    },
+    "constraints": {
+      "path": "runtime/constraints.txt",
+      "sha256": "62bf4828d346c892decc58bfd81aa184d80ab15a035f0f08a3b990e84cbf3f1a"
+    }
+  },
+  "tools": {
+    "tools/build_runtime.py": {
+      "sha256": "eafe4a4573ee75b8de57462789892ea146b2eaecf2d60aeeccce0377a6d1300c"
+    },
+    "tools/check_hengyuf_changes.py": {
+      "sha256": "2ce48868d53ac07d5c325b45972294eea0de6aa468ce273741292fa0d1b41403"
+    }
+  },
+  "credentials": {
+    "generator": "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/tools/make_secrets.py",
+    "generator_sha256": "b8ad9efc1527e72fc59ff4c67212b99adad5549c38c3e50c0540c2e5a6dd2da5",
+    "source": "/lustre/fsw/portfolios/nemotron/users/hengyuf/.env",
+    ".env": {
+      "mode": "600",
+      "keys": [
+        "NVIDIA_API_KEY",
+        "OPENSANDBOX_DOMAIN",
+        "OPENSANDBOX_API_KEY",
+        "OPENSANDBOX_TLS_VERIFY",
+        "HF_TOKEN"
+      ]
+    },
+    "/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/secrets/opensandbox.env": {
+      "mode": "600",
+      "keys": [
+        "OPENSANDBOX_DOMAIN",
+        "OPENSANDBOX_API_KEY",
+        "OPENSANDBOX_TLS_VERIFY",
+        "OPENSANDBOX_USE_SERVER_PROXY"
+      ]
+    },
+    ".api": "absent by design (single NVIDIA credential)"
+  },
+  "not_copied": [
+    "vendor/ (Baihe's unreadable vendor; Gym.tar rebuilt from the world-readable Gym checkout instead)",
+    "runtime/ (rebuilt locally)",
+    ".env/.api (hengyuf's own credentials instead)",
+    "configs/deepswe_historical_recovery.json (Baihe-campaign approval; must not exist here)",
+    "overlays/serving-* (lightning SWE-bench serving overlay; unused by DeepSWE)",
+    "scripts/__pycache__"
+  ]
+}

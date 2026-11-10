@@ -1,0 +1,15 @@
+{
+ "purpose": "verified local copies of ATP staging's GitHub release downloads (stage_wrapper.py)",
+ "assets": {
+  "https://github.com/anomalyco/opencode/releases/download/v1.17.11/opencode-linux-x64-baseline.tar.gz": {
+   "file": "dl/opencode-linux-x64-baseline-1.17.11.tar.gz",
+   "sha256": "36064327d5a3fba662264f5726f517eafa26d1aefb0d59bc95e66bddccf3497b",
+   "verified": "downloaded 2026-11-09 00:00 from the URL; byte-identical to job 21548031's staged opencode.tar.gz (GitHub download of 2026-11-08 20:42); its opencode binary sha256 0254a429... equals that job's bin/opencode"
+  },
+  "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz": {
+   "file": "dl/ripgrep.tar.gz",
+   "sha256": "1c9297be4a084eea7ecaedf93eb03d058d6faae29bbc57ecdaf5063921491599",
+   "verified": "downloaded 2026-11-08 23:48; equals the release's own .sha256 asset; its rg binary sha256 ebeaf56f... equals job 21548031's bin/rg"
+  }
+ }
+}

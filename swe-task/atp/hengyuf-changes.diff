@@ -1,0 +1,207 @@
+# hengyuf's changes to Baihe's ATP scripts: diff -ru <Baihe original> <this app>. Regenerated 2026-11-08T19:50:03-08:00.
+# a/ = /lustre/fsw/portfolios/nemotron/projects/nemotron_evals_research/users/baiheh/nano-rl/agent-teacher-pipelines (pristine copies: upstream/)
+# b/ = /lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/atp
+diff -ru a/scripts/deepswe_capture.py b/scripts/deepswe_capture.py
+--- a/scripts/deepswe_capture.py	2026-11-08 19:50:03.000000000 -0800
++++ b/scripts/deepswe_capture.py	2026-11-08 19:50:03.000000000 -0800
+@@ -1,6 +1,7 @@
+ """Durable DeepSWE attempt artifacts; imported by the isolated Gym overlay."""
+ 
+ import asyncio
++from concurrent.futures import ThreadPoolExecutor  # hengyuf: _STREAM_IO
+ from contextvars import ContextVar
+ from functools import wraps
+ import hashlib
+@@ -24,6 +25,31 @@
+ REMOTE_DATA = "/tmp/atp-opencode-data"
+ REMOTE_CAPTURE = "/tmp/atp-capture"
+ STREAM_DRAIN_TIMEOUT_S = 15
++# hengyuf: run_opencode writes + fsyncs each OpenCode output chunk in these threads, never on the event loop: a
++# stalled Lustre fsync there starved aiohttp's PTY heartbeats and closed every PTY of the agent process at once
++# (SandboxPtyError bursts, 2026-11-07; upstreams glm-rollouts-sftv3 capture_patch.py). Own pool: the loop's default
++# executor (8 threads in a 4-CPU job) also resolves DNS for PTY and sandbox connections. 32 = 2 streams x 16
++# sessions per process; threads start on demand.
++_STREAM_IO = ThreadPoolExecutor(max_workers=32, thread_name_prefix="atp-stream-io")
++
++
++async def _in_stream_io(function, *args):
++    """hengyuf: function(*args) in _STREAM_IO; returns its result or raises its error, as a direct call would.
++
++    A cancellation first waits until the call has finished (a file must not close under its write), then propagates.
++    """
++    call = asyncio.get_running_loop().run_in_executor(_STREAM_IO, function, *args)
++    cancelled = False
++    while not call.done():
++        try:
++            await asyncio.wait((call,))
++        except asyncio.CancelledError:
++            cancelled = True
++    if cancelled:
++        if not call.cancelled():
++            call.exception()  # retrieved: a cancelled caller sees only the cancellation
++        raise asyncio.CancelledError
++    return call.result()
+ 
+ 
+ def _sync_directory(directory):
+@@ -610,9 +636,13 @@
+ 
+     async def drain(reader, name):
+         with (directory / name).open("ab", buffering=0) as stream:
+-            while chunk := await reader():
+-                stream.write(chunk)
++            # hengyuf: the same write + fsync per chunk, in _STREAM_IO; the next chunk is read, and the file is
++            # closed, only after it has finished (also when cancelled).
++            def persist(data):
++                stream.write(data)
+                 os.fsync(stream.fileno())
++            while chunk := await reader():
++                await _in_stream_io(persist, chunk)
+ 
+     stop_checkpoints = asyncio.Event()
+ 
+diff -ru a/scripts/deepswe_http.py b/scripts/deepswe_http.py
+--- a/scripts/deepswe_http.py	2026-11-08 19:50:03.000000000 -0800
++++ b/scripts/deepswe_http.py	2026-11-08 19:50:03.000000000 -0800
+@@ -263,10 +263,12 @@
+     from deepswe_credentials import bind_credential, credential_ids
+     hosted = (not request_kwargs.get("_internal", False)
+               and parsed.path.rstrip("/").endswith("/chat/completions"))
+-    if hosted and len(credential_ids()) > 1:
++    # hengyuf: only the configured hosted endpoint is hosted (bound credential, shared gateway cooldown
++    # and capacity handling), whatever the credential count; e.g. a local student router is not.
++    if hosted:
+         base_url = os.environ.get("ATP_DEEPSWE_POLICY_BASE_URL")
+         if not base_url:
+-            raise ValueError("Credential pool requires its configured upstream endpoint")
++            raise ValueError("Hosted model calls require their configured upstream endpoint")
+         hosted = parsed.geturl().rstrip("/") == base_url.rstrip("/") + "/chat/completions"
+     if hosted:
+         credential_id, secret = await asyncio.to_thread(bind_credential, context.get("attempt_dir"))
+@@ -287,6 +289,8 @@
+     # Keep any pre-pool wait on the original account; new accounts have their own quotas.
+     legacy_cooldown_path = _cooldown_path(model) if credential_id == "existing" else model_cooldown_path
+     cooldown_paths = tuple(dict.fromkeys((shared_cooldown_path, model_cooldown_path, legacy_cooldown_path)))
++    if not hosted:  # hengyuf: non-hosted calls keep only their model-scoped cooldown
++        cooldown_paths = (model_cooldown_path,)
+     retry_not_before = 0.0
+     attempt = 0
+     server_retries = 0
+@@ -370,7 +374,8 @@
+                             else:
+                                 raw = await response.read()
+                             body = raw.decode("utf-8", errors="replace")
+-                            gateway_capacity = _gateway_capacity_error(response.status, body)
++                            # hengyuf: only the hosted gateway reports shared capacity exhaustion.
++                            gateway_capacity = hosted and _gateway_capacity_error(response.status, body)
+                             try:
+                                 invalid_success = response.status == 200 and malformed_success(json.loads(body))
+                             except ValueError:
+diff -ru a/scripts/deepswe_stage.py b/scripts/deepswe_stage.py
+--- a/scripts/deepswe_stage.py	2026-11-08 19:50:03.000000000 -0800
++++ b/scripts/deepswe_stage.py	2026-11-08 19:50:03.000000000 -0800
+@@ -259,7 +259,13 @@
+          "--no-hashes", "--output-file", constraints], gym, env)
+     env["UV_CONSTRAINT"] = str(constraints)
+     setup = scratch / "setup"
+-    config = build_config(staged, setup, setup, next(iter(settings["models"])), staged["dataset"])
++    # hengyuf: prefetch/prepare never call the model; omit per-model endpoints so that a local model's
++    # ${oc.env:...} URL need not exist while staging (hosted-only settings are unchanged).
++    endpoints = {"base_url", "api_key"}
++    setup_settings = dict(settings, models={alias: {key: value for key, value in spec.items() if key not in endpoints}
++                                            for alias, spec in settings["models"].items()})
++    config = build_config(dict(staged, settings=setup_settings), setup, setup, next(iter(settings["models"])),
++                          staged["dataset"])
+     run([staged["gym_cli"], "env", "prefetch", f"+config_paths=[{config}]", "++skip_venv_if_present=false"], gym, env)
+     run([staged["gym_cli"], "eval", "prepare", "--config", config], gym, env)
+     rows = validate_dataset(staged["dataset"], staged["tasks_dir"], settings["expected_tasks"])
+@@ -292,6 +298,9 @@
+     if concurrency < 1:
+         raise ValueError("Model shard concurrency must be positive")
+     settings, gym, scratch, env = (staged[key] for key in ("settings", "gym", "scratch", "env"))
++    # hengyuf: a model spec may override the endpoint and limits (e.g. the local student: base_url,
++    # api_key "EMPTY", chat_template_kwargs, context_window, max_output_tokens); hosted specs use the globals.
++    spec = settings["models"][model_alias]
+     host = socket.gethostbyname(socket.gethostname())
+     sockets = []
+     try:
+@@ -317,15 +326,21 @@
+         "skip_venv_if_present": True, "uv_pip_set_python": True,
+         "observability_enabled": True, "model_call_capture_dir": str(launch / "captures"),
+         "global_aiohttp_client_request_debug": False,
+-        "policy_base_url": settings["base_url"], "policy_api_key": "${oc.env:NVIDIA_API_KEY}",
+-        "policy_model_name": settings["models"][model_alias]["id"],
++        "policy_base_url": spec.get("base_url", settings["base_url"]),  # hengyuf: per-model endpoint
++        "policy_api_key": spec.get("api_key", "${oc.env:NVIDIA_API_KEY}"),  # hengyuf: literal for local
++        "policy_model_name": spec["id"],
+         "num_samples_in_parallel": concurrency,
+         "policy_model": {"responses_api_models": {"vllm_model": {
+             "host": host, "port": ports[1], "num_workers": 1, "uses_reasoning_parser": True,
+-            "uses_interleaved_reasoning": True, "chat_template_kwargs": None,
++            "uses_interleaved_reasoning": True, "chat_template_kwargs": spec.get("chat_template_kwargs"),  # hengyuf
++            # hengyuf: a local (served-here) student gets hengyuf's DeepSWE eval model-server handling of reasoning
++            # (deepswe_eval.yaml): history thinking stays in the assistant content as <think>R</think>C, exactly as
++            # in its target rollouts; Gym's defaults would re-render it as "<think>\nR</think>C" via the template.
++            **({"preserve_reasoning_in_assistant_content": True, "sequential_reasoning_allowed": False}
++               if spec.get("local") else {}),
+             "sampling_overrides": {"temperature": settings["temperature"], "top_p": settings["top_p"],
+-                                   "max_tokens": settings["max_output_tokens"],
+-                                   **settings["models"][model_alias].get("sampling_overrides", {})},
++                                   "max_tokens": spec.get("max_output_tokens", settings["max_output_tokens"]),  # hengyuf
++                                   **spec.get("sampling_overrides", {})},
+         }}},
+         RESOURCE_NAME: {"resources_servers": {"deepswe": {
+             "host": host, "port": ports[2], "num_workers": 1, "tasks_dir": str(staged["tasks_dir"]),
+@@ -334,7 +349,8 @@
+         }}},
+         AGENT_NAME: {"responses_api_agents": {"opencode_sandboxed_agent": {
+             "host": host, "port": ports[3], "num_workers": 4, "token_id_capture": False,
+-            "opencode_version": settings["opencode_version"], "opencode_max_context_window": settings["context_window"],
++            "opencode_version": settings["opencode_version"],
++            "opencode_max_context_window": spec.get("context_window", settings["context_window"]),  # hengyuf
+             "sandbox_timeout": settings["agent_timeout_seconds"],
+             "datasets": [{"name": settings["benchmark"], "type": "benchmark", "jsonl_fpath": str(dataset_path),
+                           "prepare_script": "benchmarks/deepswe/prepare.py", "num_repeats": 1}],
+diff -ru a/scripts/run_deepswe.py b/scripts/run_deepswe.py
+--- a/scripts/run_deepswe.py	2026-11-08 19:50:03.000000000 -0800
++++ b/scripts/run_deepswe.py	2026-11-08 19:50:03.000000000 -0800
+@@ -41,11 +41,16 @@
+         os.close(descriptor)
+ 
+ 
+-def gym_command(staged, config, launch, settings, concurrency):
++def gym_command(staged, config, launch, settings, concurrency, model=None):
++    # hengyuf: rows record the model's effective sampling, as pinned by build_config's sampling_overrides.
++    spec = settings["models"][model] if model is not None else {}
++    sampling = {"temperature": settings["temperature"], "top_p": settings["top_p"],
++                "max_tokens": spec.get("max_output_tokens", settings["max_output_tokens"]),
++                **spec.get("sampling_overrides", {})}
+     return [str(staged["gym_cli"]), "eval", "run", "--config", str(config),
+             "--split", "benchmark", "--num-repeats", str(settings["repeats"]),
+-            "--concurrency", str(concurrency), "--temperature", str(settings["temperature"]),
+-            "--top-p", str(settings["top_p"]), "--max-output-tokens", str(settings["max_output_tokens"]),
++            "--concurrency", str(concurrency), "--temperature", str(sampling["temperature"]),
++            "--top-p", str(sampling["top_p"]), "--max-output-tokens", str(sampling["max_tokens"]),
+             "--output", str(launch / "rollouts.jsonl"), "++route_failures_to_sidecar=true"]
+ 
+ 
+@@ -175,7 +180,7 @@
+ 
+ 
+ async def collect(staged, config, launch, environment, settings, concurrency, stopped, label):
+-    command = gym_command(staged, config, launch, settings, concurrency)
++    command = gym_command(staged, config, launch, settings, concurrency, environment["ATP_DEEPSWE_MODEL_ALIAS"])
+     save_json(launch / "launch.json", {"command": command, "started_at": time.time(),
+               "slurm_job_id": environment["SLURM_JOB_ID"], "hostname": socket.gethostname(),
+               "source": environment.get("ATP_DEEPSWE_SOURCE"),
+@@ -300,7 +305,9 @@
+                 ATP_DEEPSWE_SHARD_ID=str(shard), ATP_DEEPSWE_JOB_DEADLINE=str(end - grace),
+                 ATP_DEEPSWE_API_CONCURRENCY=str(concurrency),
+                 ATP_DEEPSWE_AGENT_TIMEOUT=str(settings["agent_timeout_seconds"]),
+-                ATP_DEEPSWE_MAX_OUTPUT_TOKENS=str(settings["max_output_tokens"]),
++                # hengyuf: OpenCode's limit.output follows the model (a spec may set max_output_tokens).
++                ATP_DEEPSWE_MAX_OUTPUT_TOKENS=str(settings["models"][model].get(
++                    "max_output_tokens", settings["max_output_tokens"])),
+                 ATP_DEEPSWE_OPENCODE_BINARY=str(staged["opencode_binary"]),
+                 NEMO_GYM_RUN_ID=launch.name)
+             environment.setdefault("ATP_DEEPSWE_UPSTREAM_STREAM", "1" if model == "kimi" else "0")

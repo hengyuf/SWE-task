@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- swe-task official synthesis dashboard (single page; app.js renders everything from data/*.json). -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>swe-task official synthesis</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="static/style.css">
+  <script src="static/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">swe-task official synthesis</div>
+    <div class="picker">
+      <label class="sr-only" for="task-input">DeepSWE task</label>
+      <input id="task-input" type="search" placeholder="Search DeepSWE tasks…  ( / )" autocomplete="off"
+             spellcheck="false" role="combobox" aria-expanded="false" aria-controls="task-menu" aria-autocomplete="list">
+      <div id="task-menu" class="menu" role="listbox" aria-label="DeepSWE tasks" hidden></div>
+    </div>
+    <nav class="tabs" aria-label="Views">
+      <a id="tab-task" class="tab active" href="#">Task</a>
+      <a id="tab-monitor" class="tab" href="#monitor">Monitor</a>
+      <a id="tab-explorer" class="tab" href="#explorer">Explorer</a>
+    </nav>
+    <div id="status" class="status" aria-live="polite"></div>
+    <button id="refresh" class="btn" type="button" title="Fetch the latest data now (auto-refresh: every 60 s)">Refresh</button>
+  </header>
+  <div id="banner" class="banner"></div>
+  <main id="main" class="main"><p class="note">Loading…</p></main>
+  <aside id="drawer" class="drawer" aria-label="Task details" hidden></aside>
+  <div id="drawer-grip" class="drawer-grip" role="separator" aria-orientation="vertical" aria-controls="drawer" tabindex="0"
+       aria-label="Resize the details panel: drag, or the Left / Right arrow keys" title="Drag to resize" hidden></div>
+  <noscript><p class="note">This dashboard needs JavaScript.</p></noscript>
+</body>
+</html>

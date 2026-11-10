@@ -1,0 +1,212 @@
+{
+ "sftv2": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 249,
+  "passes": 45,
+  "infra": 1,
+  "pass_at_1": 0.18072289156626506,
+  "task_mean_pass_rate": 0.18,
+  "pass_at_5": 0.52,
+  "tasks_all_pass": 0,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "sftv2e10": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 90,
+  "infra": 0,
+  "pass_at_1": 0.36,
+  "task_mean_pass_rate": 0.36,
+  "pass_at_5": 0.74,
+  "tasks_all_pass": 2,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "sftv2e20": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 110,
+  "infra": 0,
+  "pass_at_1": 0.44,
+  "task_mean_pass_rate": 0.44000000000000006,
+  "pass_at_5": 0.74,
+  "tasks_all_pass": 4,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "etp5": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 249,
+  "passes": 67,
+  "infra": 1,
+  "pass_at_1": 0.26907630522088355,
+  "task_mean_pass_rate": 0.268,
+  "pass_at_5": 0.68,
+  "tasks_all_pass": 0,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "etp10": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 249,
+  "passes": 98,
+  "infra": 1,
+  "pass_at_1": 0.39357429718875503,
+  "task_mean_pass_rate": 0.39199999999999996,
+  "pass_at_5": 0.8,
+  "tasks_all_pass": 2,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "etp20": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 132,
+  "infra": 0,
+  "pass_at_1": 0.528,
+  "task_mean_pass_rate": 0.528,
+  "pass_at_5": 0.84,
+  "tasks_all_pass": 7,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "v3etp5": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 110,
+  "infra": 0,
+  "pass_at_1": 0.44,
+  "task_mean_pass_rate": 0.43999999999999995,
+  "pass_at_5": 0.82,
+  "tasks_all_pass": 5,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "v3etp10": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 245,
+  "passes": 139,
+  "infra": 5,
+  "pass_at_1": 0.5673469387755102,
+  "task_mean_pass_rate": 0.5653333333333332,
+  "pass_at_5": 0.9,
+  "tasks_all_pass": 9,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "v3etp20": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 136,
+  "infra": 0,
+  "pass_at_1": 0.544,
+  "task_mean_pass_rate": 0.5440000000000002,
+  "pass_at_5": 0.92,
+  "tasks_all_pass": 5,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ "sc14": {
+  "tasks": 50,
+  "rollouts": 250,
+  "graded": 250,
+  "passes": 43,
+  "infra": 0,
+  "pass_at_1": 0.172,
+  "task_mean_pass_rate": 0.17200000000000004,
+  "pass_at_5": 0.46,
+  "tasks_all_pass": 0,
+  "groups_done": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ }
+}

@@ -1,0 +1,1 @@
+{"lead_minutes": 150, "max_per_hour": 12, "max_fast_fails": 4, "release": true, "per_server": 24, "venv": "/lustre/fsw/portfolios/nemotron/users/hengyuf/glm53-serve/env/vllm-0.33.0-pr60477", "short_target": 2, "short_lead_minutes": 25, "scale_down": false}
