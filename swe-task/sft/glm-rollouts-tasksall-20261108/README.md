@@ -151,7 +151,10 @@ in first (offline tests `scratch/pin-legs/test_pin_legs.py`, `test_leg_gate.py`,
   estimate showed the overload risk; the gated keeper runs since 20:10 (job 21915566): 8 batch + 2 batch_short server
   slots queued, 16 campaigns held back until servers are ready.
 - Reporting: relay `github/relay_tick.py` (hourly progress + decisions on issue #1) and watcher
-  `github/watch-workflow.js` (20-min windows, sonnet, low effort).
+  `github/watch_tick.py` (deterministic rules, see its docstring; state `github/watch-state.json`; test
+  `scratch/watch-test/test_watch_tick.py`) run by `github/watch-workflow.js` (one haiku agent per ~5-9 min tick; it
+  returns to the main agent only on a NEW alarm). The first watcher (agents that slept ~19 min, then checked by
+  themselves) burned its 36 windows in 6 min at 20:15: agents can no longer `sleep`, so the wait lives in the script.
 
 ## Operate
 

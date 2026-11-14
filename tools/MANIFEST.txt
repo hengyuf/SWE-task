@@ -140,7 +140,7 @@ aa67a169b0bba217aa0aa88a65346920c84c42447c36ba5f7ea65f422c1fe5d8  swe-task/sft/g
 3150fe0cd9cc5541524a992b6a675d41f41dc3705ac7e3fd03e704ca05c27a02  swe-task/sft/glm-rollouts-sftv3-20261107/submit_keeper.sh
 5df2d50c4116e025b1e59f4dbb896f30fe0bf1e5edd7865dc0b12d1a8c9a625e  swe-task/sft/glm-rollouts-sftv3-20261107/test_router.py
 a2b5b537ba0233476f88b996cb83309644b145975b304dad97bf9e0cee76b6d5  swe-task/sft/glm-rollouts-sftv3-20261107/analysis/FINAL-REPORT.md
-1097caebe2417ca0e57616b8ae6b124a3c50f345bfe6038cdbdf367b98b4bcfd  swe-task/sft/glm-rollouts-tasksall-20261108/README.md
+6d3ca2a87245232c94c27be9ab70a0d69736f66bdd32d8b98967a53a771252bc  swe-task/sft/glm-rollouts-tasksall-20261108/README.md
 8ca7f82826e2923dc97e90c45b6d935b6939e2bb328b9af441fd295f4594f7d0  swe-task/sft/glm-rollouts-tasksall-20261108/capture_patch.py
 5c8249494ff202a0d5e37d32aac1050fa64d95384482e3f08f750b205943afdd  swe-task/sft/glm-rollouts-tasksall-20261108/coverage-verification.json
 bbcd33bbe6fb6f94d7561730e727313e84b3c55c65098f0a30968d8fbbf8d241  swe-task/sft/glm-rollouts-tasksall-20261108/coverage.json
@@ -196,7 +196,8 @@ cd7a3e0177f15c1c6c28e8d7132b2ba643f43be824009e90aa6e090e5a10170a  swe-task/sft/g
 260c57ade706e462268382005a5ce400efc069c19a3fadad2f56156d6044232b  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue_progress.py
 dc21b7374c98bc4f1251eed8e87b3cd07f2027620baf64ae107ed1d0e71d6b5d  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay-workflow.js
 38e289205615853d8b3e263d041cc9ddfe38d7fa31dc774920ff6701d4f3454e  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay_tick.py
-dffdbf208c52d2ea9a504fd17ea06e5980b9809953dcb5ffc0fb0165e5112af2  swe-task/sft/glm-rollouts-tasksall-20261108/github/watch-workflow.js
+16297417dd59542b09422b608c2d4dec2e17c998380d6874be5888eccd8fc56a  swe-task/sft/glm-rollouts-tasksall-20261108/github/watch-workflow.js
+b5721456f8280702ef7923cef6129b1ac990eb455081197c8cfaa052da3b7a6c  swe-task/sft/glm-rollouts-tasksall-20261108/github/watch_tick.py
 c221ff8d3918e5288b33a4b34e01177cc2fd614b7caf17034141d3260a9587d7  swe-task/sft/kimi-rollouts-v3-20261026/baihe_snapshot_check.py
 4688b2172b107749d7e8d7056f5d8758b6d636c2df56be22ece7b808aed80033  swe-task/sft/kimi-rollouts-v3-20261026/compare.py
 e1c4366a17b6787434165686a4bf5c8b2ff11944e0923b0248c9f626555266d9  swe-task/sft/kimi-rollouts-v3-20261026/costs.py
