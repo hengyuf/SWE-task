@@ -2,7 +2,9 @@
 # glm-rollouts-tasksall: submit keeper.sbatch as a schedule-helper babysit pair (CPU partitions, 23 h), each keeper job
 # with a fresh babysit state dir (babysit/keeper/<tag>). The keeper keeps the GLM-5.3 server slots alive and schedules
 # the campaigns; touch keeper.STOP to stop it. A running keeper chains its successor itself: with GR_KEEPER_AFTER=<job>
-# the new pair waits for that job to end (--dependency=afterany:<job>).
+# the new pair waits for that job to end (--dependency=afterany:<job>). Partition: GR_KEEPER_PARTITION, default
+# cpu_interactive (2026-11-13: the keeper's driver legs are pinned to the 2 cpu-partition nodes the QoS allows, so the
+# keeper itself must not take one of them; cpu_datamover is left to Data Mover jobs).
 set -euo pipefail
 unset BABYSIT_LEG BABYSIT_INDEX BABYSIT_ENABLED BABYSIT_DEFER_RELEASE SLURM_MEM_PER_NODE SLURM_MEM_PER_CPU \
   SLURM_MEM_PER_GPU SLURM_CPUS_PER_TASK SLURM_CPUS_PER_GPU SLURM_TRES_PER_TASK
@@ -15,6 +17,6 @@ fi
 export RESULTS_DIR="$GR/babysit/keeper/k$(date +%s)" BATCH_SCRIPT="$GR/keeper.sbatch" EXP_NAME="gta-keeper"
 mkdir -p "$RESULTS_DIR"
 ids=$(source /lustre/fsw/portfolios/nemotron/users/hengyuf/schdule_helper.sh && \
-      babysit_submit --partition="${GR_PARTITION:-cpu_datamover,cpu_interactive,cpu}" --cpus-per-task=1 --mem=2G \
+      babysit_submit --partition="${GR_KEEPER_PARTITION:-cpu_interactive}" --cpus-per-task=1 --mem=2G \
       --time=23:00:00 ${after[@]+"${after[@]}"})
 echo "$EXP_NAME $ids"

@@ -32,7 +32,10 @@ def main():
                      f"others wait for your go-ahead).")
     lines += ["", "| tier | campaigns done | slots | graded | pass | rate | running |", "|---|---|---|---|---|---|---|"]
     total = {"slots": 0, "graded": 0, "passed": 0, "running": 0}
-    live = {a["name"] for a in (keeper.get("campaigns") or {}).get("active") or []}
+    gate = (keeper.get("campaigns") or {}).get("leg_gate") or {}
+    # campaigns whose driver leg is running rollouts now (leg capacity gate: legs follow the ready servers)
+    live = (set(gate.get("working") or []) if gate else
+            {a["name"] for a in (keeper.get("campaigns") or {}).get("active") or [] if a.get("driver")})
     running = {}
     for row in progress.get("rows") or []:  # in-flight attempts of campaigns that have a driver leg now
         if row.get("tier") is not None and row["campaign"].split("-rec")[0] in live:
@@ -53,6 +56,19 @@ def main():
               f"{len(keeper.get('pending') or [])} pending; generation {router.get('gen_tok_per_s_last_30min', '?')} tok/s "
               f"(30 min). Active campaigns: {', '.join(a['name'] for a in sched.get('active') or []) or 'none'}; parked: "
               f"{', '.join(p['name'] for p in sched.get('parked') or []) or 'none'}."]
+    if gate:
+        waiting = len(gate.get("held_back") or [])
+        lines.append(f"Driver legs follow the ready GPU capacity ({gate.get('capacity', 0)} concurrent rollouts): "
+                     f"{len(gate.get('working') or [])} campaign(s) running rollouts (load {gate.get('working_load', 0)}), "
+                     f"{len(gate.get('admitted') or [])} starting, {waiting} released campaign(s) waiting for servers.")
+    hosts = keeper.get("leg_hosts") or {}
+    if any(hosts.values()):  # driver CPU jobs are packed on a few nodes (per-user node limits count distinct nodes)
+        lines.append("Driver CPU jobs: " + "; ".join(
+            f"{sum(nodes.values())} on {len(nodes)} `{partition}` node(s)" for partition, nodes in hosts.items() if nodes)
+            + " (the keeper job is one of the cpu_interactive ones).")
+    if sched.get("leg_wait"):
+        lines.append(f"Some campaigns wait for room on the CPU host nodes since {keeper.get('leg_wait_since')}: "
+                     f"{sched['leg_wait']}.")
     if keeper.get("idle_since"):
         lines.append(f"No rollout work left since {keeper['idle_since']}: the GPU servers are released "
                      f"{keeper.get('config', {}).get('idle_release_minutes', 60)} min after that"

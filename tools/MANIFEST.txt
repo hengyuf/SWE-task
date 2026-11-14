@@ -140,7 +140,7 @@ aa67a169b0bba217aa0aa88a65346920c84c42447c36ba5f7ea65f422c1fe5d8  swe-task/sft/g
 3150fe0cd9cc5541524a992b6a675d41f41dc3705ac7e3fd03e704ca05c27a02  swe-task/sft/glm-rollouts-sftv3-20261107/submit_keeper.sh
 5df2d50c4116e025b1e59f4dbb896f30fe0bf1e5edd7865dc0b12d1a8c9a625e  swe-task/sft/glm-rollouts-sftv3-20261107/test_router.py
 a2b5b537ba0233476f88b996cb83309644b145975b304dad97bf9e0cee76b6d5  swe-task/sft/glm-rollouts-sftv3-20261107/analysis/FINAL-REPORT.md
-1ce7ba6e77757c65144ba446a722b36a3d9af02a3e89e9ae216c047b702e324a  swe-task/sft/glm-rollouts-tasksall-20261108/README.md
+1097caebe2417ca0e57616b8ae6b124a3c50f345bfe6038cdbdf367b98b4bcfd  swe-task/sft/glm-rollouts-tasksall-20261108/README.md
 8ca7f82826e2923dc97e90c45b6d935b6939e2bb328b9af441fd295f4594f7d0  swe-task/sft/glm-rollouts-tasksall-20261108/capture_patch.py
 5c8249494ff202a0d5e37d32aac1050fa64d95384482e3f08f750b205943afdd  swe-task/sft/glm-rollouts-tasksall-20261108/coverage-verification.json
 bbcd33bbe6fb6f94d7561730e727313e84b3c55c65098f0a30968d8fbbf8d241  swe-task/sft/glm-rollouts-tasksall-20261108/coverage.json
@@ -148,8 +148,8 @@ d108774d63f98b4345b3e2831fae8b8ca8d8e40a56bfb083daac70326a07ae15  swe-task/sft/g
 ec2806422da19b06b284e5f1eb3f49ab6ccdbb822a30efdf76180806dbaeaa2b  swe-task/sft/glm-rollouts-tasksall-20261108/driver.py
 9b1cbe1df578c594ae23502ef1eecda1a6794082095f1c32de64e85a79885fc4  swe-task/sft/glm-rollouts-tasksall-20261108/driver.sbatch
 12c450d9a41201a2378efc79e2bd40b80cca3a93eed5c98e1ba9fbe4f54f4646  swe-task/sft/glm-rollouts-tasksall-20261108/final_report.py
-bc1cda0dd4ca1525568ff635e1039b97e38971fcc27f841348edfd1ea0cffb3e  swe-task/sft/glm-rollouts-tasksall-20261108/keeper-config.json
-15573b5ae99751806a93a9b9f0ac014c312a5927da54f71d8ea778e2e07a4cc8  swe-task/sft/glm-rollouts-tasksall-20261108/keeper.py
+94971ba000ade2778c91ee2c48c342b41b5e0113cab7213b45818345a538e3d8  swe-task/sft/glm-rollouts-tasksall-20261108/keeper-config.json
+22f675954bb0ecdbaf4804b101d99a32dbeb20e0bd6d5bfb73127bdc4c887c49  swe-task/sft/glm-rollouts-tasksall-20261108/keeper.py
 3370e3748c95a7b1d1939ccf731aebb0d8f0887ebde0264b7d160ff28226ef99  swe-task/sft/glm-rollouts-tasksall-20261108/keeper.sbatch
 c78d7f49880d3c33fb566a5efb8c15b8a14616c01a4250224f6222ace6cbf155  swe-task/sft/glm-rollouts-tasksall-20261108/make_coverage.py
 0ab5dae4e875127712a3099acd2aa8a5e941e5afeec9c887d4c97e1b4d0be6d7  swe-task/sft/glm-rollouts-tasksall-20261108/make_tasks.py
@@ -162,8 +162,8 @@ f92689df5e1e16d4e009bcb1114a1a610c22fdaaaeab0c6202d6e8f383c37232  swe-task/sft/g
 aa67a169b0bba217aa0aa88a65346920c84c42447c36ba5f7ea65f422c1fe5d8  swe-task/sft/glm-rollouts-tasksall-20261108/servers-target.txt
 02861ad7a1e4a233dd6b5842ca025385e045f03dbf5d9b1651381d07919cac8a  swe-task/sft/glm-rollouts-tasksall-20261108/snapshot_check.py
 ea1dbd0b59e19574a17e8ccd229a2e87ac2b5d102fd78d97ca0f4719390aaf27  swe-task/sft/glm-rollouts-tasksall-20261108/stage_wrapper.py
-83f09b699334c8979b5cec3e26d535bfb1f4b420721db803f86566fcebcde256  swe-task/sft/glm-rollouts-tasksall-20261108/submit.sh
-8e0cdc29aa81d73f221b758f71b3cc918008c21ad556b2c7ae418e986485ef6f  swe-task/sft/glm-rollouts-tasksall-20261108/submit_keeper.sh
+943212e6c7fa3967729bf38a0ea58c9bff6b7fcabb966fbeb27ade0d35f1ea5c  swe-task/sft/glm-rollouts-tasksall-20261108/submit.sh
+2501c43450dcf2fe47b529d571a854e75f6996ac3a8611d30535d5906657a095  swe-task/sft/glm-rollouts-tasksall-20261108/submit_keeper.sh
 5df2d50c4116e025b1e59f4dbb896f30fe0bf1e5edd7865dc0b12d1a8c9a625e  swe-task/sft/glm-rollouts-tasksall-20261108/test_router.py
 56d1e347b9cfe10196c244e4a9721fe144d6b0bf63fe71401409447d4ccc10b0  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/REPORT.md
 d09ab2ae3ea7c8ebd01da3d98898604f59d84b063d839a39df2b7c915b4f761f  swe-task/sft/glm-rollouts-tasksall-20261108/analysis/tier12-accept-compare.md
@@ -193,9 +193,10 @@ d68739d6f66106c76912442dc77aa34a3c29d22c4d0a6635eac468c640237137  swe-task/sft/g
 4872897d6a732c504802497c68f71c5b9236492752eaf5bc24e301191f1906fe  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/tests/verify_py310.py
 ac3be25dbe1f516c3f017c8b958b55d73458bf22e607951c1710b0226946a2ad  swe-task/sft/glm-rollouts-tasksall-20261108/atp-fix/tests/verify_run_tool.py
 cd7a3e0177f15c1c6c28e8d7132b2ba643f43be824009e90aa6e090e5a10170a  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue-body.md
-a230e4a92aea03338e05bb6812521fb7aa2c993385038f1342030ad71880d459  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue_progress.py
+260c57ade706e462268382005a5ce400efc069c19a3fadad2f56156d6044232b  swe-task/sft/glm-rollouts-tasksall-20261108/github/issue_progress.py
 dc21b7374c98bc4f1251eed8e87b3cd07f2027620baf64ae107ed1d0e71d6b5d  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay-workflow.js
 38e289205615853d8b3e263d041cc9ddfe38d7fa31dc774920ff6701d4f3454e  swe-task/sft/glm-rollouts-tasksall-20261108/github/relay_tick.py
+dffdbf208c52d2ea9a504fd17ea06e5980b9809953dcb5ffc0fb0165e5112af2  swe-task/sft/glm-rollouts-tasksall-20261108/github/watch-workflow.js
 c221ff8d3918e5288b33a4b34e01177cc2fd614b7caf17034141d3260a9587d7  swe-task/sft/kimi-rollouts-v3-20261026/baihe_snapshot_check.py
 4688b2172b107749d7e8d7056f5d8758b6d636c2df56be22ece7b808aed80033  swe-task/sft/kimi-rollouts-v3-20261026/compare.py
 e1c4366a17b6787434165686a4bf5c8b2ff11944e0923b0248c9f626555266d9  swe-task/sft/kimi-rollouts-v3-20261026/costs.py
@@ -471,7 +472,7 @@ d81cc5226477babf258f2367848ec998623e20ed78e01a5d857a5bfd3acb64ab  swe-task/sft/x
 48b74dadd29a32c8026437c9b03ceb5a2af78ca2057cd2d9c32d0b7ae7d81bc0  swe-task/sft/xfer/actions/verify-aga-glm12.sh
 cd38b6547c916a46e331af3568ba0367024e6d6ecd32720ab4db3c55c6d5d341  swe-task/sft/xfer/actions/verify-v1.sh
 2db8df4dd4d4fc304cc3bb7d437f98bd67407df5b3978688473e4a23f2bef07f  swe-task/sft/xfer/actions/verify-v3.sh
-29212383dfd4020816dace624abd84a6c2214a292dabdc26c3df7627dcdaa3f9  swe-task/sft/xfer/actions/xfer-aga-glm12.sh
+a6cfae1fb900c19a7ed75a5131c18d67ca44aa0aa3e6d83adb47b0748ceece78  swe-task/sft/xfer/actions/xfer-aga-glm12.sh
 d68a906880e42e58cb390753663268e5d8c7ee7e52b7e66ad45e1f61159f258e  swe-task/sft/xfer/actions/xfer-v1.sh
 71be3c00644f0fe4d7d775f0cd7fb615ff9336d9611c2f0dbd6d94728aa56181  swe-task/sft/xfer/actions/xfer-v2.sh
 5ef8e7b69bff4154f765152abe1e33dce87592133de917974f1c83e86ad3f861  swe-task/sft/xfer/actions/xfer-v3-leg2.sh

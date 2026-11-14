@@ -8,6 +8,10 @@
 # when no gta-<campaign> job exists. babysit/<campaign>/STOP refuses (exit 1). Env knobs:
 #   GR_PARTITION  CPU partitions (default cpu_datamover,cpu_interactive,cpu; Slurm starts the job where it fits first)
 #   GR_CPUS, GR_MEM, GR_TIME   per-job request (default 4 CPUs, 32G, 23 h)
+#   GR_NODELIST   pin the leg to this node (--nodelist). The keeper (2026-11-13) always sets GR_PARTITION (cpu, then
+#                 cpu_interactive), GR_NODELIST, GR_CPUS and GR_MEM (2 CPUs, 24G: legs measured <= 0.3 core, MaxRSS
+#                 <= 15.75 GiB) so that all legs share a few "host" nodes: the CPU partition QoS limits count
+#                 DISTINCT nodes per user (cpu 2, cpu_interactive 10).
 # Prints "<exp name> <id0>,<id1>".
 set -euo pipefail
 # never pass a caller's babysit identity or resource-shaping SLURM_* (e.g. the keeper job's) to the helper / sbatch
@@ -16,6 +20,11 @@ unset BABYSIT_LEG BABYSIT_INDEX BABYSIT_ENABLED BABYSIT_DEFER_RELEASE SLURM_MEM_
 GR=/lustre/fsw/portfolios/nemotron/users/hengyuf/swe-task/sft/glm-rollouts-tasksall-20261108
 PARTITION="${GR_PARTITION:-cpu_datamover,cpu_interactive,cpu}"
 RESOURCES=(--cpus-per-task="${GR_CPUS:-4}" --mem="${GR_MEM:-32G}" --time="${GR_TIME:-23:00:00}")
+NODELIST=()
+if [[ -n "${GR_NODELIST:-}" ]]; then
+  [[ "$GR_NODELIST" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "bad GR_NODELIST '$GR_NODELIST'" >&2; exit 2; }
+  NODELIST=(--nodelist="$GR_NODELIST")
+fi
 campaign="${1:-}"; tag="${2:-m$(date +%s)}"
 [[ "$campaign" =~ ^t[1-4]-[hb][0-9]{2}$ ]] || { echo "usage: $0 CAMPAIGN [TAG] (bad campaign name '$campaign')" >&2; exit 2; }
 [[ "$tag" =~ ^[a-z][0-9]+$ ]] || { echo "bad tag $tag" >&2; exit 2; }
@@ -26,5 +35,5 @@ campaign="${1:-}"; tag="${2:-m$(date +%s)}"
 export GR_CAMPAIGN="$campaign" RESULTS_DIR="$GR/babysit/$campaign/$tag" BATCH_SCRIPT="$GR/driver.sbatch" EXP_NAME="gta-$campaign"
 mkdir -p "$GR/logs" "$RESULTS_DIR"
 ids=$(source /lustre/fsw/portfolios/nemotron/users/hengyuf/schdule_helper.sh && \
-      babysit_submit --partition="$PARTITION" "${RESOURCES[@]}")
+      babysit_submit --partition="$PARTITION" "${RESOURCES[@]}" ${NODELIST[@]+"${NODELIST[@]}"})
 echo "$EXP_NAME $ids"

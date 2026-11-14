@@ -118,6 +118,41 @@ patch, reported as "capture patch patched" in their worker.log) and the re-run o
   waiting for a backend are left alone and start when a server is back. gta-dip1 was resubmitted (it resumes its
   round: dip1r1-h-n1 done, n2/n3 pending).
 
+## Resume of tiers 3 / 4 (2026-11-13)
+
+User (2026-11-13, terminal): start the GLM rollouts of the remaining tiers, progress reported by the subagent as before.
+State then: 15 of 82 campaigns done, 2,701 of 9,905 rollouts graded (tier 3: 3 of 14 campaigns done and 11 half-way,
+tier 4: 1 of 57), about 7,200 rollouts left; the keeper chain had stayed alive in the tier pause, no GPU server.
+`TIER-PAUSE.json` -> `TIER-PAUSE.json.lifted-20261113`, `pause_after_tier` 0, `max_legs` 12. Two keeper changes went
+in first (offline tests `scratch/pin-legs/test_pin_legs.py`, `test_leg_gate.py`, the 2026-11-08 harness adapted in
+`scratch/pin-legs/harness.py` (identical results with both features off); each change had an independent review:
+`scratch/pin-legs/review/`, `review2/`; old code `keeper.py.pre-pinlegs-20261113`, `submit.sh.pre-pinlegs-20261113`):
+
+- **Pinned driver legs** (user 2026-11-10: use less of cpu_interactive). The CPU partition QoS limits count DISTINCT
+  nodes per user (cpu 2, cpu_interactive 10; 11 own jobs ran on 10 nodes under the limit), and before, up to 16 legs
+  (4 CPUs / 32G each) spread over cpu_interactive nodes. Now every leg is pinned (`--nodelist`, 2 CPUs / 24G: legs
+  measured <= 0.3 core, MaxRSS <= 15.75 GiB) to a host node: first up to 2 nodes of partition `cpu`
+  (`leg_cpu_nodes`), then cpu_interactive hosts (`leg_host_nodes` 2, one more per `leg_wait_minutes` of waiting up to
+  `leg_host_nodes_max` 5). Nodes other own jobs already use are shared first. A pinned leg that stays PENDING for
+  `pin_pending_minutes` is cancelled, its node avoided for an hour, the leg placed again. The keeper itself runs on
+  cpu_interactive (`submit_keeper.sh`, `GR_KEEPER_PARTITION`). Status: `leg_hosts`, `leg_wait_since`, `avoid_nodes`.
+- **Leg capacity gate** (`leg_gate`). A leg starts its rollouts as soon as ANY server is ready; with 16 released
+  campaigns and a slow GPU queue (2026-11-13: batch servers estimated 13-17 h, only the 2 batch_short slots soon) that
+  is ~7x the designed load on the first servers and the rollouts would hit ATP's 3 h agent timeout (the 2026-11-09
+  dip: 62 such fails). Now legs follow the ready capacity: start capacity = `per_server` (24) x ready servers x
+  `leg_start_factor` (1.25); in campaign order a campaign gets / keeps a not-yet-working leg only while the working
+  load plus the admitted load fits (first-fit; the first campaign and campaigns with no slot left always fit while a
+  server is ready); other waiting legs are cancelled at once (nothing in flight; no leg at all with 0 ready servers).
+  Working legs are shed only after a lasting overload (> `leg_shed_factor` 1.75 x capacity for `leg_shed_minutes` 45,
+  or > `leg_shed_hard_factor` 3 x for `leg_shed_hard_minutes` 15): exactly the legs the admission rule would not
+  keep, last campaigns first; their in-flight attempts are retried by the next leg. Gate cancels do not count against
+  `max_legs`. Status: `campaigns.leg_gate` (capacity, working, admitted, held_back, shed); log `leg_gate_cancel`.
+- First start at 19:22 (16 legs waiting for a backend, all on 2 cpu nodes) was stopped at 19:31 when the queue
+  estimate showed the overload risk; the gated keeper runs since 20:10 (job 21915566): 8 batch + 2 batch_short server
+  slots queued, 16 campaigns held back until servers are ready.
+- Reporting: relay `github/relay_tick.py` (hourly progress + decisions on issue #1) and watcher
+  `github/watch-workflow.js` (20-min windows, sonnet, low effort).
+
 ## Operate
 
 - Scale servers: edit `servers-target.txt` (batch pool) or `short_target` in `keeper-config.json`.

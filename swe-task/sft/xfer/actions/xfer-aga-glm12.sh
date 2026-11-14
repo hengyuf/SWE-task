@@ -129,11 +129,23 @@ ok = r.get("data_root") == dest and paths and all(p.startswith(dest + "/raw_sft/
      and all(s["path"].startswith(dest + "/raw_sft/") for s in r["shards"])
 sys.exit(0 if ok else 1)' "$SRC" "$DEST" || { log "DATA_ROOT / blend / shard paths of the corpus are not under $DEST"; exit 2; }
 (cd "$SRC" && sha256sum --quiet -c SHA256SUMS) || { log "local SHA256SUMS check failed"; exit 2; }
-extra=$(cd "$SRC" && LC_ALL=C comm -23 <(find . -type f ! -name SHA256SUMS | LC_ALL=C sort) \
+# file listing / sizes via os.walk, not find / du: on 2026-11-10 statfs() on the dfw Lustre mount hung (an
+# unresponsive target) and gnulib fts (GNU find, du) calls fstatfs, so find blocked in ptlrpc_set_wait for 45+ min
+# while ls, os.walk and file reads were instant
+listfiles() { /usr/bin/python3 -I -c 'import os, sys
+root = sys.argv[1]
+for d, ds, fs in os.walk(root):
+    for f in fs:
+        p = os.path.join(d, f)
+        if os.path.isfile(p) and not os.path.islink(p):
+            print("./" + os.path.relpath(p, root))' "$1"; }
+treesize() { /usr/bin/python3 -I -c 'import os, sys
+print(sum(os.path.getsize(os.path.join(d, f)) for d, ds, fs in os.walk(sys.argv[1]) for f in fs))' "$1"; }
+extra=$(cd "$SRC" && LC_ALL=C comm -23 <(listfiles "$SRC" | grep -vx './SHA256SUMS' | LC_ALL=C sort) \
                               <(sed -E 's/^[0-9a-f]{64}  //' SHA256SUMS | LC_ALL=C sort))
 [[ -z "$extra" ]] || { log "files not in SHA256SUMS (move them out first): $(echo "$extra" | head -5 | tr '\n' ' ')"; exit 2; }
-nfiles=$(cd "$SRC" && find . -type f | wc -l)
-log "local corpus verified: $(du -sh "$SRC" | cut -f1), $nfiles files"
+nfiles=$(listfiles "$SRC" | wc -l)
+log "local corpus verified: $(treesize "$SRC") bytes, $nfiles files"
 
 # --- 2. dfw dm login ---------------------------------------------------------------------------------------------
 token_ok || { log "DFW_DM_LOGIN_NEEDED: the user must run $DM user who in a dfw terminal (browser device login)"; exit 9; }
